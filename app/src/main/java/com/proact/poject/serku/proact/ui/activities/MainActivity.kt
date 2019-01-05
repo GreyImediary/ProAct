@@ -1,7 +1,8 @@
-package com.proact.poject.serku.proact
+package com.proact.poject.serku.proact.ui.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.proact.poject.serku.proact.R
 
 class MainActivity : AppCompatActivity() {
 
