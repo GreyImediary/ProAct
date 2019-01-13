@@ -41,7 +41,6 @@ interface UserApi {
         @Field("tel") phone: String = "",
         @Field("std_group") studentGroup: String = "",
         @Field("description") description: String = "",
-        @Field("avatar") avatar: String = "",
         @Field("usergroup") usergroup: Int,
         @Field("api_key") apiKey: String = "android"
     ): Observable<Response>
