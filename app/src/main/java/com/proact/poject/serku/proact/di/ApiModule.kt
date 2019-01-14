@@ -4,6 +4,7 @@ import com.proact.poject.serku.proact.api.ProjectApi
 import com.proact.poject.serku.proact.api.UserApi
 import com.proact.poject.serku.proact.repositories.UserRepository
 import com.proact.poject.serku.proact.di.ApiProperties.BASE_URL
+import com.proact.poject.serku.proact.repositories.ProjectRepository
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.dsl.module.module
@@ -54,5 +55,6 @@ val userApiModule = module {
 
 val projectApiModule = module {
     single { createApi<ProjectApi>(get(BASE_URL), get(), get(), get()) }
+    factory { create<ProjectRepository>() }
 }
 

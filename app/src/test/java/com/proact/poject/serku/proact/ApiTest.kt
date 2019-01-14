@@ -2,16 +2,25 @@ package com.proact.poject.serku.proact
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.google.common.truth.Truth.assertThat
+import com.proact.poject.serku.proact.data.User
 import com.proact.poject.serku.proact.di.baseApiModule
 import com.proact.poject.serku.proact.di.projectApiModule
 import com.proact.poject.serku.proact.di.userApiModule
+import com.proact.poject.serku.proact.repositories.ProjectRepository
 import com.proact.poject.serku.proact.repositories.UserRepository
+import org.junit.After
+import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.koin.standalone.StandAloneContext.startKoin
+import org.koin.standalone.StandAloneContext.stopKoin
 import org.koin.standalone.inject
 import org.koin.test.KoinTest
+import org.mockito.ArgumentMatchers.any
+import org.mockito.Mockito.`when`
+import org.mockito.Mockito.mock
 import org.mockito.junit.MockitoJUnit
+import java.util.*
 
 class ApiTest : KoinTest {
     @get:Rule
@@ -25,11 +34,15 @@ class ApiTest : KoinTest {
 
     
     private val userRepository: UserRepository by inject()
+    private val projectRepository: ProjectRepository by inject()
+
+    @Before
+    fun setUp() {
+        startKoin(listOf(baseApiModule, userApiModule, projectApiModule))
+    }
 
     @Test
     fun isRegisteredTest() {
-        startKoin(listOf(baseApiModule, userApiModule, projectApiModule))
-
         val liveData = userRepository.isRegistered.testObserver()
         userRepository.isUserRegistered("romen1@ya.ru")
         assertThat(liveData.observedValues.first())
@@ -104,5 +117,42 @@ class ApiTest : KoinTest {
         userRepository.verifyUser("testaaa@mail.ru", "testPasswrod")
         assertThat(liveData.observedValues.first())
             .isTrue()
+    }
+
+    @Test
+    fun getProjectByIdTest() {
+        val livedata = projectRepository.currentProject.testObserver()
+
+        projectRepository.getProjectById(22)
+
+        assertThat(livedata.observedValues.first())
+            .isNotNull()
+    }
+
+    @Test
+    fun createProjectTest() {
+        val livedata = projectRepository.isProjectCreated.testObserver()
+
+        val date = mock(Calendar::class.java)
+        projectRepository.createProject("RazRazzz", "Eto gachibass", date,
+            130, "[{\"backend\": 0, \"Frontend\": 0}]", "Web")
+
+        assertThat(livedata.observedValues.first())
+            .isAnyOf(true, false)
+    }
+
+    @Test
+    fun updateProjectTest() {
+        val liveData = projectRepository.isStatusUpdated.testObserver()
+
+        projectRepository.updateStatus()
+
+        assertThat(liveData.observedValues.first())
+            .isTrue()
+    }
+
+    @After
+    fun setDown() {
+        stopKoin()
     }
 }

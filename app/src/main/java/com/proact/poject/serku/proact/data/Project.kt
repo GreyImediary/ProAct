@@ -5,11 +5,11 @@ import java.util.*
 data class Project(
     val id: Int,
     val title: String,
-    val description: String,
-    val teams: List<List<User>>,
+    val description: String = "",
+    val teams: MutableList<MutableMap<String, User>>,
     val deadline: Calendar,
-    val curatorId: Int,
-    val tags: List<String>,
-    val status: Int,
+    val curator: User,
+    val tags: MutableList<String>,
+    val status: Int = 0,
     val adminComment: String = ""
 )
