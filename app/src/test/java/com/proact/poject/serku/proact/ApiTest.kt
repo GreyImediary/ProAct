@@ -2,7 +2,6 @@ package com.proact.poject.serku.proact
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.google.common.truth.Truth.assertThat
-import com.proact.poject.serku.proact.data.User
 import com.proact.poject.serku.proact.di.baseApiModule
 import com.proact.poject.serku.proact.di.projectApiModule
 import com.proact.poject.serku.proact.di.userApiModule
@@ -16,8 +15,6 @@ import org.koin.standalone.StandAloneContext.startKoin
 import org.koin.standalone.StandAloneContext.stopKoin
 import org.koin.standalone.inject
 import org.koin.test.KoinTest
-import org.mockito.ArgumentMatchers.any
-import org.mockito.Mockito.`when`
 import org.mockito.Mockito.mock
 import org.mockito.junit.MockitoJUnit
 import java.util.*
@@ -46,7 +43,7 @@ class ApiTest : KoinTest {
         val liveData = userRepository.isRegistered.testObserver()
         userRepository.isUserRegistered("romen1@ya.ru")
         assertThat(liveData.observedValues.first())
-            .isEqualTo(true)
+            .isTrue()
     }
 
     @Test

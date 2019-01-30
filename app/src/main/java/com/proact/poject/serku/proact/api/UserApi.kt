@@ -35,13 +35,13 @@ interface UserApi {
     fun addUser(
         @Field("name") name: String,
         @Field("surname") surname: String,
-        @Field("middlename") middleName: String = "",
+        @Field("middlename") middleName: String,
         @Field("email") email: String,
         @Field("pass") password: String,
-        @Field("tel") phone: String = "",
-        @Field("std_group") studentGroup: String = "",
-        @Field("description") description: String = "",
-        @Field("usergroup") usergroup: Int,
+        @Field("tel") phone: String,
+        @Field("std_group") studentGroup: String,
+        @Field("description") description: String,
+        @Field("userGroup") userGroup: Int,
         @Field("api_key") apiKey: String = "android"
     ): Observable<Response>
 
