@@ -1,6 +1,7 @@
 package com.proact.poject.serku.proact.ui.activities
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.inputmethod.EditorInfo
 import androidx.appcompat.app.AppCompatActivity
@@ -37,20 +38,22 @@ class LogScreenActivity : AppCompatActivity() {
         }
 
         logscrRegisterButton.setOnClickListener {
-            //TODO: should go to register activity
+            startActivity(Intent(this, RegisterActivity::class.java))
         }
 
         if (preferences.getString(CURRENT_USER_EMAIL_PREF, "") != "") {
-            //TODO: should go to main activity
+            startActivity(Intent(this, MainActivity::class.java))
+            finish()
         }
 
         userViewModel.userVirified.observe(this, Observer {
             if (it) {
 
-                //TODO: should go to main activity
                 preferences.edit {
                     putString(CURRENT_USER_EMAIL_PREF, logscrEmailEdit.text.toString())
                 }
+                startActivity(Intent(this, MainActivity::class.java))
+                finish()
 
             } else {
                 toast(getString(R.string.logscreen_login_error))
