@@ -1,3 +1,21 @@
 <resources>
     <string name="app_name">ProAct</string>
+    <!--LogScreen string resources-->
+    <string name="logscreen_emailinputlayout_hint">Почта</string>
+    <string name="logscreen_passinputlayout_hint">Пароль</string>
+
+    <string name="logscreen_entry_button">Войти</string>
+    <string name="logscreen_register_button">Зарегистрироваться</string>
+
+    <string name="logo_text">Портал подбора \nстуденческих проектов</string>
+    <string name="auth_text">Войти с помощью</string>
+
+    <string name="polytech_logo">Логотип</string>
+    <string name="google_logo">Google logo</string>
+    <string name="vk_logo">VKontakte logo</string>
+    <string name="yandex_logo">Yandex logo</string>
+
+    <string name="logscreen_emailinput_error">Введите почту</string>
+    <string name="logscreen_passinput_error">Введите пароль</string>
+    <string name="logscreen_login_error">Не удалось войти. Проверьте почту или пароль</string>
 </resources>
