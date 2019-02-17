@@ -46,7 +46,7 @@ class LogScreenActivity : AppCompatActivity() {
             finish()
         }
 
-        userViewModel.userVirified.observe(this, Observer {
+        userViewModel.userVerified.observe(this, Observer {
             if (it) {
 
                 preferences.edit {
