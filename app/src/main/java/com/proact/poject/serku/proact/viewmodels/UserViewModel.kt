@@ -6,7 +6,7 @@ import com.proact.poject.serku.proact.repositories.UserRepository
 class UserViewModel(private val userRepository: UserRepository) : ViewModel() {
     val isRegistered = userRepository.isRegistered
     val userAdded = userRepository.userAdded
-    val userVirified = userRepository.userVerified
+    val userVerified = userRepository.userVerified
     val currentUser = userRepository.currentUser
     val allWorkers = userRepository.allWorkers
     val allCustomers = userRepository.allCustomers
