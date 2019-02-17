@@ -1,5 +1,8 @@
 <resources>
+    <!--Common string resources-->
     <string name="app_name">ProAct</string>
+    <string name="prev">Назад</string>
+    <string name="next">Далее</string>
     <!--LogScreen string resources-->
     <string name="logscreen_emailinputlayout_hint">Почта</string>
     <string name="logscreen_passinputlayout_hint">Пароль</string>
@@ -18,4 +21,10 @@
     <string name="logscreen_emailinput_error">Введите почту</string>
     <string name="logscreen_passinput_error">Введите пароль</string>
     <string name="logscreen_login_error">Не удалось войти. Проверьте почту или пароль</string>
+
+    <!--Role fragment string resources-->
+    <string name="role_title">Кто вы?</string>
+    <string name="customer_role">Заказчик</string>
+    <string name="worker_role">Студент</string>
+    <string name="dot_description">Dot</string>
 </resources>
