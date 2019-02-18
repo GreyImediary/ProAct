@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="@dimen/largePadding">
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/rgFourPhoneInput"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/phone"
+        app:errorEnabled="false"
+        android:layout_marginBottom="@dimen/mediumPadding"
+        app:layout_constraintVertical_chainStyle="packed"
+        app:layout_constraintTop_toTopOf="parent"
+
+        app:layout_constraintBottom_toTopOf="@id/rgFourAboutInput">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/rgFourPhoneEdit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:imeOptions="actionNext"
+            android:inputType="phone" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/rgFourAboutInput"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/about"
+        app:errorEnabled="false"
+        app:layout_constraintVertical_chainStyle="packed"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/rgFourPhoneInput">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/rgFourAboutEdit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:imeOptions="actionDone"
+            android:maxLines="15"
+            android:inputType="textCapSentences|textMultiLine" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/prev_button"
+        style="@style/Widget.MaterialComponents.Button.TextButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/prev"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
+        android:layoutDirection="ltr"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="@id/prev_button"
+        app:layout_constraintTop_toTopOf="@id/prev_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <ImageView
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            app:srcCompat="@drawable/ic_dot"
+            android:layout_marginEnd="@dimen/smallPadding"
+            android:contentDescription="@string/selected_dot_description" />
+
+        <ImageView
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            app:srcCompat="@drawable/ic_dot"
+            android:layout_marginEnd="@dimen/smallPadding"
+            android:contentDescription="@string/dot_description" />
+
+        <ImageView
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            app:srcCompat="@drawable/ic_dot"
+            android:layout_marginEnd="@dimen/smallPadding"
+            android:contentDescription="@string/dot_description" />
+
+        <ImageView
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            app:srcCompat="@drawable/ic_selected_dot"
+            android:layout_marginEnd="@dimen/smallPadding"
+            android:contentDescription="@string/selected_dot_description" />
+    </LinearLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/next_button"
+        style="@style/Widget.MaterialComponents.Button.TextButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/next"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
