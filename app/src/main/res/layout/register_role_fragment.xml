@@ -18,10 +18,12 @@
 
     <RadioButton
         android:id="@+id/customerButton"
-        android:layout_width="170dp"
-        android:layout_height="170dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintWidth_percent="0.5"
+        app:layout_constraintHeight_percent="0.3"
         android:background="@drawable/ic_customer"
-        android:button="null"
+        android:button="@color/colorCustomerButton"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/workerButton"
         app:layout_constraintStart_toStartOf="parent"
@@ -29,10 +31,12 @@
 
     <RadioButton
         android:id="@+id/workerButton"
-        android:layout_width="170dp"
-        android:layout_height="170dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintWidth_percent="0.5"
+        app:layout_constraintHeight_percent="0.3"
         android:background="@drawable/ic_worker"
-        android:button="null"
+        android:button="@color/colorWorkerButton"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/customerButton"
@@ -58,25 +62,60 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/prev_button"
-        style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
+        style="@style/Widget.MaterialComponents.Button.TextButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/prev"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
-        app:icon="@drawable/ic_prev_arrow"
         android:layoutDirection="ltr"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="@id/prev_button"
+        app:layout_constraintTop_toTopOf="@id/prev_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <ImageView
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            app:srcCompat="@drawable/ic_selected_dot"
+            android:layout_marginEnd="@dimen/smallPadding"
+            android:contentDescription="@string/selected_dot_description" />
+
+        <ImageView
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            app:srcCompat="@drawable/ic_dot"
+            android:layout_marginEnd="@dimen/smallPadding"
+            android:contentDescription="@string/dot_description" />
+
+        <ImageView
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            app:srcCompat="@drawable/ic_dot"
+            android:layout_marginEnd="@dimen/smallPadding"
+            android:contentDescription="@string/dot_description" />
+
+        <ImageView
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            app:srcCompat="@drawable/ic_dot"
+            android:layout_marginEnd="@dimen/smallPadding"
+            android:contentDescription="@string/dot_description" />
+    </LinearLayout>
+
     <com.google.android.material.button.MaterialButton
         android:id="@+id/next_button"
-        style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
+        style="@style/Widget.MaterialComponents.Button.TextButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/next"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
-        app:icon="@drawable/ic_next_arrow"
-        android:layoutDirection="rtl"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 

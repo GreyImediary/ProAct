@@ -3,6 +3,8 @@
     <string name="app_name">ProAct</string>
     <string name="prev">Назад</string>
     <string name="next">Далее</string>
+    <string name="selected_dot_description">selected dot</string>
+    <string name="dot_description">dot</string>
     <!--LogScreen string resources-->
     <string name="logscreen_emailinputlayout_hint">Почта</string>
     <string name="logscreen_passinputlayout_hint">Пароль</string>
@@ -26,5 +28,4 @@
     <string name="role_title">Кто вы?</string>
     <string name="customer_role">Заказчик</string>
     <string name="worker_role">Студент</string>
-    <string name="dot_description">Dot</string>
 </resources>
