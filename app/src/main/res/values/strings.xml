@@ -1,10 +1,19 @@
 <resources>
     <!--Common string resources-->
     <string name="app_name">ProAct</string>
+    <string name="name">Имя</string>
+    <string name="surname">Фамилия</string>
+    <string name="middlename">Отчество</string>
+    <string name="spec">Направление</string>
+    <string name="group_number">Номер группы</string>
+    <string name="phone">Телефон</string>
+    <string name="about">О себе</string>
     <string name="prev">Назад</string>
     <string name="next">Далее</string>
+
     <string name="emailinputlayout_hint">Почта</string>
     <string name="passinputlayout_hint">Пароль</string>
+
     <string name="selected_dot_description">selected dot</string>
     <string name="dot_description">dot</string>
     <!--LogScreen string resources-->
