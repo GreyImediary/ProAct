@@ -15,7 +15,6 @@
         android:layout_marginBottom="@dimen/mediumPadding"
         app:layout_constraintVertical_chainStyle="packed"
         app:layout_constraintTop_toTopOf="parent"
-
         app:layout_constraintBottom_toTopOf="@id/rgFourAboutInput">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -53,7 +52,6 @@
         android:layout_height="wrap_content"
         android:text="@string/prev"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
-        android:layoutDirection="ltr"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
