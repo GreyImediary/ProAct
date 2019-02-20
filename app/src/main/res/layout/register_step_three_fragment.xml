@@ -104,7 +104,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/prev_button"
+        android:id="@+id/prevButton"
         style="@style/Widget.MaterialComponents.Button.TextButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -117,8 +117,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="@id/prev_button"
-        app:layout_constraintTop_toTopOf="@id/prev_button"
+        app:layout_constraintBottom_toBottomOf="@id/prevButton"
+        app:layout_constraintTop_toTopOf="@id/prevButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
@@ -152,10 +152,11 @@
     </LinearLayout>
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/next_button"
+        android:id="@+id/nextButton"
         style="@style/Widget.MaterialComponents.Button.TextButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:enabled="false"
         android:text="@string/next"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
         app:layout_constraintBottom_toBottomOf="parent"
