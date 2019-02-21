@@ -49,7 +49,7 @@ class RegRoleFragment : Fragment() {
 
         nextButton.setOnClickListener {
             when {
-                customerButton.isChecked -> nextStep(0)
+                customerButton.isChecked -> nextStep(2)
                 workerButton.isChecked -> nextStep(1)
             }
         }
@@ -58,7 +58,7 @@ class RegRoleFragment : Fragment() {
     }
 
     private fun nextStep(role: Int) {
-        val action = RegRoleFragmentDirections.roleToTwoAction(role)
+        val action = RegRoleFragmentDirections.roleToTwo(role)
         findNavController().navigate(action)
     }
 

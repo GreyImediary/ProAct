@@ -59,9 +59,6 @@ class RegTwoFragment : Fragment() {
 
         disposable.add(emailRegExObservable(emailEdit)
             .debounce(400, TimeUnit.MILLISECONDS)
-            .filter {
-                it.length >= 5
-            }
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe {
@@ -96,8 +93,15 @@ class RegTwoFragment : Fragment() {
                     val role = args.role
                     val email = emailEdit.text.toString()
                     val pass = passEdit.text.toString()
-                    val action = RegTwoFragmentDirections.twoToThree(role, email, pass)
-                    findNavController().navigate(action)
+
+                    if (role == 1) {
+                        val action = RegTwoFragmentDirections.twoToWorkerThree(role, email, pass)
+                        findNavController().navigate(action)
+                    } else if (role == 2) {
+                        val action = RegTwoFragmentDirections.twoToCustomerThree(role, email, pass)
+                        findNavController().navigate(action)
+                    }
+
                     userViewModel.isRegistered.value = null
                 }
             }
