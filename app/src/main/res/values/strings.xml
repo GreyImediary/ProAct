@@ -45,4 +45,5 @@
 
     <!--register step two fragment resources-->
     <string name="email_exist">Пользователь с такой почтой уже существует</string>
+    <string name="email_regex_error">Почта должна быть действительной</string>
 </resources>
