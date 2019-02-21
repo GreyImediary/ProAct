@@ -6,6 +6,7 @@ import android.text.TextWatcher
 import android.widget.EditText
 import android.widget.Toast
 import com.google.android.material.textfield.TextInputLayout
+import io.reactivex.Observable
 
 typealias AnyMap = Map<String, Any>
 
@@ -34,4 +35,16 @@ fun EditText.textChanged(f: (s: CharSequence?) -> Unit) {
             f(s)
         }
     })
+}
+
+fun TextInputLayout.editEmptyObservable(error: String) = Observable.create<Boolean> {
+    this.editText?.textChanged { text ->
+        if (text.isNullOrBlank()) {
+            this.error = error
+            it.onNext(false)
+        } else {
+            this.error = null
+            it.onNext(true)
+        }
+    }
 }

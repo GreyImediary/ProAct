@@ -46,4 +46,12 @@
     <!--register step two fragment resources-->
     <string name="email_exist">Пользователь с такой почтой уже существует</string>
     <string name="email_regex_error">Почта должна быть действительной</string>
+
+    <!--register step three resources-->
+    <string name="optional_helper_text">Не обязательно</string>
+    <string name="nameinput_error">Введите имя</string>
+    <string name="surnameinput_error">Введите фамилию</string>
+    <string name="surnameinput_customer_error">Введите фамилию или название компании</string>
+    <string name="specinput_error">Введите специализацию</string>
+    <string name="groupnumberinput_error">Введите номер группы</string>
 </resources>
