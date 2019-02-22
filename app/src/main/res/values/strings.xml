@@ -54,4 +54,7 @@
     <string name="surnameinput_customer_error">Введите фамилию или название компании</string>
     <string name="specinput_error">Введите специализацию</string>
     <string name="groupnumberinput_error">Введите номер группы</string>
+
+    <!--register step four resources-->
+    <string name="register_error">Не удалось зарегистрироваться, проверьте введённые данные</string>
 </resources>
