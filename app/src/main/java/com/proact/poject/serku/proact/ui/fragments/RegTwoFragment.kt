@@ -19,11 +19,11 @@ import io.reactivex.rxkotlin.Observables
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.register_step_two_fragment.view.*
-import org.koin.android.viewmodel.ext.android.viewModel
+import org.koin.android.viewmodel.ext.android.sharedViewModel
 import java.util.concurrent.TimeUnit
 
 class RegTwoFragment : Fragment() {
-    private val userViewModel: UserViewModel by viewModel()
+    private val userViewModel: UserViewModel by sharedViewModel()
     private val args: RegTwoFragmentArgs by navArgs()
     private val disposable = CompositeDisposable()
 
@@ -82,7 +82,9 @@ class RegTwoFragment : Fragment() {
 
         nextButton.setOnClickListener { userViewModel.isUserRegistered(emailEdit.text.toString()) }
 
-        prevButton.setOnClickListener { findNavController().navigateUp() }
+        prevButton.setOnClickListener {
+            findNavController().navigateUp()
+        }
 
 
         userViewModel.isRegistered.observe(this, Observer {
