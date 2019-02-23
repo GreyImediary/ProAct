@@ -1,8 +1,29 @@
 <resources>
+    <!--Common string resources-->
     <string name="app_name">ProAct</string>
+
+    <string name="name">Имя</string>
+    <string name="surname">Фамилия</string>
+    <string name="company_surname">Фамилия/Компания</string>
+    <string name="middlename">Отчество</string>
+    <string name="spec">Направление</string>
+    <string name="group_number">Номер группы</string>
+    <string name="phone">Телефон</string>
+    <string name="about">О себе</string>
+
+    <string name="prev">Назад</string>
+    <string name="next">Далее</string>
+    <string name="done">Готово</string>
+
+    <string name="emailinput_error">Введите почту</string>
+    <string name="passinput_error">Введите пароль</string>
+
+    <string name="emailinputlayout_hint">Почта</string>
+    <string name="passinputlayout_hint">Пароль</string>
+
+    <string name="selected_dot_description">selected dot</string>
+    <string name="dot_description">dot</string>
     <!--LogScreen string resources-->
-    <string name="logscreen_emailinputlayout_hint">Почта</string>
-    <string name="logscreen_passinputlayout_hint">Пароль</string>
 
     <string name="logscreen_entry_button">Войти</string>
     <string name="logscreen_register_button">Зарегистрироваться</string>
@@ -15,7 +36,25 @@
     <string name="vk_logo">VKontakte logo</string>
     <string name="yandex_logo">Yandex logo</string>
 
-    <string name="logscreen_emailinput_error">Введите почту</string>
-    <string name="logscreen_passinput_error">Введите пароль</string>
     <string name="logscreen_login_error">Не удалось войти. Проверьте почту или пароль</string>
+
+    <!--Role fragment string resources-->
+    <string name="role_title">Кто вы?</string>
+    <string name="customer_role">Заказчик</string>
+    <string name="worker_role">Студент</string>
+
+    <!--register step two fragment resources-->
+    <string name="email_exist">Пользователь с такой почтой уже существует</string>
+    <string name="email_regex_error">Почта должна быть действительной</string>
+
+    <!--register step three resources-->
+    <string name="optional_helper_text">Не обязательно</string>
+    <string name="nameinput_error">Введите имя</string>
+    <string name="surnameinput_error">Введите фамилию</string>
+    <string name="surnameinput_customer_error">Введите фамилию или название компании</string>
+    <string name="specinput_error">Введите специализацию</string>
+    <string name="groupnumberinput_error">Введите номер группы</string>
+
+    <!--register step four resources-->
+    <string name="register_error">Не удалось зарегистрироваться, проверьте введённые данные</string>
 </resources>

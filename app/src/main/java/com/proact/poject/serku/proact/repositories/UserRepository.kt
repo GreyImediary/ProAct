@@ -72,7 +72,7 @@ class UserRepository(private val userApi: UserApi) {
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeBy(
                 onNext = {
-                    isRegistered.value = it.message == "true"
+                    isRegistered.postValue(it.message == "true")
                 },
                 onError = { Log.e("UR-isUserRegistered", it.message) }
             )

@@ -39,7 +39,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/mediumPadding"
-        android:hint="@string/logscreen_emailinputlayout_hint"
+        android:hint="@string/emailinputlayout_hint"
         app:layout_constraintBottom_toTopOf="@id/logscrPassInput"
         app:layout_constraintTop_toBottomOf="@id/logscrLogoLayout"
         app:layout_constraintVertical_chainStyle="packed">
@@ -59,7 +59,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/mediumPadding"
-        android:hint="@string/logscreen_passinputlayout_hint"
+        android:hint="@string/passinputlayout_hint"
         app:layout_constraintBottom_toTopOf="@id/logscrEntryButton"
         app:layout_constraintTop_toBottomOf="@id/logscrEmailInput"
         app:layout_constraintVertical_chainStyle="packed">

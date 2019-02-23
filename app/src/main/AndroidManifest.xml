@@ -28,6 +28,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.activities.MainActivity" />
+        <activity
+            android:name=".ui.activities.RegisterActivity"
+            android:screenOrientation="locked" />
     </application>
 
 </manifest>

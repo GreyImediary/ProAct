@@ -13,11 +13,11 @@ import com.proact.poject.serku.proact.isTextEmpty
 import com.proact.poject.serku.proact.toast
 import com.proact.poject.serku.proact.viewmodels.UserViewModel
 import kotlinx.android.synthetic.main.activity_logscreen.*
-import org.koin.android.ext.android.inject
+import org.koin.android.viewmodel.ext.android.viewModel
 
 class LogScreenActivity : AppCompatActivity() {
 
-    private val userViewModel: UserViewModel by inject()
+    private val userViewModel: UserViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,7 +48,6 @@ class LogScreenActivity : AppCompatActivity() {
 
         userViewModel.userVerified.observe(this, Observer {
             if (it) {
-
                 preferences.edit {
                     putString(CURRENT_USER_EMAIL_PREF, logscrEmailEdit.text.toString())
                 }
@@ -62,8 +61,8 @@ class LogScreenActivity : AppCompatActivity() {
     }
 
     private fun verifyUser() {
-        if (!logscrEmailInput.isTextEmpty(getString(R.string.logscreen_emailinput_error))
-            && !logscrPassInput.isTextEmpty(getString(R.string.logscreen_passinput_error))
+        if (!logscrEmailInput.isTextEmpty(getString(R.string.emailinput_error))
+            && !logscrPassInput.isTextEmpty(getString(R.string.passinput_error))
         ) {
             val email = logscrEmailEdit.text.toString()
             val password = logscrPassEdit.text.toString()
