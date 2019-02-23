@@ -3,7 +3,21 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/register_navigation"
-    app:startDestination="@id/regRoleFragment">
+    app:startDestination="@id/logScreenFragment">
+
+    <fragment
+        android:id="@+id/logScreenFragment"
+        android:name="com.proact.poject.serku.proact.ui.fragments.LogScreenFragment"
+        android:label="LogScreenFragment"
+        tools:layout="@layout/logscreen_fragment">
+        <action
+            android:id="@+id/logToRegister"
+            app:destination="@id/regRoleFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+    </fragment>
 
     <fragment
         android:id="@+id/regRoleFragment"
