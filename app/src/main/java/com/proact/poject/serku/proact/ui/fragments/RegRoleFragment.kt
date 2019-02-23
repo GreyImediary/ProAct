@@ -44,7 +44,7 @@ class RegRoleFragment : Fragment() {
         }
 
         prevButton.setOnClickListener {
-            activity?.finish()
+            findNavController().navigateUp()
         }
 
         nextButton.setOnClickListener {

@@ -36,7 +36,8 @@
     <string name="vk_logo">VKontakte logo</string>
     <string name="yandex_logo">Yandex logo</string>
 
-    <string name="logscreen_login_error">Не удалось войти. Проверьте почту или пароль</string>
+    <string name="logscreen_login_error">Неверная почта или пароль</string>
+    <string name="email_regex_error">Почта должна быть действительной</string>
 
     <!--Role fragment string resources-->
     <string name="role_title">Кто вы?</string>
@@ -45,7 +46,7 @@
 
     <!--register step two fragment resources-->
     <string name="email_exist">Пользователь с такой почтой уже существует</string>
-    <string name="email_regex_error">Почта должна быть действительной</string>
+
 
     <!--register step three resources-->
     <string name="optional_helper_text">Не обязательно</string>
