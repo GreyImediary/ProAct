@@ -83,6 +83,7 @@
         android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
         android:textColor="@color/colorPrimary"
         app:cornerRadius="5dp"
+        android:enabled="false"
         app:layout_constraintBottom_toTopOf="@id/logscrRegisterButton"
         app:layout_constraintTop_toBottomOf="@id/logscrPassInput"
         app:layout_constraintVertical_chainStyle="packed" />
