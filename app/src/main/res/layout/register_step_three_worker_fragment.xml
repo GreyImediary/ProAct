@@ -54,30 +54,10 @@
         app:errorEnabled="false"
         app:layout_constraintVertical_chainStyle="packed"
         app:layout_constraintTop_toBottomOf="@id/rgThreeSurnameInput"
-        app:layout_constraintBottom_toTopOf="@id/rgThreeSpecInput">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/rgThreeMiddlenameEdit"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:imeOptions="actionNext"
-            android:inputType="text" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/rgThreeSpecInput"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/spec"
-        app:errorEnabled="true"
-        android:visibility="visible"
-        app:layout_constraintVertical_chainStyle="packed"
-        app:layout_constraintTop_toBottomOf="@id/rgThreeMiddlenameInput"
         app:layout_constraintBottom_toTopOf="@id/rgThreeGroupInput">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/rgThreeSpecEdit"
+            android:id="@+id/rgThreeMiddlenameEdit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:imeOptions="actionNext"
@@ -93,7 +73,7 @@
         app:errorEnabled="true"
         android:visibility="visible"
         app:layout_constraintVertical_chainStyle="packed"
-        app:layout_constraintTop_toBottomOf="@id/rgThreeSpecInput"
+        app:layout_constraintTop_toBottomOf="@id/rgThreeMiddlenameInput"
         app:layout_constraintBottom_toBottomOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText

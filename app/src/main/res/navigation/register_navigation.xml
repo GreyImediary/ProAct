@@ -120,10 +120,6 @@
             app:argType="string"
             android:defaultValue=" " />
         <argument
-            android:name="spec"
-            app:argType="string"
-            android:defaultValue=" " />
-        <argument
             android:name="groupNumber"
             app:argType="string"
             android:defaultValue=" " />

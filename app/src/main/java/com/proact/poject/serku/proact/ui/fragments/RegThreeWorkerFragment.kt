@@ -30,8 +30,6 @@ class RegThreeWorkerFragment : Fragment() {
         val surnameInput = layout.rgThreeSurnameInput
         val surnameEdit = layout.rgThreeSurnameEdit
         val middleNameEdit = layout.rgThreeMiddlenameEdit
-        val specInput = layout.rgThreeSpecInput
-        val specEdit = layout.rgThreeSpecEdit
         val groupInput = layout.rgThreeGroupInput
         val groupEdit = layout.rgThreeGroupEdit
         val prevButton = layout.prevButton
@@ -40,7 +38,6 @@ class RegThreeWorkerFragment : Fragment() {
 
         val nameObservable = nameInput.editEmptyObservable(getString(R.string.nameinput_error))
         val surnameObservable = surnameInput.editEmptyObservable(getString(R.string.nameinput_error))
-        val specInputObservable = specInput.editEmptyObservable(getString(R.string.specinput_error))
         val groupInputObservable = groupInput.editEmptyObservable(getString(R.string.groupnumberinput_error))
 
 
@@ -48,10 +45,9 @@ class RegThreeWorkerFragment : Fragment() {
             Observables.combineLatest(
                 nameObservable,
                 surnameObservable,
-                specInputObservable,
                 groupInputObservable
-            ) { name, surname, spec, group ->
-                name && surname && spec && group
+            ) { name, surname, group ->
+                name && surname && group
             }.subscribe { nextButton.isEnabled = it }
         )
 
@@ -62,10 +58,9 @@ class RegThreeWorkerFragment : Fragment() {
             val name = nameEdit.text.toString()
             val surname = surnameEdit.text.toString()
             val middleName = middleNameEdit.text.toString()
-            val spec = specEdit.text.toString()
             val group = groupEdit.text.toString()
 
-            val action = RegThreeWorkerFragmentDirections.threeToFour(role, email, pass, name, surname, middleName, spec, group)
+            val action = RegThreeWorkerFragmentDirections.threeToFour(role, email, pass, name, surname, middleName, group)
             findNavController().navigate(action)
         }
 
