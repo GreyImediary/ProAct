@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/mainAllProjectsFragment"
+        android:icon="@drawable/ic_all_projects_black_24dp"
+        android:title="@string/all_projects" />
+    <item
+        android:id="@+id/mainMyProjectsFragment"
+        android:icon="@drawable/ic_my_projects_black_24dp"
+        android:title="@string/my_projects" />
+    <item
+        android:id="@+id/mainProfileFragment"
+        android:icon="@drawable/ic_profile_black_24dp"
+        android:title="@string/profile" />
+</menu>

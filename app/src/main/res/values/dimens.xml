@@ -3,4 +3,5 @@
     <dimen name="largePadding">24dp</dimen>
     <dimen name="mediumPadding">16dp</dimen>
     <dimen name="smallPadding">8dp</dimen>
+    <dimen name="projectCardCornerRadius">5dp</dimen>
 </resources>

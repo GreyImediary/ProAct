@@ -6,4 +6,6 @@
 
     <color name="colorWorkerButton">#799434</color>
     <color name="colorCustomerButton">#9B362F</color>
+
+    <color name="navBottomCheckedFalse">@android:color/darker_gray</color>
 </resources>
