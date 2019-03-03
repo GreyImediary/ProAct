@@ -5,12 +5,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.proact.poject.serku.proact.R
 import com.proact.poject.serku.proact.ui.adapters.ProjectsAdapter
+import com.proact.poject.serku.proact.viewmodels.ProjectViewModel
 import kotlinx.android.synthetic.main.fragment_projects.view.*
+import org.koin.android.viewmodel.ext.android.viewModel
 
 class MainAllProjectsFragment : Fragment() {
+    private val projectViewModel: ProjectViewModel by viewModel()
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -23,6 +28,12 @@ class MainAllProjectsFragment : Fragment() {
 
         rv.adapter = adapter
         rv.layoutManager = LinearLayoutManager(context)
+
+        projectViewModel.projects.observe(this, Observer {
+            adapter.submitList(it)
+        })
+
+        projectViewModel.getProjectsByStatus(1)
 
         return layout
     }
