@@ -2,9 +2,7 @@ package com.proact.poject.serku.proact.ui.adapters
 
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
 import androidx.core.view.isEmpty
-import androidx.core.view.marginRight
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.chip.Chip
@@ -28,7 +26,8 @@ class ProjectsAdapter
             itemView.projectCuratorText.text = itemView.resources.getString(R.string.project_curator, curator)
 
             val qunatity = project.teams[0].size * project.teams.size
-            itemView.projectQuantityText.text = itemView.resources.getString(R.string.project_quantity, qunatity)
+            val freeQunatity = project.teams.sumBy { it.values.count { user -> user.id == 0 } }
+            itemView.projectQuantityText.text = itemView.resources.getString(R.string.project_quantity, freeQunatity, qunatity)
 
             val status = when(project.status) {
                 0 -> "На рассмотрении администратора"

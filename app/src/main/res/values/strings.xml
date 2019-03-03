@@ -71,7 +71,7 @@
 
     <!--project strings-->
     <string name="project_curator">Куратор: %s</string>
-    <string name="project_quantity">Свободных мест: %d</string>
+    <string name="project_quantity">Свободных мест: %d/%d</string>
     <string name="project_status">Статус: %s</string>
     <string name="project_about">%s…</string>
 </resources>
