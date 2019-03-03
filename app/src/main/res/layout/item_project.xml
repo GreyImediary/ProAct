@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/Widget.MaterialComponents.CardView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/mediumPadding"
+    app:cardCornerRadius="@dimen/projectCardCornerRadius"
+    app:contentPadding="@dimen/mediumPadding">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|center">
+
+        <TextView
+            android:id="@+id/projectTitle"
+            style="@style/TextAppearance.MaterialComponents.Headline6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Проект жизни и смерти под сосной" />
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/projectChipGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/smallPadding"
+            app:layout_constraintTop_toBottomOf="@id/projectTitle">
+
+            <com.google.android.material.chip.Chip
+                style="@style/Widget.MaterialComponents.Chip.Filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/smallPadding"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Chip"
+                tools:text="Android" />
+        </com.google.android.material.chip.ChipGroup>
+
+        <TextView
+            android:id="@+id/projectCuratorText"
+            style="@style/TextAppearance.MaterialComponents.Body1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/largePadding"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/projectChipGroup"
+            tools:text="Куратор: Иванов Петя Петрович" />
+
+        <TextView
+            android:id="@+id/projectQuantityText"
+            style="@style/TextAppearance.MaterialComponents.Body1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/projectCuratorText"
+            tools:text="Свободных мест: 20/30" />
+
+        <TextView
+            android:id="@+id/projectStatusText"
+            style="@style/TextAppearance.MaterialComponents.Body1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/projectQuantityText"
+            tools:text="Статус: Активен" />
+
+        <TextView
+            android:id="@+id/projectAboutText"
+            style="@style/TextAppearance.MaterialComponents.Body2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/largePadding"
+            app:layout_constraintStart_toStartOf="parent"
+            android:maxLength="200"
+            app:layout_constraintTop_toBottomOf="@id/projectStatusText"
+            tools:text="Описание: texttexttexttext textvtext textvtext texttexttext texttexttext texttexttext texttexttext texttexttext texttexttext texttexttext texttext texttexttexttexttexttext texttexttextteexttexttext... " />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>
