@@ -8,6 +8,7 @@ class ProjectViewModel(private val projectRepository: ProjectRepository) : ViewM
     val currentProject = projectRepository.currentProject
     val isProjectCreated = projectRepository.isProjectCreated
     val isStatusUpdated = projectRepository.isStatusUpdated
+    val loadingStatus = projectRepository.loadingStatus
     val projects = projectRepository.projects
 
     fun createProject(title: String,
@@ -22,6 +23,8 @@ class ProjectViewModel(private val projectRepository: ProjectRepository) : ViewM
     fun getProjectById(id: Int) = projectRepository.getProjectById(id)
 
     fun getProjectsByStatus(status: Int) = projectRepository.getProjectByStatus(status)
+
+    fun getNextProjects(status: Int) = projectRepository.getNextProjects(status)
 
     override fun onCleared() {
         projectRepository.clearDisposable()

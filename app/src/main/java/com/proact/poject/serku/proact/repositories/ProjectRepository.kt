@@ -1,7 +1,6 @@
 package com.proact.poject.serku.proact.repositories
 
 import android.util.Log
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -18,12 +17,7 @@ import io.reactivex.schedulers.Schedulers
 import org.json.JSONArray
 import org.json.JSONObject
 import java.util.*
-import java.util.Calendar.YEAR
-import java.util.Calendar.MONTH
-import java.util.Calendar.DAY_OF_MONTH
-import java.util.Calendar.HOUR_OF_DAY
-import java.util.Calendar.MINUTE
-import java.util.Calendar.SECOND
+import java.util.Calendar.*
 
 class ProjectRepository(
     private val projectApi: ProjectApi,
@@ -33,9 +27,10 @@ class ProjectRepository(
     val isProjectCreated = MutableLiveData<Boolean>()
     val isStatusUpdated = MutableLiveData<Boolean>()
     val projects = MutableLiveData<MutableList<Project>>()
-    private var page = 1.1
+    val loadingStatus = MutableLiveData<Boolean>()
+    private var page = 1.0
     private var allPages = 0.0
-    private val perPage = 4
+    private val perPage = 3
     private val disposable = CompositeDisposable()
 
     fun createProject(title: String,
@@ -84,6 +79,7 @@ class ProjectRepository(
     }
 
     fun getProjectByStatus(status: Int) {
+        loadingStatus.postValue(true)
         val subscription = projectApi.getProjectsByStatus(status, perPage, page)
             .subscribeOn(Schedulers.io())
             .map {
@@ -93,18 +89,30 @@ class ProjectRepository(
                 projectList.map { rowProject -> getProjectFromMap(rowProject) }
             }
             .observeOn(AndroidSchedulers.mainThread())
+            .doOnComplete { loadingStatus.postValue(false) }
             .subscribeBy (
                 onError =  { Log.e("PR-getProjectByStatus", it.message) },
                 onNext = {
                     if (projects.value == null) {
                         projects.postValue(it as MutableList<Project>)
                     } else {
-                        projects.value?.addAll(it)
+                        val list = projects.value?.apply {
+                            addAll(it)
+                        }
+
+                        projects.postValue(list)
                     }
                 }
             )
 
         disposable.add(subscription)
+    }
+
+    fun getNextProjects(status: Int) {
+        if(page != allPages) {
+            page += 1
+            getProjectByStatus(status)
+        }
     }
 
     fun clearDisposable() = disposable.clear()
