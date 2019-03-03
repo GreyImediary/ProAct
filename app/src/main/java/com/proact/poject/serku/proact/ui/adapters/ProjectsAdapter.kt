@@ -36,10 +36,11 @@ class ProjectsAdapter
                 3 -> "Не прошёл модерацию"
                 else -> ""
             }
-            itemView.projectStatusText.text = status
+            itemView.projectStatusText.text = itemView.resources.getString(R.string.project_status, status)
 
             if (project.description.length >= 200) {
-                itemView.projectAboutText.text = itemView.resources.getString(R.string.project_about, project.description)
+                val subsDescription = project.description.substring(0, 197)
+                itemView.projectAboutText.text = itemView.resources.getString(R.string.project_about, subsDescription)
             } else {
                 itemView.projectAboutText.text = project.description
             }
