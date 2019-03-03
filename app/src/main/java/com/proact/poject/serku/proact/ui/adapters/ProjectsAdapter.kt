@@ -3,6 +3,7 @@ package com.proact.poject.serku.proact.ui.adapters
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import androidx.core.view.isEmpty
 import androidx.core.view.marginRight
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -45,15 +46,13 @@ class ProjectsAdapter
                 itemView.projectAboutText.text = project.description
             }
 
-            project.tags.forEach {
-                val chip = Chip(itemView.projectChipGroup.context).apply {
-                    text = it
+            if (itemView.projectChipGroup.isEmpty()) {
+                project.tags.forEach {
+                    val chip = Chip(itemView.projectChipGroup.context).apply {
+                        text = it
+                    }
+                    itemView.projectChipGroup.addView(chip)
                 }
-                val params = LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT)
-                params.setMargins(0, 0, 8, 0)
-
-                itemView.projectChipGroup.addView(chip, params)
             }
         }
     }
