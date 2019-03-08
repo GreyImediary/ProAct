@@ -6,7 +6,7 @@ data class Project(
     val id: Int,
     val title: String,
     val description: String = "",
-    val teams: MutableList<MutableMap<String, User>>,
+    val teams: MutableList<MutableList<MemberOfProject>>,
     val deadline: Calendar,
     val curator: User,
     val tags: MutableList<String>,
