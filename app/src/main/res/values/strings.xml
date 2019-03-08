@@ -74,4 +74,8 @@
     <string name="project_quantity">Свободных мест: %d/%d</string>
     <string name="project_status">Статус: %s</string>
     <string name="project_about">%s…</string>
+    <string name="project_full_about">Описание: %s</string>
+    <string name="sign_button">Записаться</string>
+    <style name="team_number">Команда #%s</style>
+    <style name="member_text">%s: %s</style>
 </resources>
