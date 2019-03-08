@@ -26,7 +26,7 @@ class ProjectsAdapter
             itemView.projectCuratorText.text = itemView.resources.getString(R.string.project_curator, curator)
 
             val qunatity = project.teams[0].size * project.teams.size
-            val freeQunatity = project.teams.sumBy { it.values.count { user -> user.id == 0 } }
+            val freeQunatity = project.teams.sumBy { list -> list.count { it.member.id == 0 } }
             itemView.projectQuantityText.text = itemView.resources.getString(R.string.project_quantity, freeQunatity, qunatity)
 
             val status = when(project.status) {
