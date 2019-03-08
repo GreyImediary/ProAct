@@ -22,7 +22,7 @@ class ProjectsAdapter
         fun bind(project: Project) {
             itemView.projectTitle.text = project.title
 
-            val curator = "${project.curator.name} ${project.curator.surname}"
+            val curator = "${project.curator.surname} ${project.curator.name}"
             itemView.projectCuratorText.text = itemView.resources.getString(R.string.project_curator, curator)
 
             val qunatity = project.teams[0].size * project.teams.size
@@ -31,7 +31,7 @@ class ProjectsAdapter
 
             val status = when(project.status) {
                 0 -> "На рассмотрении администратора"
-                1 -> "Активен"
+                1 -> "Открыт"
                 2 -> "Закрыт"
                 3 -> "Не прошёл модерацию"
                 else -> ""
