@@ -67,19 +67,18 @@
         android:layout_marginTop="@dimen/smallPadding"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/projectStatusText"
-        tools:text="ты сделал а я сделал а кто сделал а когда сделал а ты сделал да я сделал а кто сделал а почему сделал дайте мне умереть спокойно хватит меня трогать бла бла бла бла бла бла бла бла бла бла
-бла бла бла бла бла бла бла бла бла бла бла бла бла бла бла бла бла бла бла бла бла бла бла бла " />
+        app:layout_constraintTop_toBottomOf="@id/projectStatusText" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/projectTeamsRv"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_marginTop="@dimen/mediumPadding"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/projectAboutText"
-        tools:itemCount="1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:itemCount="2"
         tools:listitem="@layout/item_team" />
 
     <ProgressBar
