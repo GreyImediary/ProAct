@@ -9,6 +9,11 @@ interface ProjectApi {
     @GET("projects/get.php")
     fun getPojectById(@Query("id") id: Int): Observable<AnyMap>
 
+    @GET("projects/get.php")
+    fun getProjectsByStatus(@Query("status") status: Int,
+                            @Query("per_page") perPgae: Int,
+                            @Query("page") page: Double): Observable<AnyMap>
+
     @POST("projects/create.php")
     @FormUrlEncoded
     fun createProject(

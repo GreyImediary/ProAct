@@ -120,7 +120,7 @@ class ApiTest : KoinTest {
     fun getProjectByIdTest() {
         val livedata = projectRepository.currentProject.testObserver()
 
-        projectRepository.getProjectById(22)
+        projectRepository.getProjectById(26)
 
         assertThat(livedata.observedValues.first())
             .isNotNull()

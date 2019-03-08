@@ -3,6 +3,9 @@ package com.proact.poject.serku.proact
 import android.content.Context
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.Toast
 import com.google.android.material.textfield.TextInputLayout
@@ -25,6 +28,18 @@ fun TextInputLayout.isTextEmpty(errorMessage: String): Boolean {
     return false
 }
 
+fun TextInputLayout.editEmptyObservable(error: String) = Observable.create<Boolean> {
+    this.editText?.textChanged { text ->
+        if (text.isNullOrBlank()) {
+            this.error = error
+            it.onNext(false)
+        } else {
+            this.error = null
+            it.onNext(true)
+        }
+    }
+}
+
 fun EditText.textChanged(f: (s: CharSequence?) -> Unit) {
     this.addTextChangedListener(object : TextWatcher {
         override fun afterTextChanged(s: Editable?) {}
@@ -37,14 +52,5 @@ fun EditText.textChanged(f: (s: CharSequence?) -> Unit) {
     })
 }
 
-fun TextInputLayout.editEmptyObservable(error: String) = Observable.create<Boolean> {
-    this.editText?.textChanged { text ->
-        if (text.isNullOrBlank()) {
-            this.error = error
-            it.onNext(false)
-        } else {
-            this.error = null
-            it.onNext(true)
-        }
-    }
-}
+fun ViewGroup.inflate(resId: Int): View =
+        LayoutInflater.from(context).inflate(resId, this, false)

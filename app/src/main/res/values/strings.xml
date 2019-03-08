@@ -58,4 +58,20 @@
 
     <!--register step four resources-->
     <string name="register_error">Не удалось зарегистрироваться, проверьте введённые данные</string>
+
+    <!--main menu string resources-->
+    <string name="all_projects">Все проекты</string>
+    <string name="my_projects">Мои проекты</string>
+    <string name="profile">Профиль</string>
+
+    <!--main navigation labels-->
+    <string name="all_projects_label">Все проекты</string>
+    <string name="my_projects_label">Мои проекты</string>
+    <string name="profile_label">Профиль</string>
+
+    <!--project strings-->
+    <string name="project_curator">Куратор: %s</string>
+    <string name="project_quantity">Свободных мест: %d/%d</string>
+    <string name="project_status">Статус: %s</string>
+    <string name="project_about">%s…</string>
 </resources>
