@@ -64,12 +64,14 @@ class ProjectRepository(
     }
 
     fun getProjectById(id: Int) {
+        loadingStatus.postValue(true)
         val subscription = projectApi.getPojectById(id)
             .subscribeOn(Schedulers.io())
             .map {
                 getProjectFromMap(it)
             }
             .observeOn(AndroidSchedulers.mainThread())
+            .doOnComplete { loadingStatus.postValue(false) }
             .subscribeBy(
                 onError = { Log.e("PR-getProjectById", it.message) },
                 onNext = {
