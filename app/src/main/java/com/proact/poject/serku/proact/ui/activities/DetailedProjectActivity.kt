@@ -1,6 +1,7 @@
 package com.proact.poject.serku.proact.ui.activities
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isEmpty
@@ -9,9 +10,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.chip.Chip
 import com.proact.poject.serku.proact.DETAILED_PROJECT
 import com.proact.poject.serku.proact.R
-import com.proact.poject.serku.proact.ui.adapters.TeamsAdapter
+import com.proact.poject.serku.proact.ui.adapters.MembersAdapter
 import com.proact.poject.serku.proact.viewmodels.ProjectViewModel
 import kotlinx.android.synthetic.main.activity_detailed_project.*
+import kotlinx.android.synthetic.main.item_team.view.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class DetailedProjectActivity : AppCompatActivity() {
@@ -51,14 +53,24 @@ class DetailedProjectActivity : AppCompatActivity() {
                 3 -> "Не прошёл модерацию"
                 else -> ""
             }
-            projectStatusText.text = status
+            projectStatusText.text = getString(R.string.project_status, status)
 
             projectAboutText.text = getString(R.string.project_full_about, it.description)
 
-            val teamsAdapter = TeamsAdapter(it.teams)
-            projectTeamsRv.run {
-                adapter = teamsAdapter
-                layoutManager = LinearLayoutManager(this@DetailedProjectActivity)
+            it.teams.forEachIndexed { index, mutableList ->
+                val teamLayout = LayoutInflater.from(this).inflate(R.layout.item_team, detailedLayout, false)
+                teamLayout.teamNumber.text = getString(R.string.team_number, index + 1)
+
+                val memberAdapter = MembersAdapter()
+
+                teamLayout.teamRv.run {
+                    adapter = memberAdapter
+                    layoutManager = LinearLayoutManager(this@DetailedProjectActivity)
+                }
+
+                memberAdapter.submitList(mutableList)
+
+                detailedLayout.addView(teamLayout)
             }
         })
 
@@ -66,7 +78,7 @@ class DetailedProjectActivity : AppCompatActivity() {
             if (it) {
                 progressBar.visibility = View.VISIBLE
             } else {
-                progressBar.visibility = View.INVISIBLE
+                progressBar.visibility = View.GONE
             }
         })
     }
