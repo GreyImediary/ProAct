@@ -1,14 +1,17 @@
 package com.proact.poject.serku.proact.ui.adapters
 
+import android.content.Intent
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isEmpty
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.chip.Chip
+import com.proact.poject.serku.proact.DETAILED_PROJECT
 import com.proact.poject.serku.proact.R
 import com.proact.poject.serku.proact.data.Project
 import com.proact.poject.serku.proact.inflate
+import com.proact.poject.serku.proact.ui.activities.DetailedProjectActivity
 import kotlinx.android.synthetic.main.item_project.view.*
 
 class ProjectsAdapter
@@ -22,16 +25,16 @@ class ProjectsAdapter
         fun bind(project: Project) {
             itemView.projectTitle.text = project.title
 
-            val curator = "${project.curator.name} ${project.curator.surname}"
+            val curator = "${project.curator.surname} ${project.curator.name}"
             itemView.projectCuratorText.text = itemView.resources.getString(R.string.project_curator, curator)
 
             val qunatity = project.teams[0].size * project.teams.size
-            val freeQunatity = project.teams.sumBy { it.values.count { user -> user.id == 0 } }
+            val freeQunatity = project.teams.sumBy { list -> list.count { it.member.id == 0 } }
             itemView.projectQuantityText.text = itemView.resources.getString(R.string.project_quantity, freeQunatity, qunatity)
 
             val status = when(project.status) {
                 0 -> "На рассмотрении администратора"
-                1 -> "Активен"
+                1 -> "Открыт"
                 2 -> "Закрыт"
                 3 -> "Не прошёл модерацию"
                 else -> ""
@@ -52,6 +55,14 @@ class ProjectsAdapter
                     }
                     itemView.projectChipGroup.addView(chip)
                 }
+            }
+
+            itemView.setOnClickListener {
+                val intent = Intent(itemView.context, DetailedProjectActivity::class.java).apply {
+                    putExtra(DETAILED_PROJECT, project.id)
+                }
+
+                itemView.context.startActivity(intent)
             }
         }
     }

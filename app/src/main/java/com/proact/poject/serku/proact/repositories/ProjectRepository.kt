@@ -7,6 +7,7 @@ import com.google.gson.reflect.TypeToken
 import com.proact.poject.serku.proact.AnyMap
 import com.proact.poject.serku.proact.api.ProjectApi
 import com.proact.poject.serku.proact.api.UserApi
+import com.proact.poject.serku.proact.data.MemberOfProject
 import com.proact.poject.serku.proact.data.Project
 import com.proact.poject.serku.proact.data.User
 import io.reactivex.Observable
@@ -63,12 +64,14 @@ class ProjectRepository(
     }
 
     fun getProjectById(id: Int) {
+        loadingStatus.postValue(true)
         val subscription = projectApi.getPojectById(id)
             .subscribeOn(Schedulers.io())
             .map {
                 getProjectFromMap(it)
             }
             .observeOn(AndroidSchedulers.mainThread())
+            .doOnComplete { loadingStatus.postValue(false) }
             .subscribeBy(
                 onError = { Log.e("PR-getProjectById", it.message) },
                 onNext = {
@@ -160,8 +163,8 @@ class ProjectRepository(
         return curator
     }
 
-    private fun parseTeams(teams: String): MutableList<MutableMap<String, User>> {
-        val teamList = mutableListOf<MutableMap<String, User>>()
+    private fun parseTeams(teams: String): MutableList<MutableList<MemberOfProject>> {
+        val teamList = mutableListOf<MutableList<MemberOfProject>>()
         val jsonArr = JSONArray(teams)
         val token = object : TypeToken<Map<String, Int>>() {}.type
 
@@ -175,15 +178,15 @@ class ProjectRepository(
                 membersIdMap
             }
             .map { map ->
-                val membersMap = mutableMapOf<String, User>()
+                val membersList = mutableListOf<MemberOfProject>()
                 for ((role, id) in map) {
                     userApi.getUserById(id)
                         .subscribeBy(
-                            onNext = { user -> membersMap[role] = user },
+                            onNext = { user -> membersList.add(MemberOfProject(role, user)) },
                             onError = { e -> Log.e("PR-membersMap", e.message) }
                         )
                 }
-                membersMap
+                membersList
             }
             .subscribeBy(
                 onNext = { teamList.add(it) },
