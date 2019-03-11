@@ -6,6 +6,7 @@ import com.proact.poject.serku.proact.api.UserApi
 import com.proact.poject.serku.proact.data.User
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.rxkotlin.blockingSubscribeBy
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
 
@@ -27,6 +28,18 @@ class UserRepository(private val userApi: UserApi) {
                 onNext = { currentUser.postValue(it) },
                 onError = { Log.e("UR-getUserById", it.message) }
             )
+        disposable.add(subscription)
+    }
+
+    fun getUserByEmail(email: String) {
+        val subscription = userApi.getUserByEmail(email)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeBy(
+                onNext = { currentUser.postValue(it) },
+                onError = { Log.e("UR-getUserByEmail", it.message) }
+            )
+
         disposable.add(subscription)
     }
 
