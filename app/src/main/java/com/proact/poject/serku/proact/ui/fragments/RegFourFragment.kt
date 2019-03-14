@@ -1,9 +1,7 @@
 package com.proact.poject.serku.proact.ui.fragments
 
-import android.content.Context.MODE_PRIVATE
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,6 +12,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.proact.poject.serku.proact.CURRENT_USER_EMAIL_PREF
 import com.proact.poject.serku.proact.R
+import com.proact.poject.serku.proact.SHARED_PREF_NAME
 import com.proact.poject.serku.proact.toast
 import com.proact.poject.serku.proact.ui.activities.MainActivity
 import com.proact.poject.serku.proact.viewmodels.UserViewModel
@@ -49,7 +48,7 @@ class RegFourFragment : Fragment() {
 
         userViewModel.userAdded.observe(this, Observer {
             if (it) {
-                activity?.getPreferences(MODE_PRIVATE)?.edit {
+                activity?.application?.getSharedPreferences(SHARED_PREF_NAME, 0)?.edit {
                     putString(CURRENT_USER_EMAIL_PREF, email)
                 }
                 startActivity(Intent(activity, MainActivity::class.java))
