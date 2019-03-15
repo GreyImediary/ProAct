@@ -2,7 +2,6 @@ package com.proact.poject.serku.proact.viewmodels
 
 import androidx.lifecycle.ViewModel
 import com.proact.poject.serku.proact.repositories.ProjectRepository
-import java.util.*
 
 class ProjectViewModel(private val projectRepository: ProjectRepository) : ViewModel() {
     val currentProject = projectRepository.currentProject
@@ -13,7 +12,7 @@ class ProjectViewModel(private val projectRepository: ProjectRepository) : ViewM
 
     fun createProject(title: String,
                       description: String,
-                      deadlineDate: Calendar,
+                      deadlineDate: String,
                       curatorId: Int,
                       members: String,
                       tags: String) = projectRepository.createProject(title, description, deadlineDate, curatorId, members, tags)

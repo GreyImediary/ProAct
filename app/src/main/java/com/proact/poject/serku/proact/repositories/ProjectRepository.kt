@@ -34,20 +34,22 @@ class ProjectRepository(
     private val perPage = 3
     private val disposable = CompositeDisposable()
 
-    fun createProject(title: String,
-                      description: String,
-                      deadlineDate: Calendar,
-                      curatorId: Int,
-                      members: String,
-                      tags: String) {
-        val deadline = "${deadlineDate[YEAR]}-${deadlineDate[MONTH]}-${deadlineDate[DAY_OF_MONTH]}"
-        val subsciption = projectApi.createProject(title, description, deadline, curatorId, members, tags)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribeBy(
-                onNext = { isProjectCreated.postValue(it.message == "true") },
-                onError = { Log.e("PR-createProject", it.message) }
-            )
+    fun createProject(
+        title: String,
+        description: String,
+        deadlineDate: String,
+        curatorId: Int,
+        members: String,
+        tags: String
+    ) {
+        val subsciption =
+            projectApi.createProject(title, description, deadlineDate, curatorId, members, tags)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeBy(
+                    onNext = { isProjectCreated.postValue(it.message == "true") },
+                    onError = { Log.e("PR-createProject", it.message) }
+                )
         disposable.add(subsciption)
     }
 
@@ -93,8 +95,8 @@ class ProjectRepository(
             }
             .observeOn(AndroidSchedulers.mainThread())
             .doOnComplete { loadingStatus.postValue(false) }
-            .subscribeBy (
-                onError =  { Log.e("PR-getProjectByStatus", it.message) },
+            .subscribeBy(
+                onError = { Log.e("PR-getProjectByStatus", it.message) },
                 onNext = {
                     if (projects.value == null) {
                         projects.postValue(it as MutableList<Project>)
@@ -112,7 +114,7 @@ class ProjectRepository(
     }
 
     fun getNextProjects(status: Int) {
-        if(page != allPages) {
+        if (page != allPages) {
             page += 1
             getProjectByStatus(status)
         }
@@ -149,7 +151,17 @@ class ProjectRepository(
         }
 
 
-        return Project(projectId, title, description, teams, deadline, curator, tags, status, adminComment)
+        return Project(
+            projectId,
+            title,
+            description,
+            teams,
+            deadline,
+            curator,
+            tags,
+            status,
+            adminComment
+        )
     }
 
     private fun getCurator(curatorId: Int): User {

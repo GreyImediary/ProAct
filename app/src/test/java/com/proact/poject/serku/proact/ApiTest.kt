@@ -130,8 +130,7 @@ class ApiTest : KoinTest {
     fun createProjectTest() {
         val livedata = projectRepository.isProjectCreated.testObserver()
 
-        val date = mock(Calendar::class.java)
-        projectRepository.createProject("RazRazzz", "Eto gachibass", date,
+        projectRepository.createProject("RazRazzz", "Eto gachibass", "2019-05-23",
             130, "[{\"backend\": 0, \"Frontend\": 0}]", "Web")
 
         assertThat(livedata.observedValues.first())
