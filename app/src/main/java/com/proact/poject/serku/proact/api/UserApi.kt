@@ -9,6 +9,9 @@ interface UserApi {
     @GET("user/get.php?api_key=android")
     fun getUserById(@Query("id") id: Int): Observable<User>
 
+    @GET("user/get.php?api_key=android")
+    fun getUserByEmail(@Query("email") email: String): Observable<User>
+
     @GET("workers/get.php?api_key=android")
     fun getAllWorkers(): Observable<List<User>>
 

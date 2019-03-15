@@ -1,6 +1,5 @@
 package com.proact.poject.serku.proact.ui.fragments
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -12,10 +11,7 @@ import androidx.core.content.edit
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
-import com.proact.poject.serku.proact.CURRENT_USER_EMAIL_PREF
-import com.proact.poject.serku.proact.R
-import com.proact.poject.serku.proact.editEmptyObservable
-import com.proact.poject.serku.proact.toast
+import com.proact.poject.serku.proact.*
 import com.proact.poject.serku.proact.ui.activities.MainActivity
 import com.proact.poject.serku.proact.viewmodels.UserViewModel
 import io.reactivex.disposables.CompositeDisposable
@@ -45,7 +41,7 @@ class LogScreenFragment : Fragment() {
         val emailObservable = emailInput.editEmptyObservable(getString(R.string.emailinput_error))
         val passObservable = passInput.editEmptyObservable(getString(R.string.passinput_error))
 
-        val preferences = activity?.getPreferences(Context.MODE_PRIVATE)
+        val preferences = activity?.applicationContext?.getSharedPreferences(SHARED_PREF_NAME, 0)
 
         entryButton.setOnClickListener { verifyUser(emailEdit, passEdit) }
 

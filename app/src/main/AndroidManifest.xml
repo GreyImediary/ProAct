@@ -29,6 +29,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.activities.DetailedProjectActivity" />
+        <activity android:name=".ui.activities.AddProjectActivity" />
     </application>
 
 </manifest>

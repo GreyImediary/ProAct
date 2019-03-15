@@ -15,6 +15,7 @@ import com.proact.poject.serku.proact.viewmodels.ProjectViewModel
 import kotlinx.android.synthetic.main.activity_detailed_project.*
 import kotlinx.android.synthetic.main.item_team.view.*
 import org.koin.android.viewmodel.ext.android.viewModel
+import java.util.*
 
 class DetailedProjectActivity : AppCompatActivity() {
     private val projectViewModel: ProjectViewModel by viewModel()
@@ -43,10 +44,15 @@ class DetailedProjectActivity : AppCompatActivity() {
             projectCuratorText.text = getString(R.string.project_curator, curatorName)
 
             val qunatity = it.teams[0].size * it.teams.size
-            val freeQunatity = it.teams.sumBy { list -> list.count { memberList -> memberList.member.id == 0 } }
+            val freeQunatity =
+                it.teams.sumBy { list -> list.count { memberList -> memberList.member.id == 0 } }
             projectQuantityText.text = getString(R.string.project_quantity, freeQunatity, qunatity)
 
-            val status = when(it.status) {
+            val deadlineDate =
+                "${it.deadline[Calendar.DAY_OF_MONTH]}.${it.deadline[Calendar.MONTH]}.${it.deadline[Calendar.YEAR]}"
+            projectDeadlineText.text = getString(R.string.project_deadline, deadlineDate)
+
+            val status = when (it.status) {
                 0 -> "На рассмотрении администратора"
                 1 -> "Открыт"
                 2 -> "Закрыт"
@@ -58,7 +64,8 @@ class DetailedProjectActivity : AppCompatActivity() {
             projectAboutText.text = getString(R.string.project_full_about, it.description)
 
             it.teams.forEachIndexed { index, mutableList ->
-                val teamLayout = LayoutInflater.from(this).inflate(R.layout.item_team, detailedLayout, false)
+                val teamLayout =
+                    LayoutInflater.from(this).inflate(R.layout.item_team, detailedLayout, false)
                 teamLayout.teamNumber.text = getString(R.string.team_number, index + 1)
 
                 val memberAdapter = MembersAdapter()

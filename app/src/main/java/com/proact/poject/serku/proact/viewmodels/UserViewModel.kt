@@ -14,6 +14,8 @@ class UserViewModel(private val userRepository: UserRepository) : ViewModel() {
 
     fun getUserById(id: Int) = userRepository.getUserById(id)
 
+    fun getUserByEmail(email: String) = userRepository.getUserByEmail(email)
+
     fun getAllWorkers() = userRepository.getAllWorkers()
 
     fun getAllCustomers() = userRepository.getAllCustomers()
