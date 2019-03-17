@@ -43,7 +43,7 @@ class ProjectsAdapter
 
             if (project.description.length >= 200) {
                 val subsDescription = project.description.substring(0, 197)
-                itemView.projectAboutText.text = itemView.resources.getString(R.string.project_about, subsDescription)
+                itemView.projectAboutText.text = itemView.resources.getString(R.string.project_about_short, subsDescription)
             } else {
                 itemView.projectAboutText.text = project.description
             }
