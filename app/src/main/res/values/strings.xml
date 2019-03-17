@@ -103,6 +103,7 @@
     <string name="poject_empty_tags_error">Добавьте хотя бы 1 тег</string>
     <string name="project_specs_overflow_error">Количество специализаций должно быть меньше 10</string>
     <string name="project_teams_overflow_error">Количество команд должно быть меньше 10</string>
+    <string name="project_tags_error">Количество тегов не может быть больше 7</string>
     <!--dialogs strings-->
     <string name="ok_button">ОК</string>
     <string name="cancel_button">Отменить</string>
