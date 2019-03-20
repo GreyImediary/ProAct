@@ -4,8 +4,10 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.google.common.truth.Truth.assertThat
 import com.proact.poject.serku.proact.di.baseApiModule
 import com.proact.poject.serku.proact.di.projectApiModule
+import com.proact.poject.serku.proact.di.requestApiModule
 import com.proact.poject.serku.proact.di.userApiModule
 import com.proact.poject.serku.proact.repositories.ProjectRepository
+import com.proact.poject.serku.proact.repositories.RequestRepository
 import com.proact.poject.serku.proact.repositories.UserRepository
 import org.junit.After
 import org.junit.Before
@@ -32,10 +34,11 @@ class ApiTest : KoinTest {
     
     private val userRepository: UserRepository by inject()
     private val projectRepository: ProjectRepository by inject()
+    private val requestRepository: RequestRepository by inject()
 
     @Before
     fun setUp() {
-        startKoin(listOf(baseApiModule, userApiModule, projectApiModule))
+        startKoin(listOf(baseApiModule, userApiModule, projectApiModule, requestApiModule))
     }
 
     @Test
@@ -142,6 +145,47 @@ class ApiTest : KoinTest {
         val liveData = projectRepository.isStatusUpdated.testObserver()
 
         projectRepository.updateStatus()
+
+        assertThat(liveData.observedValues.first())
+            .isTrue()
+    }
+
+    @Test
+    fun getRequestsByProjectTest() {
+        val liveData = requestRepository.requestsByProject.testObserver()
+
+        requestRepository.getRequestsByProject(0, 26)
+
+        assertThat(liveData.observedValues.first())
+            .isNotEmpty()
+    }
+
+
+    @Test
+    fun getWorkerRequestsTest() {
+        val liveData = requestRepository.workerRequests.testObserver()
+
+        requestRepository.getWokerRequests(161)
+
+        assertThat(liveData.observedValues.first())
+            .isNotEmpty()
+    }
+
+    @Test
+    fun isWorkerSignedTest() {
+        val liveData = requestRepository.isWorkerSigned.testObserver()
+
+        requestRepository.isWorkerSigned(161, 25)
+
+        assertThat(liveData.observedValues.first())
+            .isTrue()
+    }
+
+    @Test
+    fun createRequest() {
+        val liveData = requestRepository.isRequestFiled.testObserver()
+
+        requestRepository.createRequest(161, 65, 0, "Записка")
 
         assertThat(liveData.observedValues.first())
             .isTrue()
