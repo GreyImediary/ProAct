@@ -64,6 +64,6 @@ val projectApiModule = module {
 
 val requestApiModule = module {
     single { createApi<RequestsApi>(get(BASE_URL), get(), get(), get()) }
-    single { create<RequestRepository>() }
+    factory { create<RequestRepository>() }
 }
 
