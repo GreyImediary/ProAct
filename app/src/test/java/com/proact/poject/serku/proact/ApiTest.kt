@@ -99,12 +99,13 @@ class ApiTest : KoinTest {
         userRepository.addUser("Test rep",
             "Test ret last",
             "",
-            "testaaa@mail.ru",
-            "testPasswrod",
+            "jja@mail.ru",
+            "jj",
             "8939593213",
             "171-333",
             "",
-            1)
+            1,
+            "")
 
         assertThat(liveData.observedValues.first())
             .isAnyOf(true, false)

@@ -34,8 +34,9 @@ class UserViewModel(private val userRepository: UserRepository) : ViewModel() {
                 phone: String = "",
                 studentGroup: String = "",
                 description: String = "",
-                userGroup: Int
-                ) = userRepository.addUser(name, surname, middleName, email, password, phone, studentGroup, description, userGroup)
+                userGroup: Int,
+                avatar: String = ""
+                ) = userRepository.addUser(name, surname, middleName, email, password, phone, studentGroup, description, userGroup, avatar)
 
     override fun onCleared() {
         userRepository.clearDisposable()
