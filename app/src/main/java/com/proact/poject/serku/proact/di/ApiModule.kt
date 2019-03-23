@@ -1,5 +1,6 @@
 package com.proact.poject.serku.proact.di
 
+import com.google.gson.Gson
 import com.proact.poject.serku.proact.api.ProjectApi
 import com.proact.poject.serku.proact.api.RequestsApi
 import com.proact.poject.serku.proact.api.UserApi
@@ -18,6 +19,8 @@ import retrofit2.converter.gson.GsonConverterFactory
 object ApiProperties {
     const val BASE_URL = "BASE_URL"
 }
+
+fun createGson() = Gson()
 
 fun createBaseUrl() = "http://new.std-247.ist.mospolytech.ru/api/"
 
@@ -46,6 +49,7 @@ inline fun <reified T> createApi(
 
 val baseApiModule = module {
     single(BASE_URL) { createBaseUrl() }
+    single { createGson() }
     single { createLogging() }
     single { createClient(get()) }
     single { createGsonConverter() }

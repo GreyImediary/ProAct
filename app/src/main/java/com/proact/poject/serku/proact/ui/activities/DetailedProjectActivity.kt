@@ -35,17 +35,12 @@ class DetailedProjectActivity : AppCompatActivity() {
         val prefs = getSharedPreferences(SHARED_PREF_NAME, 0)
         val userGroup = prefs.getInt(CURRENT_USER_USER_GROUP_PREF, -1)
         val userId = prefs.getInt(CURRENT_USER_ID_PREF, -1)
+        val projectId = intent.getIntExtra(DETAILED_PROJECT, -1)
 
-        var projectId: Int
-
-        if (intent.getIntExtra(DETAILED_PROJECT, -1) != -1) {
-            val projectId = intent.getIntExtra(DETAILED_PROJECT, -1)
-            projectViewModel.getProjectById(projectId)
-        }
+        projectViewModel.getProjectById(projectId)
 
         projectViewModel.currentProject.observe(this, Observer {
             projectTitle.text = it.title
-            projectId = it.id
 
             if (projectChipGroup.isEmpty()) {
                 it.tags.forEach {
@@ -65,7 +60,7 @@ class DetailedProjectActivity : AppCompatActivity() {
             projectQuantityText.text = getString(R.string.project_quantity, freeQunatity, qunatity)
 
             val deadlineDate =
-                "${it.deadline[Calendar.DAY_OF_MONTH]}.${it.deadline[Calendar.MONTH]}.${it.deadline[Calendar.YEAR]}"
+                "${it.signingDeadline[Calendar.DAY_OF_MONTH]}.${it.signingDeadline[Calendar.MONTH]}.${it.signingDeadline[Calendar.YEAR]}"
             projectDeadlineText.text = getString(R.string.project_deadline, deadlineDate)
 
             val status = when (it.status) {

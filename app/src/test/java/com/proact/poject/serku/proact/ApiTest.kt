@@ -124,7 +124,7 @@ class ApiTest : KoinTest {
     fun getProjectByIdTest() {
         val livedata = projectRepository.currentProject.testObserver()
 
-        projectRepository.getProjectById(26)
+        projectRepository.getProjectById(14)
 
         assertThat(livedata.observedValues.first())
             .isNotNull()
@@ -155,7 +155,7 @@ class ApiTest : KoinTest {
     fun getRequestsByProjectTest() {
         val liveData = requestRepository.requestsByProject.testObserver()
 
-        requestRepository.getRequestsByProject(0, 26)
+        requestRepository.getRequestsByProject(0, 17)
 
         assertThat(liveData.observedValues.first())
             .isNotEmpty()
@@ -176,7 +176,7 @@ class ApiTest : KoinTest {
     fun isWorkerSignedTest() {
         val liveData = requestRepository.isWorkerSigned.testObserver()
 
-        requestRepository.isWorkerSigned(161, 25)
+        requestRepository.isWorkerSigned(161, 14)
 
         assertThat(liveData.observedValues.first())
             .isTrue()
@@ -186,7 +186,7 @@ class ApiTest : KoinTest {
     fun createRequest() {
         val liveData = requestRepository.isRequestFiled.testObserver()
 
-        requestRepository.createRequest(161, 65, 0, "Записка")
+        requestRepository.createRequest(161, 14, 0, "Записка")
 
         assertThat(liveData.observedValues.first())
             .isTrue()

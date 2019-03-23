@@ -42,5 +42,13 @@ data class User(
 
     @SerializedName("usergroup")
     @Expose
-    val userGroup: Int
+    val userGroup: Int,
+
+    @SerializedName("active_projects")
+    @Expose
+    val ActiveProject: String? = null,
+
+    @SerializedName("finished_projects")
+    @Expose
+    val finishedProjects: String? = null
 )
