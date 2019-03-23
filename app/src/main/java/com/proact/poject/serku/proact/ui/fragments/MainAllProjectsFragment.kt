@@ -43,6 +43,11 @@ class MainAllProjectsFragment : Fragment() {
         })
 
         projectViewModel.projects.observe(this, Observer {
+            if (it.isEmpty()) {
+                activity?.noProjectText?.visibility = View.VISIBLE
+            } else {
+                activity?.noProjectText?.visibility = View.INVISIBLE
+            }
             adapter.submitList(it)
             adapter.notifyDataSetChanged()
         })

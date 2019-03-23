@@ -112,6 +112,9 @@
     <string name="cancel_button">Отменить</string>
     <string name="tags_dialog_title">Выберите теги для проекта</string>
 
+    <!--no items strings-->
+    <string name="no_projects">Проектов пока нет</string>
+
     <!--tags array-->
     <string-array name="tags_array">
         <item>Фронтенд</item>
