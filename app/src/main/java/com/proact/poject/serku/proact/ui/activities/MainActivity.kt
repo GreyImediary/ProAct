@@ -8,10 +8,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
-import com.proact.poject.serku.proact.CURRENT_USER_EMAIL_PREF
-import com.proact.poject.serku.proact.CURRENT_USER_ID_PREF
-import com.proact.poject.serku.proact.R
-import com.proact.poject.serku.proact.SHARED_PREF_NAME
+import com.proact.poject.serku.proact.*
 import com.proact.poject.serku.proact.viewmodels.UserViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.android.viewmodel.ext.android.viewModel
@@ -41,6 +38,7 @@ class MainActivity : AppCompatActivity() {
             }
             preferences.edit {
                 putInt(CURRENT_USER_ID_PREF, it.id)
+                putInt(CURRENT_USER_USER_GROUP_PREF, it.userGroup)
             }
         })
 

@@ -57,25 +57,28 @@ class AddProjectActivity : AppCompatActivity() {
             val tagsDialog = TagsDialog()
 
             tagsDialog.positiveButtonListener = {
-                tagsDialog.tagsList.forEach { title ->
-                    val tag =
-                        LayoutInflater.from(this).inflate(R.layout.tag_item, tagsLayout, false)
-                            .apply {
-                                tag_text.text = title
-                                deleteTagButton.setOnClickListener {
-                                    tagsLayout.removeView(this)
-                                    tagSet.remove(title)
+                if (tagsDialog.tagsList.size > 7) {
+                    toast(getString(R.string.project_tags_error))
+                } else {
+                    tagsDialog.tagsList.forEach { title ->
+                        val tag =
+                            LayoutInflater.from(this).inflate(R.layout.tag_item, tagsLayout, false)
+                                .apply {
+                                    tag_text.text = title
+                                    deleteTagButton.setOnClickListener {
+                                        tagsLayout.removeView(this)
+                                        tagSet.remove(title)
+                                    }
                                 }
-                            }
 
-                    if (!tagSet.contains(title)) {
-                        tagsLayout.addView(tag)
+                        if (!tagSet.contains(title)) {
+                            tagsLayout.addView(tag)
+                        }
+
+                        tagSet.add(title)
                     }
-
-                    tagSet.add(title)
                 }
             }
-
             tagsDialog.show(supportFragmentManager, "tags")
         }
 

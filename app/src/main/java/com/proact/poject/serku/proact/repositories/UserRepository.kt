@@ -101,9 +101,10 @@ class UserRepository(private val userApi: UserApi) {
         phone: String,
         studentGroup: String,
         description: String,
-        userGroup: Int
+        userGroup: Int,
+        avatar: String
     ) {
-        val subscription = userApi.addUser(name, surname, middleName, email, password, phone, studentGroup, description, userGroup)
+        val subscription = userApi.addUser(name, surname, middleName, email, password, phone, studentGroup, description, userGroup, avatar)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeBy(

@@ -37,10 +37,10 @@ class RegFourFragment : Fragment() {
         val email = args.email
         val pass = args.pass
         val groupNumber = args.groupNumber
-        val phone = layout.rgFourPhoneEdit.text.toString()
-        val about = layout.rgFourAboutEdit.text.toString()
 
         layout.doneButton.setOnClickListener {
+            val phone = layout.rgFourPhoneEdit.text.toString()
+            val about = layout.rgFourAboutEdit.text.toString()
             userViewModel.addUser(name, surname, middleName, email, pass, phone, groupNumber, about, role)
         }
 

@@ -22,8 +22,7 @@ interface ProjectApi {
         @Field("deadline") deadline: String,
         @Field("curator") curatorId: Int,
         @Field("members") members: String,
-        @Field("tags") tags: String,
-        @Field("api_key") apiKey: String = "android"
+        @Field("tags") tags: String
     ): Observable<Response>
 
     @POST("projects/updateStatus.php")
