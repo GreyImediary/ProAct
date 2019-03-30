@@ -11,8 +11,4 @@
         android:id="@+id/mainMyProjectsFragment"
         android:name="com.proact.poject.serku.proact.ui.fragments.MainMyProjectsFragment"
         android:label="@string/my_projects_label" />
-    <fragment
-        android:id="@+id/mainProfileFragment"
-        android:name="com.proact.poject.serku.proact.ui.fragments.MainProfileFragment"
-        android:label="@string/profile_label" />
 </navigation>

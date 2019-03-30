@@ -14,6 +14,10 @@ interface ProjectApi {
                             @Query("per_page") perPgae: Int,
                             @Query("page") page: Double): Observable<AnyMap>
 
+    @GET("projects/get.php")
+    fun getUserProjects(@Query("user") userId: Int): Observable<AnyMap>
+
+
     @POST("projects/create.php")
     @FormUrlEncoded
     fun createProject(

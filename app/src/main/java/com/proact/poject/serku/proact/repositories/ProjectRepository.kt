@@ -15,6 +15,7 @@ import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
 import java.util.*
 import java.util.Calendar.*
+import kotlin.collections.HashMap
 
 class ProjectRepository(
     private val projectApi: ProjectApi,
@@ -26,6 +27,7 @@ class ProjectRepository(
     val isStatusUpdated = MutableLiveData<Boolean>()
     val projects = MutableLiveData<MutableList<Project>>()
     val loadingStatus = MutableLiveData<Boolean>()
+    val userProjects = MutableLiveData<HashMap<String, List<Project>>>()
     private var page = 1.0
     private var allPages = 0.0
     private val perPage = 3
@@ -111,6 +113,41 @@ class ProjectRepository(
                         projects.postValue(list)
                     }
                 }
+            )
+
+        disposable.add(subscription)
+    }
+
+    fun getUsersProject(userId: Int) {
+        val subscription = projectApi.getUserProjects(userId)
+            .subscribeOn(Schedulers.io())
+            .map {
+                var activeProjects = emptyList<Project>()
+                var finishedProjects = emptyList<Project>()
+
+                if (it["active_projects"] != null) {
+                    activeProjects = (it["active_projects"] as List<AnyMap>).map { rowProject ->
+                        getProjectFromMap(rowProject)
+                    }
+                }
+
+                if (it["finished_projects"] != null) {
+                    finishedProjects = (it["finished_projects"] as List<AnyMap>).map { rowProject ->
+                        getProjectFromMap(rowProject)
+                    }
+                }
+
+                HashMap<String, List<Project>>().apply {
+                    put("active", activeProjects)
+                    put("finished", finishedProjects)
+                }
+            }
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeBy(
+                onNext = {
+                    userProjects.postValue(it)
+                },
+                onError = { Log.e("PR-getUsersProject", it.message) }
             )
 
         disposable.add(subscription)
