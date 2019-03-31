@@ -2,6 +2,7 @@ package com.proact.poject.serku.proact.repositories
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
+import com.proact.poject.serku.proact.AnyMap
 import com.proact.poject.serku.proact.api.RequestsApi
 import com.proact.poject.serku.proact.data.Request
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -47,7 +48,7 @@ class RequestRepository(private val requestsApi: RequestsApi) {
     }
 
     fun getWokerRequests(workerId: Int) {
-        val subscription = requestsApi.getWorkerRequests(workerId)
+        /*val subscription = requestsApi.getWorkerRequests(workerId)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeBy(
@@ -55,12 +56,15 @@ class RequestRepository(private val requestsApi: RequestsApi) {
                 onError = { Log.e("RR-getWorkerRequests", it.message) }
             )
 
-        dispodable.add(subscription)
+        dispodable.add(subscription)*/
     }
 
     fun getRequestsByProject(requestStatus: Int, projectId: Int) {
         val subscription = requestsApi.getRequestsByProject(requestStatus, projectId)
             .subscribeOn(Schedulers.io())
+            .map {
+                it.map { requestMap -> getRequestFromMap(requestMap) }
+            }
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeBy(
                 onNext = { requestsByProject.postValue(it) },
@@ -68,6 +72,47 @@ class RequestRepository(private val requestsApi: RequestsApi) {
             )
 
         dispodable.add(subscription)
+    }
+
+    private fun getRequestFromMap(request: AnyMap): Request {
+        val id = (request["id"] as String).toInt()
+
+        var workerId = -1
+        var workerName = ""
+
+        if (request["worker_id"] !is String) {
+            val worker = request["worker_id"] as AnyMap
+
+            workerId = (worker["id"] as String).toInt()
+            workerName = "${worker["surname"] as String} ${worker["name"] as String}"
+        }
+
+        var projectId = -1
+        var projectTitle = ""
+
+        if (request["project_id"] !is String) {
+            val project = request["project_id"] as AnyMap
+
+            projectId = (project["id"] as String).toInt()
+            projectTitle = project["title"] as String
+        }
+
+        val team = (request["team"] as String).toInt() + 1
+        val role = request["role"] as String
+        val status = (request["status"] as String).toInt()
+        val comment = request["comment"] as String
+
+        return Request(
+            id,
+            workerId,
+            workerName,
+            projectId,
+            projectTitle,
+            team,
+            role,
+            status,
+            comment)
+
     }
 
     fun clearDisposable() {
