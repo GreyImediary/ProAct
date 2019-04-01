@@ -25,7 +25,10 @@ interface RequestsApi {
     ): Observable<Response>
 
     @GET("applications/get.php")
-    fun getWorkerRequests(@Query("worker") workerId: Int): Observable<AnyMap>
+    fun getWorkerRequests(
+        @Query("worker") workerId: Int,
+        @Query("page") page: Double,
+        @Query("per_page") perPage: Int): Observable<AnyMap>
 
     @GET("applications/get.php")
     fun getRequestsByProject(

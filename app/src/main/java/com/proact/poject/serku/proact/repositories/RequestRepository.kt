@@ -13,10 +13,15 @@ import io.reactivex.schedulers.Schedulers
 class RequestRepository(private val requestsApi: RequestsApi) {
     val isWorkerSigned = MutableLiveData<Boolean>()
     val isRequestFiled = MutableLiveData<Boolean>()
-    val workerRequests = MutableLiveData<List<Request>>()
+    val workerRequests = MutableLiveData<MutableList<Request>>()
     val requestsByProject = MutableLiveData<List<Request>>()
 
     private val dispodable = CompositeDisposable()
+
+    private var page = 1.0
+    private var allPages = 0.0
+    private val perPage = 3
+
 
     fun createRequest(
         workerId: Int,
@@ -48,15 +53,36 @@ class RequestRepository(private val requestsApi: RequestsApi) {
     }
 
     fun getWokerRequests(workerId: Int) {
-        /*val subscription = requestsApi.getWorkerRequests(workerId)
+        val subscription = requestsApi.getWorkerRequests(workerId, page, perPage)
             .subscribeOn(Schedulers.io())
+            .map {
+                allPages = it["pages"] as Double
+                page = it["page"] as Double
+
+                var requestList = emptyList<AnyMap>()
+
+                if (it["data"] != null) {
+                    requestList = it["data"] as List<AnyMap>
+                }
+
+                requestList.map { rowRequest -> getRequestFromMap(rowRequest) }
+            }
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeBy(
-                onNext = { workerRequests.postValue(it) },
+                onNext = {
+                    if (workerRequests.value == null) {
+                        workerRequests.postValue(it.toMutableList())
+                    } else {
+                        val list = workerRequests.value?.apply {
+                            addAll(it)
+                        }
+                        workerRequests.postValue(list)
+                    }
+                },
                 onError = { Log.e("RR-getWorkerRequests", it.message) }
             )
 
-        dispodable.add(subscription)*/
+        dispodable.add(subscription)
     }
 
     fun getRequestsByProject(requestStatus: Int, projectId: Int) {
@@ -68,10 +94,20 @@ class RequestRepository(private val requestsApi: RequestsApi) {
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeBy(
                 onNext = { requestsByProject.postValue(it) },
-                onError = { Log.e("RR-getRequestsByProject", it.message) }
+                onError = {
+                    Log.e("RR-getRequestsByProject", it.message)
+                    requestsByProject.postValue(emptyList())
+                }
             )
 
         dispodable.add(subscription)
+    }
+
+    fun getNextRequests(workerId: Int) {
+        if (page != allPages) {
+            page += 1
+            getWokerRequests(workerId)
+        }
     }
 
     private fun getRequestFromMap(request: AnyMap): Request {
