@@ -3,6 +3,7 @@ package com.proact.poject.serku.proact.ui.adapters
 import android.content.Intent
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.core.view.isEmpty
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -19,9 +20,22 @@ class ProjectsAdapter
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder =
         ViewHolder(parent.inflate(R.layout.item_project))
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) = holder.bind(getItem(position))
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        val project = getItem(position)
+
+        holder.bind(project)
+
+        if (holder.isChipSetted) {
+            holder.removeChips()
+            holder.addChips(project.tags)
+        } else {
+            holder.addChips(project.tags)
+        }
+
+    }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        var isChipSetted = false
         fun bind(project: Project) {
             itemView.projectTitle.text = project.title
 
@@ -48,15 +62,6 @@ class ProjectsAdapter
                 itemView.projectAboutText.text = project.description
             }
 
-            if (itemView.projectChipGroup.isEmpty()) {
-                project.tags.forEach {
-                    val chip = Chip(itemView.projectChipGroup.context).apply {
-                        text = it
-                    }
-                    itemView.projectChipGroup.addView(chip)
-                }
-            }
-
             itemView.setOnClickListener {
                 val intent = Intent(itemView.context, DetailedProjectActivity::class.java).apply {
                     putExtra(DETAILED_PROJECT, project.id)
@@ -64,6 +69,24 @@ class ProjectsAdapter
 
                 itemView.context.startActivity(intent)
             }
+        }
+
+        fun addChips(tags: MutableList<String>) {
+            if (itemView.projectChipGroup.isEmpty() && !isChipSetted) {
+                tags.forEach {
+                    val chip = Chip(itemView.projectChipGroup.context).apply {
+                        text = it
+                        chipBackgroundColor = ContextCompat.getColorStateList(context, R.color.colorChip)
+                    }
+                    itemView.projectChipGroup.addView(chip)
+                }
+                isChipSetted = true
+            }
+        }
+
+        fun removeChips() {
+            itemView.projectChipGroup.removeAllViews()
+            isChipSetted = false
         }
     }
 }
