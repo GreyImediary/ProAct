@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="@dimen/mediumPadding"
+    app:cardBackgroundColor="@color/colorCard"
     android:orientation="vertical"
     app:cardCornerRadius="@dimen/projectCardCornerRadius">
 
