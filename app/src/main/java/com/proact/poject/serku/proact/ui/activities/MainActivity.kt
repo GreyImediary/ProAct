@@ -10,9 +10,11 @@ import androidx.core.content.edit
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.proact.poject.serku.proact.*
 import com.proact.poject.serku.proact.viewmodels.ProjectViewModel
+import com.proact.poject.serku.proact.viewmodels.RequestViewModel
 import com.proact.poject.serku.proact.viewmodels.UserViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.android.viewmodel.ext.android.viewModel
@@ -20,18 +22,19 @@ import org.koin.android.viewmodel.ext.android.viewModel
 class MainActivity : AppCompatActivity() {
     private val userViewModel: UserViewModel by viewModel()
     private val projectViewModel: ProjectViewModel by viewModel()
+    private val requestViewModel: RequestViewModel by viewModel()
     private lateinit var preferences: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        setSupportActionBar(toolbar)
 
         val controller = findNavController(R.id.navHostFragment)
-        val appBarConfiguration = AppBarConfiguration(controller.graph)
 
         mainBottomNavigation.setupWithNavController(controller)
-        toolbar.setupWithNavController(controller, appBarConfiguration)
-        setSupportActionBar(toolbar)
+
+        setupActionBarWithNavController(controller)
 
         preferences = applicationContext.getSharedPreferences(SHARED_PREF_NAME, 0)
 
@@ -77,6 +80,7 @@ class MainActivity : AppCompatActivity() {
         return false
     }
 
+    override fun onSupportNavigateUp() = findNavController(R.id.navHostFragment).navigateUp()
     private fun goToProfile() {
         val userId = preferences.getInt(CURRENT_USER_ID_PREF, -1)
         val intent = Intent(this, ProfileActivity::class.java).apply {

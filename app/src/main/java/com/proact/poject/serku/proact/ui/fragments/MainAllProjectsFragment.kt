@@ -13,10 +13,10 @@ import com.proact.poject.serku.proact.ui.adapters.ProjectsAdapter
 import com.proact.poject.serku.proact.viewmodels.ProjectViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_projects.view.*
-import org.koin.android.viewmodel.ext.android.viewModel
+import org.koin.android.viewmodel.ext.android.sharedViewModel
 
 class MainAllProjectsFragment : Fragment() {
-    private val projectViewModel: ProjectViewModel by viewModel()
+    private val projectViewModel: ProjectViewModel by sharedViewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -48,6 +48,7 @@ class MainAllProjectsFragment : Fragment() {
             } else {
                 activity?.noProjectText?.visibility = View.INVISIBLE
             }
+
             adapter.submitList(it)
             adapter.notifyDataSetChanged()
         })
