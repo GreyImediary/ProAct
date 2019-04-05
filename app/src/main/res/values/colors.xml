@@ -8,4 +8,7 @@
     <color name="colorCustomerButton">#9B362F</color>
 
     <color name="navBottomCheckedFalse">#b0bec5</color>
+
+    <color name="colorChip">#b3e5fc</color>
+    <color name="colorCard">#e1f5fe</color>
 </resources>

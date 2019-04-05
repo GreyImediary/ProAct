@@ -118,9 +118,14 @@
     <string name="profile_group">Группа: %s</string>
     <string name="profile_about">О себе: %s</string>
 
+    <!--requetsts string-->
+    <string name="request_role">Роль: %s</string>
+    <string name="request_status">Статус: %s</string>
+
     <!--tab titles strings-->
     <string name="tab_active">Активные</string>
     <string name="tab_finished">Архив</string>
+    <string name="tab_requests">Заявки</string>
 
     <!--dialogs strings-->
     <string name="ok_button">ОК</string>
