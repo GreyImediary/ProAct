@@ -15,6 +15,13 @@ interface ProjectApi {
                             @Query("page") page: Double): Observable<AnyMap>
 
     @GET("projects/get.php")
+    fun getCuratorsProjects(
+        @Query("curator") curatorId: Int,
+        @Query("status") projectStatus: Int,
+        @Query("per_page") perPage: Int,
+        @Query("page") page: Double): Observable<AnyMap>
+
+    @GET("projects/get.php")
     fun getUserProjects(@Query("user") userId: Int): Observable<AnyMap>
 
 
