@@ -15,7 +15,7 @@ data class Request(
         if (this === other) return true
         if (javaClass != other?.javaClass) return false
 
-        other as Project
+        other as Request
 
         return id == other.id
 
