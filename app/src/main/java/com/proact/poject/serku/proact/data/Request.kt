@@ -1,8 +1,5 @@
 package com.proact.poject.serku.proact.data
 
-import com.google.gson.annotations.Expose
-import com.google.gson.annotations.SerializedName
-
 data class Request(
     val id: Int,
     val wokerId: Int,
@@ -13,4 +10,18 @@ data class Request(
     val projectRole: String,
     val requestStatus: Int,
     val comment: String
-)
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as Project
+
+        return id == other.id
+
+    }
+
+    override fun hashCode(): Int {
+        return id.hashCode() * 31
+    }
+}
