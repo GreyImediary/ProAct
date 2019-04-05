@@ -52,7 +52,7 @@ class RequestRepository(private val requestsApi: RequestsApi) {
         dispodable.add(subscription)
     }
 
-    fun getWokerRequests(workerId: Int) {
+    fun getWorkerRequests(workerId: Int) {
         val subscription = requestsApi.getWorkerRequests(workerId, page, perPage)
             .subscribeOn(Schedulers.io())
             .map {
@@ -74,7 +74,9 @@ class RequestRepository(private val requestsApi: RequestsApi) {
                         workerRequests.postValue(it.toMutableList())
                     } else {
                         val list = workerRequests.value?.apply {
-                            addAll(it)
+                            if (!containsAll(it)) {
+                                addAll(it)
+                            }
                         }
                         workerRequests.postValue(list)
                     }
@@ -106,7 +108,7 @@ class RequestRepository(private val requestsApi: RequestsApi) {
     fun getNextRequests(workerId: Int) {
         if (page != allPages) {
             page += 1
-            getWokerRequests(workerId)
+            getWorkerRequests(workerId)
         }
     }
 
@@ -136,7 +138,7 @@ class RequestRepository(private val requestsApi: RequestsApi) {
         val team = (request["team"] as String).toInt() + 1
         val role = request["role"] as String
         val status = (request["status"] as String).toInt()
-        val comment = request["comment"] as String
+        val comment = if (request["comment"] != null) request["comment"] as String else ""
 
         return Request(
             id,
