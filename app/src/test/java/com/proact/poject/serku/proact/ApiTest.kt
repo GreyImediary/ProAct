@@ -17,9 +17,7 @@ import org.koin.standalone.StandAloneContext.startKoin
 import org.koin.standalone.StandAloneContext.stopKoin
 import org.koin.standalone.inject
 import org.koin.test.KoinTest
-import org.mockito.Mockito.mock
 import org.mockito.junit.MockitoJUnit
-import java.util.*
 
 class ApiTest : KoinTest {
     @get:Rule
@@ -134,7 +132,7 @@ class ApiTest : KoinTest {
     fun createProjectTest() {
         val livedata = projectRepository.isProjectCreated.testObserver()
 
-        projectRepository.createProject("RazRazzz", "Eto gachibass", "2019-05-23",
+        projectRepository.createProject("RazRazzz", "Eto gachibass", "2019-05-23", "2019-05-28",
             130, "[{\"backend\": 0, \"Frontend\": 0}]", "Web")
 
         assertThat(livedata.observedValues.first())
@@ -165,10 +163,21 @@ class ApiTest : KoinTest {
     fun getWorkerRequestsTest() {
         val liveData = requestRepository.workerRequests.testObserver()
 
-        requestRepository.getWokerRequests(161)
+        requestRepository.getWorkerRequests(194)
 
         assertThat(liveData.observedValues.first())
             .isNotEmpty()
+    }
+
+    @Test
+    fun getNextTEst() {
+    val liveDta = requestRepository.workerRequests.testObserver()
+
+        requestRepository.getNextRequests(194)
+
+        assertThat(liveDta.observedValues.first())
+            .isNotEmpty()
+        print(liveDta.observedValues.first())
     }
 
     @Test

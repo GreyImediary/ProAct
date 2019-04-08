@@ -89,6 +89,7 @@
     <!--add projects screen strings-->
     <string name="project_title_hint">Название проекта</string>
     <string name="project_deadline_hint">Запись до</string>
+    <string name="project_finish_date_hint">Дата окончания</string>
     <string name="project_specs_hint">Кто вам нужен*</string>
     <string name="project_specs_helper">Разделяйте запятой</string>
     <string name="project_teams_hint">Количество команд</string>
@@ -101,6 +102,7 @@
     <!--add projcets screen error strings-->
     <string name="project_title_error">Добавьте название проекта</string>
     <string name="project_deadline_error">Добавьте дату последнего дня записи</string>
+    <string name="poject_finish_date_error">Добавьте дату окончания проекта</string>
     <string name="project_specs_error">Добавьте необходимые Вам специализации</string>
     <string name="project_teams_error">Укажите количество команд</string>
     <string name="project_teams_helper">Не больше 10</string>
@@ -110,6 +112,7 @@
     <string name="project_specs_overflow_error">Количество специализаций должно быть меньше 10</string>
     <string name="project_teams_overflow_error">Количество команд должно быть меньше 10</string>
     <string name="project_tags_error">Количество тегов не может быть больше 7</string>
+    <string name="project_dates_error">Окончание проекта должно быть не раньше записи</string>
 
     <!--profile activity strings-->
     <string name="profile_full_name">%s %s %s</string>

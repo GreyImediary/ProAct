@@ -7,10 +7,10 @@ import androidx.fragment.app.DialogFragment
 import java.util.*
 
 class DateDialog : DialogFragment() {
+    var calendar = Calendar.getInstance()
     lateinit var dateListener: (year: Int, month: Int, day: Int) -> Unit
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val calendar = Calendar.getInstance()
 
         val year = calendar[Calendar.YEAR]
         val month = calendar[Calendar.MONTH]

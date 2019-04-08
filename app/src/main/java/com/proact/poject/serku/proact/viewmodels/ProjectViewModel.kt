@@ -18,9 +18,10 @@ class ProjectViewModel(private val projectRepository: ProjectRepository) : ViewM
     fun createProject(title: String,
                       description: String,
                       deadlineDate: String,
+                      finishDate: String,
                       curatorId: Int,
                       members: String,
-                      tags: String) = projectRepository.createProject(title, description, deadlineDate, curatorId, members, tags)
+                      tags: String) = projectRepository.createProject(title, description, deadlineDate, finishDate, curatorId, members, tags)
 
     fun updateStatus() = projectRepository.updateStatus()
 
