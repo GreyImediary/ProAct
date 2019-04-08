@@ -1,35 +1,27 @@
 package com.proact.poject.serku.proact.data
 
-import com.google.gson.annotations.Expose
-import com.google.gson.annotations.SerializedName
-
 data class Request(
-
-    @SerializedName("id")
-    @Expose
     val id: Int,
-
-    @SerializedName("worker_id")
-    @Expose
-    val workerId: Int,
-
-    @SerializedName("project_id")
-    @Expose
+    val wokerId: Int,
+    val workerName: String,
     val projectId: Int,
-
-    @SerializedName("team")
-    @Expose
+    val projectTitle: String,
     val teamNumber: Int,
-
-    @SerializedName("role")
-    @Expose
     val projectRole: String,
-
-    @SerializedName("status")
-    @Expose
     val requestStatus: Int,
-
-    @SerializedName("comment")
-    @Expose
     val comment: String
-)
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as Request
+
+        return id == other.id
+
+    }
+
+    override fun hashCode(): Int {
+        return id.hashCode() * 31
+    }
+}

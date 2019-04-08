@@ -155,12 +155,11 @@ class ApiTest : KoinTest {
     fun getRequestsByProjectTest() {
         val liveData = requestRepository.requestsByProject.testObserver()
 
-        requestRepository.getRequestsByProject(0, 17)
+        requestRepository.getRequestsByProject(0, 25)
 
         assertThat(liveData.observedValues.first())
             .isNotEmpty()
     }
-
 
     @Test
     fun getWorkerRequestsTest() {

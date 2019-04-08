@@ -62,12 +62,14 @@
     <!--main menu string resources-->
     <string name="all_projects">Все проекты</string>
     <string name="my_projects">Мои проекты</string>
-    <string name="profile">Профиль</string>
+
+    <!--top menu strings-->
+    <string name="log_out">Выйти</string>
+    <string name="my_profile">Мой профиль</string>
 
     <!--main navigation labels-->
     <string name="all_projects_label">Все проекты</string>
     <string name="my_projects_label">Мои проекты</string>
-    <string name="profile_label">Профиль</string>
 
     <!--project strings-->
     <string name="project_curator">Куратор: %s</string>
@@ -82,6 +84,7 @@
     <string name="project_request_error">Не удалось записаться на проект</string>
     <string name="project_request_created">Заявка на проект подана</string>
     <string name="project_request_exist">Заявка уже подана</string>
+    <string name="profile">Профиль</string>
 
     <!--add projects screen strings-->
     <string name="project_title_hint">Название проекта</string>
@@ -95,7 +98,7 @@
     <string name="project_added_text">Проект создан и отправлен на рассмотрение</string>
     <string name="project_added_error">Не удалось создать проект</string>
 
-    <!--add projcets scree error strings-->
+    <!--add projcets screen error strings-->
     <string name="project_title_error">Добавьте название проекта</string>
     <string name="project_deadline_error">Добавьте дату последнего дня записи</string>
     <string name="project_specs_error">Добавьте необходимые Вам специализации</string>
@@ -107,6 +110,23 @@
     <string name="project_specs_overflow_error">Количество специализаций должно быть меньше 10</string>
     <string name="project_teams_overflow_error">Количество команд должно быть меньше 10</string>
     <string name="project_tags_error">Количество тегов не может быть больше 7</string>
+
+    <!--profile activity strings-->
+    <string name="profile_full_name">%s %s %s</string>
+    <string name="profile_email">Почта: %s</string>
+    <string name="profile_phone">Телефон: %s</string>
+    <string name="profile_group">Группа: %s</string>
+    <string name="profile_about">О себе: %s</string>
+
+    <!--requetsts string-->
+    <string name="request_role">Роль: %s</string>
+    <string name="request_status">Статус: %s</string>
+
+    <!--tab titles strings-->
+    <string name="tab_active">Активные</string>
+    <string name="tab_finished">Архив</string>
+    <string name="tab_requests">Заявки</string>
+
     <!--dialogs strings-->
     <string name="ok_button">ОК</string>
     <string name="cancel_button">Отменить</string>

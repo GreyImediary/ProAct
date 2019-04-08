@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.Toast
+import com.google.android.material.tabs.TabLayout
 import com.google.android.material.textfield.TextInputLayout
 import io.reactivex.Observable
 
@@ -54,3 +55,25 @@ fun EditText.textChanged(f: (s: CharSequence?) -> Unit) {
 
 fun ViewGroup.inflate(resId: Int): View =
         LayoutInflater.from(context).inflate(resId, this, false)
+
+fun TabLayout.onSelected(
+    onReselect: (tab : TabLayout.Tab?) -> Unit = {},
+    onUnselect: (tab : TabLayout.Tab?) -> Unit = {},
+    onSelect: (tab : TabLayout.Tab?) -> Unit = {}
+) {
+    this.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+
+        override fun onTabSelected(tab: TabLayout.Tab?) {
+            onSelect(tab)
+        }
+
+        override fun onTabReselected(tab: TabLayout.Tab?) {
+            onReselect(tab)
+        }
+
+        override fun onTabUnselected(tab: TabLayout.Tab?) {
+            onUnselect(tab)
+        }
+
+    })
+}

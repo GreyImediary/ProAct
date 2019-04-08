@@ -1,5 +1,6 @@
 package com.proact.poject.serku.proact.api
 
+import com.proact.poject.serku.proact.AnyMap
 import com.proact.poject.serku.proact.data.Request
 import com.proact.poject.serku.proact.data.Response
 import io.reactivex.Observable
@@ -24,11 +25,14 @@ interface RequestsApi {
     ): Observable<Response>
 
     @GET("applications/get.php")
-    fun getWorkerRequests(@Query("worker") workerId: Int): Observable<List<Request>>
+    fun getWorkerRequests(
+        @Query("worker") workerId: Int,
+        @Query("page") page: Double,
+        @Query("per_page") perPage: Int): Observable<AnyMap>
 
     @GET("applications/get.php")
     fun getRequestsByProject(
         @Query("status") requestStatus: Int,
         @Query("project") projectId: Int
-    ): Observable<List<Request>>
+    ): Observable<List<AnyMap>>
 }

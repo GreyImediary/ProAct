@@ -6,7 +6,7 @@ import com.proact.poject.serku.proact.repositories.RequestRepository
 class RequestViewModel(private val requestRepository: RequestRepository) : ViewModel() {
     val isWorkerSigned = requestRepository.isWorkerSigned
     val isRequestFiled = requestRepository.isRequestFiled
-    val workerequests = requestRepository.workerRequests
+    val workerRequests = requestRepository.workerRequests
     val requestsByProject = requestRepository.requestsByProject
 
     fun createRequest(
@@ -19,10 +19,12 @@ class RequestViewModel(private val requestRepository: RequestRepository) : ViewM
     fun isWorkerSigned(workerId: Int, projectId: Int) =
         requestRepository.isWorkerSigned(workerId, projectId)
 
-    fun getWorkerRequests(workerId: Int) = requestRepository.getWokerRequests(workerId)
+    fun getWorkerRequests(workerId: Int) = requestRepository.getWorkerRequests(workerId)
 
     fun getRequestsByProject(requestStatus: Int, projectId: Int) =
         requestRepository.getRequestsByProject(requestStatus, projectId)
+
+    fun getNextRequests(workerId: Int) = requestRepository.getNextRequests(workerId)
 
     override fun onCleared() {
         requestRepository.clearDisposable()
