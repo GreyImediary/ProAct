@@ -9,6 +9,7 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.proact.poject.serku.proact.*
+import com.proact.poject.serku.proact.data.Project
 import com.proact.poject.serku.proact.ui.adapters.ProjectsAdapter
 import com.proact.poject.serku.proact.ui.adapters.WorkerRequestsAdapter
 import com.proact.poject.serku.proact.viewmodels.ProjectViewModel
@@ -46,7 +47,6 @@ class MainMyProjectsFragment : Fragment() {
         }
 
 
-
         layout.myProjectsTabs.onSelected(
             onReselect = { getDataByUserGroupAndTab(userGroup, it?.position, userId) },
             onSelect = { getDataByUserGroupAndTab(userGroup, it?.position, userId) }
@@ -58,26 +58,23 @@ class MainMyProjectsFragment : Fragment() {
         })
 
         projectViewModel.curatorActiveProjects.observe(this, Observer {
-            curatorActivewProjectsAdapter.submitList(it)
-            curatorActivewProjectsAdapter.notifyDataSetChanged()
+            submitProjectData(curatorActivewProjectsAdapter, it)
         })
 
         projectViewModel.curatorFinishedProjects.observe(this, Observer {
-            curatorFinishedProjectsAdapter.submitList(it)
-            curatorFinishedProjectsAdapter.notifyDataSetChanged()
+            submitProjectData(curatorFinishedProjectsAdapter, it)
         })
 
         projectViewModel.curatoRequestProjects.observe(this, Observer {
-            curatorRequestsProjectAdapter.submitList(it)
-            curatorRequestsProjectAdapter.notifyDataSetChanged()
+            submitProjectData(curatorRequestsProjectAdapter, it)
         })
 
         projectViewModel.activeUserProjects.observe(this, Observer {
-            workerActiveProjects.submitList(it)
+            submitProjectData(workerActiveProjects, it)
         })
 
         projectViewModel.finishedUserProjects.observe(this, Observer {
-            workerFinishedProjects.submitList(it)
+            submitProjectData(workerFinishedProjects, it)
         })
 
         projectViewModel.loadingStatus.observe(this, Observer {
@@ -95,6 +92,16 @@ class MainMyProjectsFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
 
         myProjectsTabs.getTabAt(0)?.select()
+    }
+
+    private fun submitProjectData(adapter: ProjectsAdapter, projectData: List<Project>) {
+        if (projectData.isEmpty()) {
+            activity?.noProjectText?.visibility = View.VISIBLE
+        } else {
+            adapter.submitList(projectData)
+            adapter.notifyDataSetChanged()
+            activity?.noProjectText?.visibility = View.INVISIBLE
+        }
     }
 
     private fun getDataByUserGroupAndTab(userGroup: Int, tabPosition: Int?, userId: Int) {
