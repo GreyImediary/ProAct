@@ -60,8 +60,14 @@ class DetailedProjectActivity : AppCompatActivity() {
             projectQuantityText.text = getString(R.string.project_quantity, freeQunatity, qunatity)
 
             val deadlineDate =
-                "${it.signingDeadline[Calendar.DAY_OF_MONTH]}.${it.signingDeadline[Calendar.MONTH]}.${it.signingDeadline[Calendar.YEAR]}"
+                "${it.signingDeadline[Calendar.DAY_OF_MONTH].toDateString()}." +
+                        "${it.signingDeadline[Calendar.MONTH].toDateString()}.${it.signingDeadline[Calendar.YEAR].toDateString()}"
             projectDeadlineText.text = getString(R.string.project_deadline, deadlineDate)
+
+            val finishDate =
+                "${it.projectDeadline[Calendar.DAY_OF_MONTH].toDateString()}." +
+                        "${it.projectDeadline[Calendar.MONTH].toDateString()}.${it.projectDeadline[Calendar.YEAR]}"
+            projectFinishDateText.text = getString(R.string.project_finish_date, finishDate)
 
             val status = when (it.status) {
                 0 -> "На рассмотрении администратора"

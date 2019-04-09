@@ -60,6 +60,14 @@
             tools:text="Запись до: 24.08.1902" />
 
         <TextView
+            android:id="@+id/projectFinishDateText"
+            style="@style/TextAppearance.MaterialComponents.Body1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/smallPadding"
+            tools:text="Конец проекта1: 24.08.1902" />
+
+        <TextView
             android:id="@+id/projectStatusText"
             style="@style/TextAppearance.MaterialComponents.Body1"
             android:layout_width="wrap_content"

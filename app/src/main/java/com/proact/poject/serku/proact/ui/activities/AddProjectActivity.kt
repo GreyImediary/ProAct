@@ -52,7 +52,7 @@ class AddProjectActivity : AppCompatActivity() {
             dateDialog.dateListener = { year, month, day ->
 
                 val rightMonth = if (month < 10) "0${month + 1}" else "${month + 1}"
-                val rightDay =  if (day < 10) "0${day + 1}" else "${day + 1}"
+                val rightDay =  if (day < 10) "0$day" else "$day"
 
                 val deadlineString = "$year-$rightMonth-$rightDay"
                 addProjectDeadlineEdit.setText(deadlineString, TextView.BufferType.EDITABLE)
@@ -73,7 +73,7 @@ class AddProjectActivity : AppCompatActivity() {
             dateDialog.calendar = finishProjectDate
             dateDialog.dateListener = { year, month, day ->
                 val rightMonth = if (month < 10) "0${month + 1}" else "${month + 1}"
-                val rightDay =  if (day < 10) "0${day + 1}" else "${day + 1}"
+                val rightDay =  if (day < 10) "0$day" else "$day"
 
                 val finishDateString = "$year-$rightMonth-$rightDay"
                 addProjectFinishEdit.setText(finishDateString, TextView.BufferType.EDITABLE)
@@ -121,7 +121,11 @@ class AddProjectActivity : AppCompatActivity() {
                 addProjectTeamsEdit.text.toString().toInt() > 10 -> toast(getString(R.string.project_teams_overflow_error))
 
                 addProjectDeadlineEdit.text.toString() >
+                        addProjectFinishEdit.text.toString() ||
+                addProjectDeadlineEdit.text.toString() ==
                         addProjectFinishEdit.text.toString() -> toast(getString(R.string.project_dates_error))
+
+
 
                 else -> {
                     val tags = tagSet.joinToString(separator = ",")

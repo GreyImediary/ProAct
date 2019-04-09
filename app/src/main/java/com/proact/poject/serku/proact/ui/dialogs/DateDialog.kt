@@ -7,7 +7,7 @@ import androidx.fragment.app.DialogFragment
 import java.util.*
 
 class DateDialog : DialogFragment() {
-    var calendar = Calendar.getInstance()
+    var calendar: Calendar = Calendar.getInstance()
     lateinit var dateListener: (year: Int, month: Int, day: Int) -> Unit
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
@@ -22,6 +22,7 @@ class DateDialog : DialogFragment() {
 
         return DatePickerDialog(activity!!, listener, year, month, day).apply {
             datePicker.minDate = calendar.timeInMillis
+            datePicker.maxDate = (calendar.timeInMillis + 15778800000)
         }
     }
 }
