@@ -125,8 +125,6 @@ class AddProjectActivity : AppCompatActivity() {
                 addProjectDeadlineEdit.text.toString() ==
                         addProjectFinishEdit.text.toString() -> toast(getString(R.string.project_dates_error))
 
-
-
                 else -> {
                     val tags = tagSet.joinToString(separator = ",")
                     val curatorId = prefernces.getInt(CURRENT_USER_ID_PREF, -1)

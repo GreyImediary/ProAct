@@ -86,7 +86,6 @@ class DetailedProjectActivity : AppCompatActivity() {
             }
 
             if (userGroup == 1) {
-                Log.i("jj", "$userId $projectId")
                 requestViewModel.isWorkerSigned(userId, projectId)
             }
         })
