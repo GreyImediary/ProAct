@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.proact.poject.serku.proact.*
 import com.proact.poject.serku.proact.data.Project
+import com.proact.poject.serku.proact.data.Request
 import com.proact.poject.serku.proact.ui.adapters.ProjectsAdapter
 import com.proact.poject.serku.proact.ui.adapters.WorkerRequestsAdapter
 import com.proact.poject.serku.proact.viewmodels.ProjectViewModel
@@ -53,8 +54,7 @@ class MainMyProjectsFragment : Fragment() {
         )
 
         requestViewModel.workerRequests.observe(this, Observer {
-            requestAdapter.submitList(it)
-            requestAdapter.notifyDataSetChanged()
+            submitWorkerRequestData(requestAdapter, it)
         })
 
         projectViewModel.curatorActiveProjects.observe(this, Observer {
@@ -78,11 +78,11 @@ class MainMyProjectsFragment : Fragment() {
         })
 
         projectViewModel.loadingStatus.observe(this, Observer {
-            if (it) {
-                progressBar?.visibility = View.VISIBLE
-            } else {
-                progressBar?.visibility = View.INVISIBLE
-            }
+            showProgress(it)
+        })
+
+        requestViewModel.loadingStatus.observe(this, Observer {
+            showProgress(it)
         })
 
         return layout
@@ -95,6 +95,16 @@ class MainMyProjectsFragment : Fragment() {
     }
 
     private fun submitProjectData(adapter: ProjectsAdapter, projectData: List<Project>) {
+        if (projectData.isEmpty()) {
+            activity?.noProjectText?.visibility = View.VISIBLE
+        } else {
+            adapter.submitList(projectData)
+            adapter.notifyDataSetChanged()
+            activity?.noProjectText?.visibility = View.INVISIBLE
+        }
+    }
+
+    private fun submitWorkerRequestData(adapter: WorkerRequestsAdapter, projectData: List<Request>) {
         if (projectData.isEmpty()) {
             activity?.noProjectText?.visibility = View.VISIBLE
         } else {
@@ -192,5 +202,13 @@ class MainMyProjectsFragment : Fragment() {
 
         myProjectsRv.addOnScrollListener(onScrollListener!!)
 
+    }
+
+    private fun showProgress(isLoading: Boolean) {
+        if (isLoading) {
+            progressBar?.visibility = View.VISIBLE
+        } else {
+            progressBar?.visibility = View.INVISIBLE
+        }
     }
 }

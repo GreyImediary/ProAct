@@ -8,6 +8,7 @@ class RequestViewModel(private val requestRepository: RequestRepository) : ViewM
     val isRequestFiled = requestRepository.isRequestFiled
     val workerRequests = requestRepository.workerRequests
     val requestsByProject = requestRepository.requestsByProject
+    val loadingStatus = requestRepository.loadingStatus
 
     fun createRequest(
         workerId: Int,

@@ -15,6 +15,7 @@ class RequestRepository(private val requestsApi: RequestsApi) {
     val isRequestFiled = MutableLiveData<Boolean>()
     val workerRequests = MutableLiveData<MutableList<Request>>()
     val requestsByProject = MutableLiveData<List<Request>>()
+    val loadingStatus = MutableLiveData<Boolean>()
 
     private val dispodable = CompositeDisposable()
 
@@ -53,6 +54,7 @@ class RequestRepository(private val requestsApi: RequestsApi) {
     }
 
     fun getWorkerRequests(workerId: Int) {
+        loadingStatus.postValue(true)
         val subscription = requestsApi.getWorkerRequests(workerId, page, perPage)
             .subscribeOn(Schedulers.io())
             .map {
@@ -67,6 +69,7 @@ class RequestRepository(private val requestsApi: RequestsApi) {
 
                 requestList.map { rowRequest -> getRequestFromMap(rowRequest) }
             }
+            .doOnComplete { loadingStatus.postValue(false) }
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeBy(
                 onNext = {
