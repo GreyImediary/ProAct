@@ -11,8 +11,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.proact.poject.serku.proact.*
 import com.proact.poject.serku.proact.data.Project
 import com.proact.poject.serku.proact.data.Request
-import com.proact.poject.serku.proact.ui.adapters.ProjectsAdapter
-import com.proact.poject.serku.proact.ui.adapters.WorkerRequestsAdapter
+import com.proact.poject.serku.proact.ui.adapters.projectAdapter.ProjectsAdapter
+import com.proact.poject.serku.proact.ui.adapters.requestsAdapters.WorkerRequestsAdapter
 import com.proact.poject.serku.proact.viewmodels.ProjectViewModel
 import com.proact.poject.serku.proact.viewmodels.RequestViewModel
 import kotlinx.android.synthetic.main.activity_main.*
@@ -23,12 +23,18 @@ import org.koin.android.viewmodel.ext.android.sharedViewModel
 class MainMyProjectsFragment : Fragment() {
     private val projectViewModel: ProjectViewModel by sharedViewModel()
     private val requestViewModel: RequestViewModel by sharedViewModel()
-    private val curatorActivewProjectsAdapter = ProjectsAdapter()
-    private val curatorFinishedProjectsAdapter = ProjectsAdapter()
-    private val curatorRequestsProjectAdapter = ProjectsAdapter()
-    private val requestAdapter = WorkerRequestsAdapter()
-    private val workerActiveProjects = ProjectsAdapter()
-    private val workerFinishedProjects = ProjectsAdapter()
+    private val curatorActivewProjectsAdapter =
+        ProjectsAdapter()
+    private val curatorFinishedProjectsAdapter =
+        ProjectsAdapter()
+    private val curatorRequestsProjectAdapter =
+        ProjectsAdapter()
+    private val requestAdapter =
+        WorkerRequestsAdapter()
+    private val workerActiveProjects =
+        ProjectsAdapter()
+    private val workerFinishedProjects =
+        ProjectsAdapter()
     private var onScrollListener: RecyclerView.OnScrollListener? = null
 
     override fun onCreateView(

@@ -9,7 +9,7 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.proact.poject.serku.proact.R
-import com.proact.poject.serku.proact.ui.adapters.ProjectsAdapter
+import com.proact.poject.serku.proact.ui.adapters.projectAdapter.ProjectsAdapter
 import com.proact.poject.serku.proact.viewmodels.ProjectViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_projects.view.*

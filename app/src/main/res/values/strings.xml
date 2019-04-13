@@ -86,6 +86,7 @@
     <string name="project_request_created">Заявка на проект подана</string>
     <string name="project_request_exist">Заявка уже подана</string>
     <string name="profile">Профиль</string>
+    <string name="project_requests">Заявки на проект</string>
 
     <!--add projects screen strings-->
     <string name="project_title_hint">Название проекта</string>
@@ -125,6 +126,10 @@
     <!--requetsts string-->
     <string name="request_role">Роль: %s</string>
     <string name="request_status">Статус: %s</string>
+    <string name="request_project">Проект: %s</string>
+    <string name="request_accept_button">Принять</string>
+    <string name="request_decilne_button">Отклонить</string>
+    <string name="no_requests_text">Заявок на проект пока нет</string>
 
     <!--tab titles strings-->
     <string name="tab_active">Активные</string>

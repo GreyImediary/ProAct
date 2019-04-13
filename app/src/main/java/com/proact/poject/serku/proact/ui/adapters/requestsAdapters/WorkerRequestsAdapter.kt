@@ -1,4 +1,4 @@
-package com.proact.poject.serku.proact.ui.adapters
+package com.proact.poject.serku.proact.ui.adapters.requestsAdapters
 
 import android.content.Intent
 import android.view.View
@@ -13,9 +13,13 @@ import com.proact.poject.serku.proact.ui.activities.DetailedProjectActivity
 import kotlinx.android.synthetic.main.item_worker_request.view.*
 
 class WorkerRequestsAdapter
-    : ListAdapter<Request, WorkerRequestsAdapter.ViewHolder>(RequestDiffCallback()) {
+    : ListAdapter<Request, WorkerRequestsAdapter.ViewHolder>(
+    RequestDiffCallback()
+) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
-        ViewHolder(parent.inflate(R.layout.item_worker_request))
+        ViewHolder(
+            parent.inflate(R.layout.item_worker_request)
+        )
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) = holder.bind(getItem(position))
 

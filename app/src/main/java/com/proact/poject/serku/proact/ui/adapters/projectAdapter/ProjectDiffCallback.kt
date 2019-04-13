@@ -1,4 +1,4 @@
-package com.proact.poject.serku.proact.ui.adapters
+package com.proact.poject.serku.proact.ui.adapters.projectAdapter
 
 import androidx.recyclerview.widget.DiffUtil
 import com.proact.poject.serku.proact.data.Project
