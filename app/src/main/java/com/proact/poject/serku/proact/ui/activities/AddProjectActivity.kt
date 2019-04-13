@@ -14,6 +14,7 @@ import io.reactivex.rxkotlin.Observables
 import kotlinx.android.synthetic.main.content_add_project.*
 import kotlinx.android.synthetic.main.tag_item.view.*
 import org.koin.android.viewmodel.ext.android.viewModel
+import java.util.*
 
 class AddProjectActivity : AppCompatActivity() {
     private val disposable = CompositeDisposable()
@@ -23,8 +24,11 @@ class AddProjectActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.content_add_project)
 
+        val finishProjectDate = Calendar.getInstance()
+
         val tagSet = mutableSetOf<String>()
-        var deadlineString: String
+
+
 
         val prefernces = applicationContext.getSharedPreferences(SHARED_PREF_NAME, 0)
 
@@ -32,6 +36,8 @@ class AddProjectActivity : AppCompatActivity() {
             addProjectTitleInput.editEmptyObservable(getString(R.string.project_title_error))
         val projectDeadlineError =
             addProjectDeadlineInput.editEmptyObservable(getString(R.string.project_deadline_error))
+        val projectFinishDateError =
+            addProjectFinishInput.editEmptyObservable(getString(R.string.poject_finish_date_error))
         val projectSpecError =
             addProjectSpecsInput.editEmptyObservable(getString(R.string.project_specs_error))
         val projectTeamsError =
@@ -39,18 +45,42 @@ class AddProjectActivity : AppCompatActivity() {
         val projectAboutError =
             addProjectAboutInput.editEmptyObservable(getString(R.string.project_about_error))
 
+
         addProjectDeadlineEdit.setOnClickListener {
             val dateDialog = DateDialog()
 
             dateDialog.dateListener = { year, month, day ->
 
                 val rightMonth = if (month < 10) "0${month + 1}" else "${month + 1}"
+                val rightDay =  if (day < 10) "0$day" else "$day"
 
-                deadlineString = "$year-$rightMonth-$day"
+                val deadlineString = "$year-$rightMonth-$rightDay"
                 addProjectDeadlineEdit.setText(deadlineString, TextView.BufferType.EDITABLE)
+
+                finishProjectDate.let {
+                    it[Calendar.YEAR] = year
+                    it[Calendar.MONTH] = month
+                    it[Calendar.DAY_OF_MONTH] = day
+                }
             }
 
             dateDialog.show(supportFragmentManager, "date")
+        }
+
+        addProjectFinishEdit.setOnClickListener {
+           val dateDialog = DateDialog()
+
+            dateDialog.calendar = finishProjectDate
+            dateDialog.dateListener = { year, month, day ->
+                val rightMonth = if (month < 10) "0${month + 1}" else "${month + 1}"
+                val rightDay =  if (day < 10) "0$day" else "$day"
+
+                val finishDateString = "$year-$rightMonth-$rightDay"
+                addProjectFinishEdit.setText(finishDateString, TextView.BufferType.EDITABLE)
+            }
+
+            dateDialog.show(supportFragmentManager, "date")
+
         }
 
         addTagsButton.setOnClickListener {
@@ -85,8 +115,16 @@ class AddProjectActivity : AppCompatActivity() {
         addProjectButton.setOnClickListener {
             when {
                 tagSet.isEmpty() -> toast(getString(R.string.poject_empty_tags_error))
+
                 addProjectSpecsEdit.text.toString().split(",").size > 10 -> toast(getString(R.string.project_specs_overflow_error))
+
                 addProjectTeamsEdit.text.toString().toInt() > 10 -> toast(getString(R.string.project_teams_overflow_error))
+
+                addProjectDeadlineEdit.text.toString() >
+                        addProjectFinishEdit.text.toString() ||
+                addProjectDeadlineEdit.text.toString() ==
+                        addProjectFinishEdit.text.toString() -> toast(getString(R.string.project_dates_error))
+
                 else -> {
                     val tags = tagSet.joinToString(separator = ",")
                     val curatorId = prefernces.getInt(CURRENT_USER_ID_PREF, -1)
@@ -109,11 +147,12 @@ class AddProjectActivity : AppCompatActivity() {
             Observables.combineLatest(
                 projectTitleError,
                 projectDeadlineError,
+                projectFinishDateError,
                 projectSpecError,
                 projectTeamsError,
                 projectAboutError
-            ) { title, deadline, specs, teams, about ->
-                title && deadline && specs && teams && about
+            ) { title, deadline, finishDate, specs, teams, about ->
+                title && deadline && finishDate && specs && teams && about
             }.subscribe {
                 addProjectButton.isEnabled = it
             }
@@ -128,6 +167,7 @@ class AddProjectActivity : AppCompatActivity() {
     private fun createProject(curatorId: Int, tags: String) {
         val title = addProjectTitleEdit.text.toString()
         val deadlineString = addProjectDeadlineEdit.text.toString()
+        val finishDateString = addProjectFinishEdit.text.toString()
         val aboutProject = addProjectAboutEdit.text.toString()
 
         val specs = addProjectSpecsEdit.text.toString()
@@ -138,6 +178,7 @@ class AddProjectActivity : AppCompatActivity() {
             title,
             aboutProject,
             deadlineString,
+            finishDateString,
             curatorId,
             teamsJson,
             tags

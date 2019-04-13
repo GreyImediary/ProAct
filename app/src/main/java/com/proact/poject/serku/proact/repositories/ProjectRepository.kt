@@ -63,12 +63,13 @@ class ProjectRepository(
         title: String,
         description: String,
         deadlineDate: String,
+        finishDate: String,
         curatorId: Int,
         members: String,
         tags: String
     ) {
         val subsciption =
-            projectApi.createProject(title, description, deadlineDate, curatorId, members, tags)
+            projectApi.createProject(title, description, deadlineDate, finishDate, curatorId, members, tags)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeBy(

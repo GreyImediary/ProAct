@@ -1,4 +1,4 @@
-package com.proact.poject.serku.proact.ui.adapters
+package com.proact.poject.serku.proact.ui.adapters.projectAdapter
 
 import android.content.Intent
 import android.view.View
@@ -16,9 +16,15 @@ import com.proact.poject.serku.proact.ui.activities.DetailedProjectActivity
 import kotlinx.android.synthetic.main.item_project.view.*
 
 class ProjectsAdapter
-    : ListAdapter<Project, ProjectsAdapter.ViewHolder>(ProjectDiffCallback()) {
+    : ListAdapter<Project, ProjectsAdapter.ViewHolder>(
+    ProjectDiffCallback()
+) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder =
-        ViewHolder(parent.inflate(R.layout.item_project))
+        ViewHolder(
+            parent.inflate(
+                R.layout.item_project
+            )
+        )
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val project = getItem(position)

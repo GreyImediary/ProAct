@@ -1,7 +1,7 @@
 package com.proact.poject.serku.proact.ui.activities
 
+import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
@@ -60,8 +60,14 @@ class DetailedProjectActivity : AppCompatActivity() {
             projectQuantityText.text = getString(R.string.project_quantity, freeQunatity, qunatity)
 
             val deadlineDate =
-                "${it.signingDeadline[Calendar.DAY_OF_MONTH]}.${it.signingDeadline[Calendar.MONTH]}.${it.signingDeadline[Calendar.YEAR]}"
+                "${it.signingDeadline[Calendar.DAY_OF_MONTH].toDateString()}." +
+                        "${it.signingDeadline[Calendar.MONTH].toDateString()}.${it.signingDeadline[Calendar.YEAR].toDateString()}"
             projectDeadlineText.text = getString(R.string.project_deadline, deadlineDate)
+
+            val finishDate =
+                "${it.projectDeadline[Calendar.DAY_OF_MONTH].toDateString()}." +
+                        "${it.projectDeadline[Calendar.MONTH].toDateString()}.${it.projectDeadline[Calendar.YEAR]}"
+            projectFinishDateText.text = getString(R.string.project_finish_date, finishDate)
 
             val status = when (it.status) {
                 0 -> "На рассмотрении администратора"
@@ -80,8 +86,19 @@ class DetailedProjectActivity : AppCompatActivity() {
             }
 
             if (userGroup == 1) {
-                Log.i("jj", "$userId $projectId")
                 requestViewModel.isWorkerSigned(userId, projectId)
+            }
+
+            if (userGroup == 2 && userId == it.curator.id) {
+                projectRequestsButton.visibility = View.VISIBLE
+            }
+
+            projectRequestsButton.setOnClickListener { view ->
+                val intent  = Intent(this, ProjectRequestsActivity::class.java).apply {
+                    putExtra(POJECT_ID, it.id)
+                }
+
+                startActivity(intent)
             }
         })
 

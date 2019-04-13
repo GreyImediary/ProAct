@@ -38,13 +38,35 @@
             android:hint="@string/project_deadline_hint"
             app:errorEnabled="true"
             android:layout_marginTop="@dimen/smallPadding"
-            app:layout_constraintBottom_toTopOf="@id/addProjectSpecsInput"
+            app:layout_constraintBottom_toTopOf="@id/addProjectFinishInput"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/addProjectTitleInput">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/addProjectDeadlineEdit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusableInTouchMode="false"
+                android:imeOptions="actionNext"
+                android:inputType="date" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/addProjectFinishInput"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="@string/project_finish_date_hint"
+            app:errorEnabled="true"
+            android:layout_marginTop="@dimen/smallPadding"
+            app:layout_constraintBottom_toTopOf="@id/addProjectSpecsInput"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/addProjectDeadlineInput">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/addProjectFinishEdit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:focusableInTouchMode="false"
@@ -64,7 +86,7 @@
             app:layout_constraintBottom_toTopOf="@id/addProjectTeamsInput"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/addProjectDeadlineInput">
+            app:layout_constraintTop_toBottomOf="@id/addProjectFinishInput">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/addProjectSpecsEdit"

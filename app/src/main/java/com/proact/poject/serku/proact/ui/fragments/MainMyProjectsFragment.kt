@@ -9,8 +9,10 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.proact.poject.serku.proact.*
-import com.proact.poject.serku.proact.ui.adapters.ProjectsAdapter
-import com.proact.poject.serku.proact.ui.adapters.WorkerRequestsAdapter
+import com.proact.poject.serku.proact.data.Project
+import com.proact.poject.serku.proact.data.Request
+import com.proact.poject.serku.proact.ui.adapters.projectAdapter.ProjectsAdapter
+import com.proact.poject.serku.proact.ui.adapters.requestsAdapters.WorkerRequestsAdapter
 import com.proact.poject.serku.proact.viewmodels.ProjectViewModel
 import com.proact.poject.serku.proact.viewmodels.RequestViewModel
 import kotlinx.android.synthetic.main.activity_main.*
@@ -21,12 +23,18 @@ import org.koin.android.viewmodel.ext.android.sharedViewModel
 class MainMyProjectsFragment : Fragment() {
     private val projectViewModel: ProjectViewModel by sharedViewModel()
     private val requestViewModel: RequestViewModel by sharedViewModel()
-    private val curatorActivewProjectsAdapter = ProjectsAdapter()
-    private val curatorFinishedProjectsAdapter = ProjectsAdapter()
-    private val curatorRequestsProjectAdapter = ProjectsAdapter()
-    private val requestAdapter = WorkerRequestsAdapter()
-    private val workerActiveProjects = ProjectsAdapter()
-    private val workerFinishedProjects = ProjectsAdapter()
+    private val curatorActivewProjectsAdapter =
+        ProjectsAdapter()
+    private val curatorFinishedProjectsAdapter =
+        ProjectsAdapter()
+    private val curatorRequestsProjectAdapter =
+        ProjectsAdapter()
+    private val requestAdapter =
+        WorkerRequestsAdapter()
+    private val workerActiveProjects =
+        ProjectsAdapter()
+    private val workerFinishedProjects =
+        ProjectsAdapter()
     private var onScrollListener: RecyclerView.OnScrollListener? = null
 
     override fun onCreateView(
@@ -46,46 +54,41 @@ class MainMyProjectsFragment : Fragment() {
         }
 
 
-
         layout.myProjectsTabs.onSelected(
             onReselect = { getDataByUserGroupAndTab(userGroup, it?.position, userId) },
             onSelect = { getDataByUserGroupAndTab(userGroup, it?.position, userId) }
         )
 
         requestViewModel.workerRequests.observe(this, Observer {
-            requestAdapter.submitList(it)
-            requestAdapter.notifyDataSetChanged()
+            submitWorkerRequestData(requestAdapter, it)
         })
 
         projectViewModel.curatorActiveProjects.observe(this, Observer {
-            curatorActivewProjectsAdapter.submitList(it)
-            curatorActivewProjectsAdapter.notifyDataSetChanged()
+            submitProjectData(curatorActivewProjectsAdapter, it)
         })
 
         projectViewModel.curatorFinishedProjects.observe(this, Observer {
-            curatorFinishedProjectsAdapter.submitList(it)
-            curatorFinishedProjectsAdapter.notifyDataSetChanged()
+            submitProjectData(curatorFinishedProjectsAdapter, it)
         })
 
         projectViewModel.curatoRequestProjects.observe(this, Observer {
-            curatorRequestsProjectAdapter.submitList(it)
-            curatorRequestsProjectAdapter.notifyDataSetChanged()
+            submitProjectData(curatorRequestsProjectAdapter, it)
         })
 
         projectViewModel.activeUserProjects.observe(this, Observer {
-            workerActiveProjects.submitList(it)
+            submitProjectData(workerActiveProjects, it)
         })
 
         projectViewModel.finishedUserProjects.observe(this, Observer {
-            workerFinishedProjects.submitList(it)
+            submitProjectData(workerFinishedProjects, it)
         })
 
         projectViewModel.loadingStatus.observe(this, Observer {
-            if (it) {
-                progressBar?.visibility = View.VISIBLE
-            } else {
-                progressBar?.visibility = View.INVISIBLE
-            }
+            showProgress(it)
+        })
+
+        requestViewModel.loadingStatus.observe(this, Observer {
+            showProgress(it)
         })
 
         return layout
@@ -95,6 +98,26 @@ class MainMyProjectsFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
 
         myProjectsTabs.getTabAt(0)?.select()
+    }
+
+    private fun submitProjectData(adapter: ProjectsAdapter, projectData: List<Project>) {
+        if (projectData.isEmpty()) {
+            activity?.noProjectText?.visibility = View.VISIBLE
+        } else {
+            adapter.submitList(projectData)
+            adapter.notifyDataSetChanged()
+            activity?.noProjectText?.visibility = View.INVISIBLE
+        }
+    }
+
+    private fun submitWorkerRequestData(adapter: WorkerRequestsAdapter, projectData: List<Request>) {
+        if (projectData.isEmpty()) {
+            activity?.noProjectText?.visibility = View.VISIBLE
+        } else {
+            adapter.submitList(projectData)
+            adapter.notifyDataSetChanged()
+            activity?.noProjectText?.visibility = View.INVISIBLE
+        }
     }
 
     private fun getDataByUserGroupAndTab(userGroup: Int, tabPosition: Int?, userId: Int) {
@@ -185,5 +208,13 @@ class MainMyProjectsFragment : Fragment() {
 
         myProjectsRv.addOnScrollListener(onScrollListener!!)
 
+    }
+
+    private fun showProgress(isLoading: Boolean) {
+        if (isLoading) {
+            progressBar?.visibility = View.VISIBLE
+        } else {
+            progressBar?.visibility = View.INVISIBLE
+        }
     }
 }

@@ -31,6 +31,7 @@ interface ProjectApi {
         @Field("title") title: String,
         @Field("description") description: String,
         @Field("deadline") deadline: String,
+        @Field("finish_date") finishDate: String,
         @Field("curator") curatorId: Int,
         @Field("members") members: String,
         @Field("tags") tags: String

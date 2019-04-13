@@ -13,8 +13,10 @@ import io.reactivex.schedulers.Schedulers
 class RequestRepository(private val requestsApi: RequestsApi) {
     val isWorkerSigned = MutableLiveData<Boolean>()
     val isRequestFiled = MutableLiveData<Boolean>()
+    val isStatusUpdated = MutableLiveData<Boolean>()
     val workerRequests = MutableLiveData<MutableList<Request>>()
     val requestsByProject = MutableLiveData<List<Request>>()
+    val loadingStatus = MutableLiveData<Boolean>()
 
     private val dispodable = CompositeDisposable()
 
@@ -52,7 +54,20 @@ class RequestRepository(private val requestsApi: RequestsApi) {
         dispodable.add(subscription)
     }
 
+    fun updateRequestStatus(requestId: Int, status: Int) {
+        val subscription = requestsApi.updateRequestStatus(requestId, status)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeBy(
+                onNext = { isStatusUpdated.postValue(it.message == "true") },
+                onError = { Log.e("RR-uodateRequestStatus", it.message) }
+            )
+
+        dispodable.add(subscription)
+    }
+
     fun getWorkerRequests(workerId: Int) {
+        loadingStatus.postValue(true)
         val subscription = requestsApi.getWorkerRequests(workerId, page, perPage)
             .subscribeOn(Schedulers.io())
             .map {
@@ -67,6 +82,7 @@ class RequestRepository(private val requestsApi: RequestsApi) {
 
                 requestList.map { rowRequest -> getRequestFromMap(rowRequest) }
             }
+            .doOnComplete { loadingStatus.postValue(false) }
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeBy(
                 onNext = {

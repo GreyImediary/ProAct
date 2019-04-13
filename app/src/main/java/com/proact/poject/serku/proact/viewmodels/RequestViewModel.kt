@@ -8,6 +8,8 @@ class RequestViewModel(private val requestRepository: RequestRepository) : ViewM
     val isRequestFiled = requestRepository.isRequestFiled
     val workerRequests = requestRepository.workerRequests
     val requestsByProject = requestRepository.requestsByProject
+    val loadingStatus = requestRepository.loadingStatus
+    val isStatusUpdated = requestRepository.isStatusUpdated
 
     fun createRequest(
         workerId: Int,
@@ -25,6 +27,8 @@ class RequestViewModel(private val requestRepository: RequestRepository) : ViewM
         requestRepository.getRequestsByProject(requestStatus, projectId)
 
     fun getNextRequests(workerId: Int) = requestRepository.getNextRequests(workerId)
+
+    fun updateStatus(requestId: Int, status: Int) = requestRepository.updateRequestStatus(requestId, status)
 
     override fun onCleared() {
         requestRepository.clearDisposable()

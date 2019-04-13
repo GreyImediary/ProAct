@@ -30,6 +30,8 @@
         </activity>
         <activity android:name=".ui.activities.DetailedProjectActivity" />
         <activity android:name=".ui.activities.AddProjectActivity" />
+        <activity android:name=".ui.activities.ProfileActivity" />
+        <activity android:name=".ui.activities.ProjectRequestsActivity" />
     </application>
 
 </manifest>
