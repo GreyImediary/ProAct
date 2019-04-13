@@ -83,5 +83,14 @@
             android:layout_marginTop="@dimen/smallPadding"
             android:layout_marginBottom="@dimen/mediumPadding" />
 
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/projectRequestsButton"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/project_requests"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
+            android:visibility="gone" />
+
     </LinearLayout>
 </ScrollView>

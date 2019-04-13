@@ -1,7 +1,7 @@
 package com.proact.poject.serku.proact.ui.activities
 
+import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
@@ -87,6 +87,18 @@ class DetailedProjectActivity : AppCompatActivity() {
 
             if (userGroup == 1) {
                 requestViewModel.isWorkerSigned(userId, projectId)
+            }
+
+            if (userGroup == 2 && userId == it.curator.id) {
+                projectRequestsButton.visibility = View.VISIBLE
+            }
+
+            projectRequestsButton.setOnClickListener { view ->
+                val intent  = Intent(this, ProjectRequestsActivity::class.java).apply {
+                    putExtra(POJECT_ID, it.id)
+                }
+
+                startActivity(intent)
             }
         })
 

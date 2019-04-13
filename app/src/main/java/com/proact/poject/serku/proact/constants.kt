@@ -6,5 +6,14 @@ const val CURRENT_USER_EMAIL_PREF = "CURRENT_USER_EMAIL_PREF"
 const val CURRENT_USER_ID_PREF = "CURRENT_USER_ID_PREF"
 const val CURRENT_USER_USER_GROUP_PREF = "CURRENT_USER_USER_GROUP"
 
+/*common args*/
+const val CURRENT_USER_ID_ARG = "CURRENT_USER_ID"
+
 /*detailed project constant*/
 const val DETAILED_PROJECT = "DETAILED_PROJECTS"
+
+/*ProfileViewPagerFragment args*/
+const val CURRENT_ADAPTER = "CURRNET_ADAPTER"
+
+/*Project requests constants*/
+const val POJECT_ID = "PROJECT_ID"
