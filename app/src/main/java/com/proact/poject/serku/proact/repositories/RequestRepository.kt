@@ -13,6 +13,7 @@ import io.reactivex.schedulers.Schedulers
 class RequestRepository(private val requestsApi: RequestsApi) {
     val isWorkerSigned = MutableLiveData<Boolean>()
     val isRequestFiled = MutableLiveData<Boolean>()
+    val isStatusUpdated = MutableLiveData<Boolean>()
     val workerRequests = MutableLiveData<MutableList<Request>>()
     val requestsByProject = MutableLiveData<List<Request>>()
     val loadingStatus = MutableLiveData<Boolean>()
@@ -48,6 +49,18 @@ class RequestRepository(private val requestsApi: RequestsApi) {
             .subscribeBy(
                 onNext = { isWorkerSigned.postValue(it.message == "true") },
                 onError = { Log.e("RR-isWorkerSigned", it.message) }
+            )
+
+        dispodable.add(subscription)
+    }
+
+    fun updateRequestStatus(requestId: Int, status: Int) {
+        val subscription = requestsApi.updateRequestStatus(requestId, status)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeBy(
+                onNext = { isStatusUpdated.postValue(it.message == "true") },
+                onError = { Log.e("RR-uodateRequestStatus", it.message) }
             )
 
         dispodable.add(subscription)

@@ -35,4 +35,11 @@ interface RequestsApi {
         @Query("status") requestStatus: Int,
         @Query("project") projectId: Int
     ): Observable<List<AnyMap>>
+
+
+    @POST("applications/update.php")
+    @FormUrlEncoded
+    fun updateRequestStatus(
+        @Field("id") requestId: Int,
+        @Field("status") status: Int): Observable<Response>
 }
