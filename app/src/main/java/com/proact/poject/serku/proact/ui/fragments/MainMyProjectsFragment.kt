@@ -102,21 +102,21 @@ class MainMyProjectsFragment : Fragment() {
 
     private fun submitProjectData(adapter: ProjectsAdapter, projectData: List<Project>) {
         if (projectData.isEmpty()) {
-            activity?.noProjectText?.visibility = View.VISIBLE
+            activity?.noProjectText?.show()
         } else {
             adapter.submitList(projectData)
             adapter.notifyDataSetChanged()
-            activity?.noProjectText?.visibility = View.INVISIBLE
+            activity?.noProjectText?.hide()
         }
     }
 
     private fun submitWorkerRequestData(adapter: WorkerRequestsAdapter, projectData: List<Request>) {
         if (projectData.isEmpty()) {
-            activity?.noProjectText?.visibility = View.VISIBLE
+            activity?.noProjectText?.show()
         } else {
             adapter.submitList(projectData)
             adapter.notifyDataSetChanged()
-            activity?.noProjectText?.visibility = View.INVISIBLE
+            activity?.noProjectText?.hide()
         }
     }
 
@@ -212,9 +212,9 @@ class MainMyProjectsFragment : Fragment() {
 
     private fun showProgress(isLoading: Boolean) {
         if (isLoading) {
-            progressBar?.visibility = View.VISIBLE
+            progressBar?.show()
         } else {
-            progressBar?.visibility = View.INVISIBLE
+            progressBar?.hide()
         }
     }
 }

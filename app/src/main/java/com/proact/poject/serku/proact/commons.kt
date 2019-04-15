@@ -79,3 +79,9 @@ fun TabLayout.onSelected(
 }
 
 fun Int.toDateString() = if (this < 10) "0$this" else "$this"
+
+fun View.show() { this.visibility = View.VISIBLE }
+
+fun View.hide() { this.visibility = View.INVISIBLE }
+
+fun View.expel() { this.visibility = View.GONE }
