@@ -18,6 +18,7 @@ class UserRepository(private val userApi: UserApi) {
     val allWorkers = MutableLiveData<List<User>>()
     val allCustomers = MutableLiveData<List<User>>()
     val allAdmins = MutableLiveData<List<User>>()
+    val authed = MutableLiveData<String>()
     private val disposable = CompositeDisposable()
 
     fun getUserById(id: Int) {
@@ -122,6 +123,18 @@ class UserRepository(private val userApi: UserApi) {
             .subscribeBy(
                 onNext = { userVerified.postValue(it.message == "true") },
                 onError = { Log.e("UR-verifyUser", it.message) }
+            )
+
+        disposable.add(subscription)
+    }
+
+    fun authUser(email: String, password: String) {
+        val subscription = userApi.authUser(email, password)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeBy(
+                onNext = { authed.postValue(it) },
+                onError = { Log.e("UR-authUser", it.message) }
             )
 
         disposable.add(subscription)

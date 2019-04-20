@@ -15,13 +15,25 @@ class ProjectViewModel(private val projectRepository: ProjectRepository) : ViewM
     val activeUserProjects = projectRepository.activeUserProjects
     val finishedUserProjects = projectRepository.finishedUserProjects
 
-    fun createProject(title: String,
-                      description: String,
-                      deadlineDate: String,
-                      finishDate: String,
-                      curatorId: Int,
-                      members: String,
-                      tags: String) = projectRepository.createProject(title, description, deadlineDate, finishDate, curatorId, members, tags)
+    fun createProject(
+        token: String,
+        title: String,
+        description: String,
+        deadlineDate: String,
+        finishDate: String,
+        curatorId: Int,
+        members: String,
+        tags: String
+    ) = projectRepository.createProject(
+        token,
+        title,
+        description,
+        deadlineDate,
+        finishDate,
+        curatorId,
+        members,
+        tags
+    )
 
     fun updateStatus() = projectRepository.updateStatus()
 
@@ -35,17 +47,23 @@ class ProjectViewModel(private val projectRepository: ProjectRepository) : ViewM
 
     fun getFinishedUserProjects(userInt: Int) = projectRepository.getFinishedUserProject(userInt)
 
-    fun getCuratorActiveProjects(curatorId: Int) = projectRepository.getCuratorActiveProjects(curatorId)
+    fun getCuratorActiveProjects(curatorId: Int) =
+        projectRepository.getCuratorActiveProjects(curatorId)
 
-    fun getCuratorFinishedProjects(curatorId: Int) = projectRepository.getCuratorFinishedProjects(curatorId)
+    fun getCuratorFinishedProjects(curatorId: Int) =
+        projectRepository.getCuratorFinishedProjects(curatorId)
 
-    fun getCuratorRequestProjects(curatorId: Int) = projectRepository.getCuratorRequestProjects(curatorId)
+    fun getCuratorRequestProjects(curatorId: Int) =
+        projectRepository.getCuratorRequestProjects(curatorId)
 
-    fun getNextActiveProjects(curatorId: Int) = projectRepository.getNextCuratorActiveProjects(curatorId)
+    fun getNextActiveProjects(curatorId: Int) =
+        projectRepository.getNextCuratorActiveProjects(curatorId)
 
-    fun getNextFinishedProjects(curatorId: Int) = projectRepository.getNextCuratorFinishedProjects(curatorId)
+    fun getNextFinishedProjects(curatorId: Int) =
+        projectRepository.getNextCuratorFinishedProjects(curatorId)
 
-    fun getNextRequestProjects(curatorId: Int) = projectRepository.getNextCuratorRequestProjects(curatorId)
+    fun getNextRequestProjects(curatorId: Int) =
+        projectRepository.getNextCuratorRequestProjects(curatorId)
 
     override fun onCleared() {
         projectRepository.clearDisposable()

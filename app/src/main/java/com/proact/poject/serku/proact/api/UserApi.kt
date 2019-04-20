@@ -33,6 +33,13 @@ interface UserApi {
         @Field("api_key") apiKey: String = "android"
     ): Observable<Response>
 
+    @POST("user/auth.php")
+    @FormUrlEncoded
+    fun authUser(
+        @Field("email") email: String,
+        @Field("pass") password: String
+    ): Observable<String>
+
     @POST("user/add.php")
     @FormUrlEncoded
     fun addUser(

@@ -119,6 +119,15 @@ class ApiTest : KoinTest {
     }
 
     @Test
+    fun authUser() {
+        val liveData = userRepository.authed.testObserver()
+
+        userRepository.authUser("curator@mail.ru", "123123")
+        assertThat(liveData)
+            .isNotNull()
+    }
+
+    @Test
     fun getProjectByIdTest() {
         val livedata = projectRepository.currentProject.testObserver()
 
@@ -132,8 +141,8 @@ class ApiTest : KoinTest {
     fun createProjectTest() {
         val livedata = projectRepository.isProjectCreated.testObserver()
 
-        projectRepository.createProject("RazRazzz", "Eto gachibass", "2019-05-23", "2019-05-28",
-            130, "[{\"backend\": 0, \"Frontend\": 0}]", "Web")
+        /*projectRepository.createProject("RazRazzz", "Eto gachibass", "2019-05-23", "2019-05-28",
+            130, "[{\"backend\": 0, \"Frontend\": 0}]", "Web")*/
 
         assertThat(livedata.observedValues.first())
             .isAnyOf(true, false)

@@ -7,6 +7,7 @@ class UserViewModel(private val userRepository: UserRepository) : ViewModel() {
     val isRegistered = userRepository.isRegistered
     val userAdded = userRepository.userAdded
     val userVerified = userRepository.userVerified
+    val authed = userRepository.authed
     val currentUser = userRepository.currentUser
     val allWorkers = userRepository.allWorkers
     val allCustomers = userRepository.allCustomers
@@ -25,6 +26,8 @@ class UserViewModel(private val userRepository: UserRepository) : ViewModel() {
     fun isUserRegistered(email: String) = userRepository.isUserRegistered(email)
 
     fun verifyUser(email: String, password: String) = userRepository.verifyUser(email, password)
+
+    fun authUser(email: String, password: String) = userRepository.authUser(email, password)
 
     fun addUser(name: String,
                 surname: String,

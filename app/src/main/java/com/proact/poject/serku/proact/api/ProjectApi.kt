@@ -25,9 +25,10 @@ interface ProjectApi {
     fun getUserProjects(@Query("user") userId: Int): Observable<AnyMap>
 
 
-    @POST("projects/create.php")
+    @POST("projects/create/")
     @FormUrlEncoded
     fun createProject(
+        @Header("X-Auth-Token") token: String,
         @Field("title") title: String,
         @Field("description") description: String,
         @Field("deadline") deadline: String,

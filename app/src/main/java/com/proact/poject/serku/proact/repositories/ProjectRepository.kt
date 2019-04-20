@@ -60,6 +60,7 @@ class ProjectRepository(
     private val disposable = CompositeDisposable()
 
     fun createProject(
+        token: String,
         title: String,
         description: String,
         deadlineDate: String,
@@ -69,7 +70,7 @@ class ProjectRepository(
         tags: String
     ) {
         val subsciption =
-            projectApi.createProject(title, description, deadlineDate, finishDate, curatorId, members, tags)
+            projectApi.createProject(token, title, description, deadlineDate, finishDate, curatorId, members, tags)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeBy(

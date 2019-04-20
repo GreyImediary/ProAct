@@ -1,5 +1,6 @@
 package com.proact.poject.serku.proact.ui.activities
 
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.widget.TextView
@@ -19,6 +20,7 @@ import java.util.*
 class AddProjectActivity : AppCompatActivity() {
     private val disposable = CompositeDisposable()
     private val projectViewModel: ProjectViewModel by viewModel()
+    private lateinit var preferences: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,9 +30,7 @@ class AddProjectActivity : AppCompatActivity() {
 
         val tagSet = mutableSetOf<String>()
 
-
-
-        val prefernces = applicationContext.getSharedPreferences(SHARED_PREF_NAME, 0)
+        preferences = applicationContext.getSharedPreferences(SHARED_PREF_NAME, 0)
 
         val projectTitleError =
             addProjectTitleInput.editEmptyObservable(getString(R.string.project_title_error))
@@ -127,7 +127,7 @@ class AddProjectActivity : AppCompatActivity() {
 
                 else -> {
                     val tags = tagSet.joinToString(separator = ",")
-                    val curatorId = prefernces.getInt(CURRENT_USER_ID_PREF, -1)
+                    val curatorId = preferences.getInt(CURRENT_USER_ID_PREF, -1)
 
                     createProject(curatorId, tags)
                 }
@@ -165,6 +165,8 @@ class AddProjectActivity : AppCompatActivity() {
     }
 
     private fun createProject(curatorId: Int, tags: String) {
+        val token = preferences.getString(TOKEN_PREF, "")!!
+
         val title = addProjectTitleEdit.text.toString()
         val deadlineString = addProjectDeadlineEdit.text.toString()
         val finishDateString = addProjectFinishEdit.text.toString()
@@ -175,6 +177,7 @@ class AddProjectActivity : AppCompatActivity() {
         val teamsJson = createTeamsJson(teamsNumber, specs)
 
         projectViewModel.createProject(
+            token,
             title,
             aboutProject,
             deadlineString,
