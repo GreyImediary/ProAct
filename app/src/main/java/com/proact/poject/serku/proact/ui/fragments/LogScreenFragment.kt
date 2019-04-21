@@ -75,12 +75,20 @@ class LogScreenFragment : Fragment() {
                     preferences?.edit {
                         putString(CURRENT_USER_EMAIL_PREF, emailEdit.text.toString())
                     }
+                    authUser(emailEdit, passEdit)
+
                     startActivity(Intent(activity, MainActivity::class.java))
                     activity?.finish()
                 } else {
                     activity?.toast(getString(R.string.logscreen_login_error))
                 }
                 userViewModel.userVerified.value = null
+            }
+        })
+
+        userViewModel.authed.observe(this, Observer {
+            preferences?.edit {
+                putString(TOKEN_PREF, it)
             }
         })
 
@@ -97,4 +105,10 @@ class LogScreenFragment : Fragment() {
             val password = passEdit.text.toString()
             userViewModel.verifyUser(email, password)
         }
+
+    private fun authUser(emailEdit: EditText, passEdit: EditText) {
+        val email = emailEdit.text.toString()
+        val password = passEdit.text.toString()
+        userViewModel.authUser(email, password)
+    }
 }

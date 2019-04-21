@@ -90,7 +90,7 @@ class DetailedProjectActivity : AppCompatActivity() {
             }
 
             if (userGroup == 2 && userId == it.curator.id) {
-                projectRequestsButton.visibility = View.VISIBLE
+                projectRequestsButton.show()
             }
 
             projectRequestsButton.setOnClickListener { view ->
@@ -104,9 +104,9 @@ class DetailedProjectActivity : AppCompatActivity() {
 
         projectViewModel.loadingStatus.observe(this, Observer {
             if (it) {
-                progressBar.visibility = View.VISIBLE
+                progressBar.show()
             } else {
-                progressBar.visibility = View.GONE
+                progressBar.expel()
             }
         })
 
@@ -164,14 +164,14 @@ class DetailedProjectActivity : AppCompatActivity() {
             val memberText = getString(R.string.member_text, memberOfTeam.spec, memberName)
             memberLayout.member.text = memberText
 
-            memberLayout.memberProfileButton.visibility = View.VISIBLE
-            memberLayout.memberSignButton.visibility = View.INVISIBLE
+            memberLayout.memberProfileButton.show()
+            memberLayout.memberSignButton.hide()
         } else {
             val memberText = getString(R.string.member_text, memberOfTeam.spec, "Свободно")
             memberLayout.member.text = memberText
 
-            memberLayout.memberSignButton.visibility = View.VISIBLE
-            memberLayout.memberProfileButton.visibility = View.INVISIBLE
+            memberLayout.memberSignButton.show()
+            memberLayout.memberProfileButton.hide()
         }
 
         memberLayout.memberSignButton.setOnClickListener {
@@ -183,17 +183,17 @@ class DetailedProjectActivity : AppCompatActivity() {
         }
 
         if (userGroup != 1) {
-            memberLayout.memberSignButton.visibility = View.INVISIBLE
+            memberLayout.memberSignButton.hide()
         }
 
         disposable.add(requestObservable
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe {
                 if (it) {
-                    memberLayout.memberSignButton.visibility = View.INVISIBLE
+                    memberLayout.memberSignButton.hide()
                 } else {
                     if (it) {
-                        memberLayout.memberSignButton.visibility = View.VISIBLE
+                        memberLayout.memberSignButton.show()
                     }
                 }
             })

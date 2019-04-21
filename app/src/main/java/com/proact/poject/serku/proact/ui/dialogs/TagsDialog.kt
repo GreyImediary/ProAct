@@ -5,23 +5,27 @@ import android.app.Dialog
 import android.os.Bundle
 import androidx.fragment.app.DialogFragment
 import com.proact.poject.serku.proact.R
+import com.proact.poject.serku.proact.data.Tag
 
 class TagsDialog : DialogFragment() {
     lateinit var positiveButtonListener: () -> Unit
-    val tagsList = mutableListOf<String>()
+    lateinit var tags: MutableList<Tag>
+    val checkedTags = mutableListOf<String>()
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val builder = AlertDialog.Builder(activity)
 
-        builder.setTitle(R.string.tags_dialog_title)
-            .setMultiChoiceItems(R.array.tags_array, null
-            ) { _, checkboxNumber, isChecked ->
-                val title = getTagString(checkboxNumber)
+        val tagStrings = tags.map { "${it.category} | ${it.value}" }.toTypedArray()
 
-                if (isChecked && !tagsList.contains(title)) {
-                    tagsList.add(title)
+        builder.setTitle(R.string.tags_dialog_title)
+            .setMultiChoiceItems(tagStrings, null
+            ) { _, checkboxNumber, isChecked ->
+                val tag = tags[checkboxNumber].value
+
+                if (isChecked && !checkedTags.contains(tag)) {
+                    checkedTags.add(tag)
                 } else if (!isChecked) {
-                    tagsList.remove(title)
+                    checkedTags.remove(tag)
                 }
             }
             .setPositiveButton(R.string.ok_button) { _, _ ->
@@ -29,16 +33,5 @@ class TagsDialog : DialogFragment() {
             }
 
         return builder.create()
-    }
-
-    private fun getTagString(checkBoxNumber: Int) = when (checkBoxNumber) {
-        0 -> "Фронтенд"
-        1 -> "Бэкенд"
-        2 -> "Веб-дизайн"
-        3 -> "Andorid"
-        4 -> "IOS-разработка"
-        5 -> "Маркетинг"
-        6 -> "SMM"
-        else -> ""
     }
 }

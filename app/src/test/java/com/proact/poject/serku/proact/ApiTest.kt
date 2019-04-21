@@ -29,7 +29,7 @@ class ApiTest : KoinTest {
     @get:Rule
     val rxSchedulerRule = RxSchedulerRule()
 
-    
+
     private val userRepository: UserRepository by inject()
     private val projectRepository: ProjectRepository by inject()
     private val requestRepository: RequestRepository by inject()
@@ -94,7 +94,8 @@ class ApiTest : KoinTest {
     @Test
     fun addUserTest() {
         val liveData = userRepository.userAdded.testObserver()
-        userRepository.addUser("Test rep",
+        userRepository.addUser(
+            "Test rep",
             "Test ret last",
             "",
             "jja@mail.ru",
@@ -103,7 +104,8 @@ class ApiTest : KoinTest {
             "171-333",
             "",
             1,
-            "")
+            ""
+        )
 
         assertThat(liveData.observedValues.first())
             .isAnyOf(true, false)
@@ -116,6 +118,23 @@ class ApiTest : KoinTest {
         userRepository.verifyUser("testaaa@mail.ru", "testPasswrod")
         assertThat(liveData.observedValues.first())
             .isTrue()
+    }
+
+    @Test
+    fun authUser() {
+        val liveData = userRepository.authed.testObserver()
+
+        userRepository.authUser("curator@mail.ru", "123123")
+        assertThat(liveData)
+            .isNotNull()
+    }
+
+    @Test
+    fun fetchTagsTest() {
+        userRepository.fetchTags("eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE1NTU3Njk3MTgsInVwZCI6MTU1NTc2OTcxOCwiaXNzIjoiaHR0cDpcL1wvbmV3LnN0ZC0yNDcuaXN0Lm1vc3BvbHl0ZWNoLnJ1IiwiZXhwIjoxNTU1ODU2MTE4LCJkYXRhIjp7ImVtYWlsIjoiY3VyYXRvckBtYWlsLnJ1IiwidXNlcmdyb3VwIjoiMiIsImlkIjoiMiJ9fQ.RHySPMU7UW-kNdaVbMVKOJzf5G9JaNodgVYedAVtxBPI91v4gogX3umEJwloy--1YaXpyYSp-wQRRO0kaUvUpw")
+
+        assertThat(userRepository.tags)
+            .isNotEmpty()
     }
 
     @Test
@@ -132,8 +151,8 @@ class ApiTest : KoinTest {
     fun createProjectTest() {
         val livedata = projectRepository.isProjectCreated.testObserver()
 
-        projectRepository.createProject("RazRazzz", "Eto gachibass", "2019-05-23", "2019-05-28",
-            130, "[{\"backend\": 0, \"Frontend\": 0}]", "Web")
+        /*projectRepository.createProject("RazRazzz", "Eto gachibass", "2019-05-23", "2019-05-28",
+            130, "[{\"backend\": 0, \"Frontend\": 0}]", "Web")*/
 
         assertThat(livedata.observedValues.first())
             .isAnyOf(true, false)
@@ -171,7 +190,7 @@ class ApiTest : KoinTest {
 
     @Test
     fun getNextTEst() {
-    val liveDta = requestRepository.workerRequests.testObserver()
+        val liveDta = requestRepository.workerRequests.testObserver()
 
         requestRepository.getNextRequests(194)
 

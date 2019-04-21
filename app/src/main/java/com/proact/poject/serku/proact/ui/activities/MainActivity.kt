@@ -69,8 +69,7 @@ class MainActivity : AppCompatActivity() {
             R.id.logOutMenuAction -> {
                 startActivity(Intent(this, RegisterActivity::class.java))
                 getSharedPreferences(SHARED_PREF_NAME, 0).edit {
-                    remove(CURRENT_USER_ID_PREF)
-                    remove(CURRENT_USER_EMAIL_PREF)
+                    clear()
                 }
                 finish()
                 return true

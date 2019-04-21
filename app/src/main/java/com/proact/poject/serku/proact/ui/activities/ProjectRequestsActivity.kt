@@ -8,6 +8,8 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.proact.poject.serku.proact.POJECT_ID
 import com.proact.poject.serku.proact.R
+import com.proact.poject.serku.proact.hide
+import com.proact.poject.serku.proact.show
 import com.proact.poject.serku.proact.ui.adapters.requestsAdapters.ProjectRequestsAdapter
 import com.proact.poject.serku.proact.viewmodels.RequestViewModel
 import kotlinx.android.synthetic.main.activity_requests_project.*
@@ -37,9 +39,9 @@ class ProjectRequestsActivity : AppCompatActivity() {
 
         requestViewModel.requestsByProject.observe(this, Observer {
             if (it.isEmpty()) {
-                noProjectRequests.visibility = View.VISIBLE
+                noProjectRequests.show()
             } else {
-                noProjectRequests.visibility = View.INVISIBLE
+                noProjectRequests.hide()
                 adapter.submitList(it)
             }
         })

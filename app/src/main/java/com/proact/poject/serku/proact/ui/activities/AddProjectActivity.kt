@@ -1,5 +1,6 @@
 package com.proact.poject.serku.proact.ui.activities
 
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.widget.TextView
@@ -9,6 +10,7 @@ import com.proact.poject.serku.proact.*
 import com.proact.poject.serku.proact.ui.dialogs.DateDialog
 import com.proact.poject.serku.proact.ui.dialogs.TagsDialog
 import com.proact.poject.serku.proact.viewmodels.ProjectViewModel
+import com.proact.poject.serku.proact.viewmodels.UserViewModel
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.Observables
 import kotlinx.android.synthetic.main.content_add_project.*
@@ -19,6 +21,8 @@ import java.util.*
 class AddProjectActivity : AppCompatActivity() {
     private val disposable = CompositeDisposable()
     private val projectViewModel: ProjectViewModel by viewModel()
+    private val userViewModel: UserViewModel by viewModel()
+    private lateinit var preferences: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,9 +32,9 @@ class AddProjectActivity : AppCompatActivity() {
 
         val tagSet = mutableSetOf<String>()
 
-
-
-        val prefernces = applicationContext.getSharedPreferences(SHARED_PREF_NAME, 0)
+        preferences = applicationContext.getSharedPreferences(SHARED_PREF_NAME, 0)
+        val token = preferences.getString(TOKEN_PREF, "")!!
+        userViewModel.fetchTags(token)
 
         val projectTitleError =
             addProjectTitleInput.editEmptyObservable(getString(R.string.project_title_error))
@@ -86,11 +90,12 @@ class AddProjectActivity : AppCompatActivity() {
         addTagsButton.setOnClickListener {
             val tagsDialog = TagsDialog()
 
+            tagsDialog.tags = userViewModel.tags
             tagsDialog.positiveButtonListener = {
-                if (tagsDialog.tagsList.size > 7) {
+                if (tagsDialog.checkedTags.size > 7) {
                     toast(getString(R.string.project_tags_error))
                 } else {
-                    tagsDialog.tagsList.forEach { title ->
+                    tagsDialog.checkedTags.forEach { title ->
                         val tag =
                             LayoutInflater.from(this).inflate(R.layout.tag_item, tagsLayout, false)
                                 .apply {
@@ -127,7 +132,7 @@ class AddProjectActivity : AppCompatActivity() {
 
                 else -> {
                     val tags = tagSet.joinToString(separator = ",")
-                    val curatorId = prefernces.getInt(CURRENT_USER_ID_PREF, -1)
+                    val curatorId = preferences.getInt(CURRENT_USER_ID_PREF, -1)
 
                     createProject(curatorId, tags)
                 }
@@ -165,6 +170,8 @@ class AddProjectActivity : AppCompatActivity() {
     }
 
     private fun createProject(curatorId: Int, tags: String) {
+        val token = preferences.getString(TOKEN_PREF, "")!!
+
         val title = addProjectTitleEdit.text.toString()
         val deadlineString = addProjectDeadlineEdit.text.toString()
         val finishDateString = addProjectFinishEdit.text.toString()
@@ -175,6 +182,7 @@ class AddProjectActivity : AppCompatActivity() {
         val teamsJson = createTeamsJson(teamsNumber, specs)
 
         projectViewModel.createProject(
+            token,
             title,
             aboutProject,
             deadlineString,

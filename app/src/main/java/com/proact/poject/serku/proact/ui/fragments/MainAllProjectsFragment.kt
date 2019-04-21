@@ -9,6 +9,8 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.proact.poject.serku.proact.R
+import com.proact.poject.serku.proact.hide
+import com.proact.poject.serku.proact.show
 import com.proact.poject.serku.proact.ui.adapters.projectAdapter.ProjectsAdapter
 import com.proact.poject.serku.proact.viewmodels.ProjectViewModel
 import kotlinx.android.synthetic.main.activity_main.*
@@ -44,9 +46,9 @@ class MainAllProjectsFragment : Fragment() {
 
         projectViewModel.projects.observe(this, Observer {
             if (it.isEmpty()) {
-                activity?.noProjectText?.visibility = View.VISIBLE
+                activity?.noProjectText?.show()
             } else {
-                activity?.noProjectText?.visibility = View.INVISIBLE
+                activity?.noProjectText?.hide()
             }
 
             adapter.submitList(it)
@@ -55,9 +57,9 @@ class MainAllProjectsFragment : Fragment() {
 
         projectViewModel.loadingStatus.observe(this, Observer {
             if (it) {
-                progressBar?.visibility = View.VISIBLE
+                progressBar?.show()
             } else {
-                progressBar?.visibility = View.INVISIBLE
+                progressBar?.hide()
             }
         })
 

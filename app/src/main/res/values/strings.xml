@@ -144,14 +144,4 @@
     <!--no items strings-->
     <string name="no_projects">Проектов пока нет</string>
 
-    <!--tags array-->
-    <string-array name="tags_array">
-        <item>Фронтенд</item>
-        <item>Бэкенд</item>
-        <item>Веб-дизайн</item>
-        <item>Android</item>
-        <item>IOS-разработка</item>
-        <item>Маркетинг</item>
-        <item>SMM</item>
-    </string-array>
 </resources>
