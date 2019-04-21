@@ -10,6 +10,7 @@ import com.proact.poject.serku.proact.*
 import com.proact.poject.serku.proact.ui.dialogs.DateDialog
 import com.proact.poject.serku.proact.ui.dialogs.TagsDialog
 import com.proact.poject.serku.proact.viewmodels.ProjectViewModel
+import com.proact.poject.serku.proact.viewmodels.UserViewModel
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.Observables
 import kotlinx.android.synthetic.main.content_add_project.*
@@ -20,6 +21,7 @@ import java.util.*
 class AddProjectActivity : AppCompatActivity() {
     private val disposable = CompositeDisposable()
     private val projectViewModel: ProjectViewModel by viewModel()
+    private val userViewModel: UserViewModel by viewModel()
     private lateinit var preferences: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,6 +33,8 @@ class AddProjectActivity : AppCompatActivity() {
         val tagSet = mutableSetOf<String>()
 
         preferences = applicationContext.getSharedPreferences(SHARED_PREF_NAME, 0)
+        val token = preferences.getString(TOKEN_PREF, "")!!
+        userViewModel.fetchTags(token)
 
         val projectTitleError =
             addProjectTitleInput.editEmptyObservable(getString(R.string.project_title_error))
@@ -86,11 +90,12 @@ class AddProjectActivity : AppCompatActivity() {
         addTagsButton.setOnClickListener {
             val tagsDialog = TagsDialog()
 
+            tagsDialog.tags = userViewModel.tags
             tagsDialog.positiveButtonListener = {
-                if (tagsDialog.tagsList.size > 7) {
+                if (tagsDialog.checkedTags.size > 7) {
                     toast(getString(R.string.project_tags_error))
                 } else {
-                    tagsDialog.tagsList.forEach { title ->
+                    tagsDialog.checkedTags.forEach { title ->
                         val tag =
                             LayoutInflater.from(this).inflate(R.layout.tag_item, tagsLayout, false)
                                 .apply {

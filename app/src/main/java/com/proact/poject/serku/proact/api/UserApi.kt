@@ -1,6 +1,7 @@
 package com.proact.poject.serku.proact.api
 
 import com.proact.poject.serku.proact.data.Response
+import com.proact.poject.serku.proact.data.Tag
 import com.proact.poject.serku.proact.data.User
 import io.reactivex.Observable
 import retrofit2.http.*
@@ -55,5 +56,8 @@ interface UserApi {
         @Field("avatar") avatar: String,
         @Field("api_key") apiKey: String = "android"
     ): Observable<Response>
+
+    @GET("tags/")
+    fun fetchTags(@Header("X-Auth-Token") token: String): Observable<List<Tag>>
 
 }

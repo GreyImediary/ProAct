@@ -12,6 +12,7 @@ class UserViewModel(private val userRepository: UserRepository) : ViewModel() {
     val allWorkers = userRepository.allWorkers
     val allCustomers = userRepository.allCustomers
     val allAdmins = userRepository.allAdmins
+    val tags = userRepository.tags
 
     fun getUserById(id: Int) = userRepository.getUserById(id)
 
@@ -28,6 +29,8 @@ class UserViewModel(private val userRepository: UserRepository) : ViewModel() {
     fun verifyUser(email: String, password: String) = userRepository.verifyUser(email, password)
 
     fun authUser(email: String, password: String) = userRepository.authUser(email, password)
+
+    fun fetchTags(token: String) = userRepository.fetchTags(token)
 
     fun addUser(name: String,
                 surname: String,

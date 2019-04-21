@@ -3,6 +3,7 @@ package com.proact.poject.serku.proact.repositories
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.proact.poject.serku.proact.api.UserApi
+import com.proact.poject.serku.proact.data.Tag
 import com.proact.poject.serku.proact.data.User
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -19,6 +20,7 @@ class UserRepository(private val userApi: UserApi) {
     val allCustomers = MutableLiveData<List<User>>()
     val allAdmins = MutableLiveData<List<User>>()
     val authed = MutableLiveData<String>()
+    val tags = emptyList<Tag>().toMutableList()
     private val disposable = CompositeDisposable()
 
     fun getUserById(id: Int) {
@@ -105,7 +107,18 @@ class UserRepository(private val userApi: UserApi) {
         userGroup: Int,
         avatar: String
     ) {
-        val subscription = userApi.addUser(name, surname, middleName, email, password, phone, studentGroup, description, userGroup, avatar)
+        val subscription = userApi.addUser(
+            name,
+            surname,
+            middleName,
+            email,
+            password,
+            phone,
+            studentGroup,
+            description,
+            userGroup,
+            avatar
+        )
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeBy(
@@ -135,6 +148,18 @@ class UserRepository(private val userApi: UserApi) {
             .subscribeBy(
                 onNext = { authed.postValue(it) },
                 onError = { Log.e("UR-authUser", it.message) }
+            )
+
+        disposable.add(subscription)
+    }
+
+    fun fetchTags(token: String) {
+        val subscription = userApi.fetchTags(token)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeBy(
+                onNext = { tags.addAll(it) },
+                onError = { Log.e("UR-fetchTags", it.message) }
             )
 
         disposable.add(subscription)
