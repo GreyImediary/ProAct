@@ -179,7 +179,11 @@ class DetailedProjectActivity : AppCompatActivity() {
         }
 
         memberLayout.memberProfileButton.setOnClickListener {
-            //TODO listener for memberProfileButton
+            val intent = Intent(this, ProfileActivity::class.java).apply {
+                putExtra(CURRENT_USER_ID_ARG, memberOfTeam.member.id)
+            }
+
+            startActivity(intent)
         }
 
         if (userGroup != 1) {

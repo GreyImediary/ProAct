@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:padding="@dimen/mediumPadding"
+    android:layout_height="wrap_content">
+
+    <TextView
+        style="@style/TextAppearance.MaterialComponents.Headline6"
+        android:id="@+id/profileEmail"
+        tools:text="Email: test@gmail.com"
+        android:layout_width="wrap_content"
+        android:layout_marginBottom="@dimen/smallPadding"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        style="@style/TextAppearance.MaterialComponents.Headline6"
+        android:id="@+id/profilePhone"
+        tools:text="Phone: +79250312312"
+        android:layout_width="wrap_content"
+        android:layout_marginBottom="@dimen/smallPadding"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        style="@style/TextAppearance.MaterialComponents.Headline6"
+        android:id="@+id/profileGroup"
+        tools:text="Group: 171-333"
+        android:layout_width="wrap_content"
+        android:layout_marginBottom="@dimen/smallPadding"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        style="@style/TextAppearance.MaterialComponents.Headline6"
+        android:id="@+id/profileAbout"
+        tools:text="Description: tex text text text text text text text "
+        android:layout_width="wrap_content"
+        android:layout_marginBottom="@dimen/smallPadding"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>
+</ScrollView>

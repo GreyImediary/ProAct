@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/profileInfoFragment"
+        android:title="@string/info"
+        android:icon="@drawable/ic_info_outline_black_24dp" />
+
+    <item
+        android:id="@+id/profileActiveProjectsFragment"
+        android:title="@string/active_projects"
+        android:icon="@drawable/ic_all_projects_black_24dp" />
+
+    <item
+        android:id="@+id/profileFinishedProjectsFragment"
+        android:title="@string/archive_projects"
+        android:icon="@drawable/ic_archive_black_24dp" />
+</menu>

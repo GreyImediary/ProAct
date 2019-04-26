@@ -9,6 +9,8 @@
 
     <color name="navBottomCheckedFalse">#b0bec5</color>
 
+    <color name="profileColor">#000a12</color>
+
     <color name="colorChip">#b3e5fc</color>
     <color name="colorCard">#e1f5fe</color>
 </resources>

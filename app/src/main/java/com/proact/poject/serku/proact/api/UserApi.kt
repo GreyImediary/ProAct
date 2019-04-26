@@ -7,19 +7,19 @@ import io.reactivex.Observable
 import retrofit2.http.*
 
 interface UserApi {
-    @GET("user/get.php?api_key=android")
+    @GET("user/get.php")
     fun getUserById(@Query("id") id: Int): Observable<User>
 
-    @GET("user/get.php?api_key=android")
+    @GET("user/get.php")
     fun getUserByEmail(@Query("email") email: String): Observable<User>
 
-    @GET("workers/get.php?api_key=android")
+    @GET("workers/get.php")
     fun getAllWorkers(): Observable<List<User>>
 
-    @GET("curators/get.php?api_key=android")
+    @GET("curators/get.php")
     fun getAllCustomers(): Observable<List<User>>
 
-    @GET("admins/get.php?api_key=android")
+    @GET("admins/get.php")
     fun getAllAdmins(): Observable<List<User>>
 
     @POST("user/isregistered.php")
