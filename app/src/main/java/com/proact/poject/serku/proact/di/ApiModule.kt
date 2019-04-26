@@ -22,7 +22,7 @@ object ApiProperties {
 
 fun createGson() = Gson()
 
-fun createBaseUrl() = "http://sandbox.std-247.ist.mospolytech.ru/"
+fun createBaseUrl() = "http://sandbox.std-247.ist.mospolytech.ru/api/"
 
 fun createLogging() = HttpLoggingInterceptor().apply { level = HttpLoggingInterceptor.Level.BODY }
 
