@@ -11,7 +11,8 @@ import kotlinx.android.synthetic.main.item_project_request.view.*
 
 class ProjectRequestsAdapter(
     private val accepListener: (requestId: Int) -> Unit,
-    private val declineListener: (requsetId: Int) -> Unit
+    private val declineListener: (requsetId: Int) -> Unit,
+    private val profileButtonListener: (userId: Int) -> Unit
 ) :
     ListAdapter<Request, ProjectRequestsAdapter.ViewHolder>(RequestDiffCallback()) {
 
@@ -35,7 +36,7 @@ class ProjectRequestsAdapter(
             }
 
             itemView.requestProfileButton.setOnClickListener {
-                //TODO: ealize profile button
+                profileButtonListener(request.wokerId)
             }
         }
     }

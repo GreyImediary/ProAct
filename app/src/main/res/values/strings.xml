@@ -122,6 +122,9 @@
     <string name="profile_phone">Телефон: %s</string>
     <string name="profile_group">Группа: %s</string>
     <string name="profile_about">О себе: %s</string>
+    <string name="active_projects">Активные</string>
+    <string name="archive_projects">Архив</string>
+    <string name="info">Инфо</string>
 
     <!--requetsts string-->
     <string name="request_role">Роль: %s</string>

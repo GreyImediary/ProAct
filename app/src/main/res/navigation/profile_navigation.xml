@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/profile_navigation"
+    app:startDestination="@id/profileInfoFragment">
+
+    <fragment
+        android:id="@+id/profileInfoFragment"
+        android:name="com.proact.poject.serku.proact.ui.fragments.profileFragments.ProfileInfoFragment"
+        android:label="ProfileInfoFragment" />
+    <fragment
+        android:id="@+id/profileActiveProjectsFragment"
+        android:name="com.proact.poject.serku.proact.ui.fragments.profileFragments.ProfileActiveProjectsFragment"
+        android:label="ProfileActiveProjectsFragment" />
+    <fragment
+        android:id="@+id/profileFinishedProjectsFragment"
+        android:name="com.proact.poject.serku.proact.ui.fragments.profileFragments.ProfileFinishedProjectsFragment"
+        android:label="ProfileFinishedProjectsFragment" />
+</navigation>
