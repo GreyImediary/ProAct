@@ -96,77 +96,9 @@
         android:layout_marginBottom="@dimen/smallPadding"
         android:text="@string/logscreen_register_button"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
-        app:layout_constraintBottom_toTopOf="@id/auth_text"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/logscrEntryButton"
         app:layout_constraintVertical_chainStyle="packed" />
 
-    <TextView
-        android:id="@+id/auth_text"
-        style="@style/TextAppearance.MaterialComponents.Subtitle1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/mediumPadding"
-        android:text="@string/auth_text"
-        app:layout_constraintBottom_toTopOf="@id/socLoginContainer"
-        app:layout_constraintEnd_toEndOf="@id/logscrRegisterButton"
-        app:layout_constraintStart_toStartOf="@id/logscrRegisterButton"
-        app:layout_constraintTop_toBottomOf="@id/logscrRegisterButton" />
-
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/socLoginContainer"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@id/auth_text"
-        app:layout_constraintStart_toStartOf="@id/auth_text"
-        app:layout_constraintTop_toBottomOf="@id/auth_text">
-
-        <ImageView
-            android:id="@+id/google_logo"
-            android:layout_width="55dp"
-            android:layout_height="55dp"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:clickable="true"
-            android:contentDescription="@string/google_logo"
-            android:focusable="true"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/vkontakte_logo"
-            app:layout_constraintHorizontal_chainStyle="spread"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_google_logo" />
-
-        <ImageView
-            android:id="@+id/vkontakte_logo"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:clickable="true"
-            android:contentDescription="@string/vk_logo"
-            android:focusable="true"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/yandex_logo"
-            app:layout_constraintHorizontal_chainStyle="spread"
-            app:layout_constraintStart_toEndOf="@id/google_logo"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_vk_logo" />
-
-        <ImageView
-            android:id="@+id/yandex_logo"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:clickable="true"
-            android:contentDescription="@string/yandex_logo"
-            android:focusable="true"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_chainStyle="spread"
-            app:layout_constraintStart_toEndOf="@id/vkontakte_logo"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_yandex_logo" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
