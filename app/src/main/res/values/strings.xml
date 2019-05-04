@@ -41,7 +41,7 @@
 
     <!--Role fragment string resources-->
     <string name="role_title">Кто вы?</string>
-    <string name="customer_role">Заказчик</string>
+    <string name="customer_role">Заказчик/Куратор</string>
     <string name="worker_role">Студент</string>
 
     <!--register step two fragment resources-->
@@ -151,6 +151,11 @@
     <string name="admin_review">На рассмотрении андминистратора</string>
     <string name="running">Выпоняется</string>
     <string name="closed">Закрыт</string>
-    <string name="poject_denied">Не прошёл модерацию</string>
+    <string name="project_denied">Не прошёл модерацию</string>
+
+    <!--worker application strings-->
+    <string name="on_review">На рассмотрении</string>
+    <string name="accepted">Принято</string>
+    <string name="denied">Отказано</string>
 
 </resources>

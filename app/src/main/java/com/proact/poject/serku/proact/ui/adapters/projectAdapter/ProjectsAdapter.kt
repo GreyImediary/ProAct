@@ -56,7 +56,7 @@ class ProjectsAdapter
                 0 -> itemView.resources.getString(R.string.admin_review)
                 1 -> itemView.resources.getString(R.string.running)
                 2 -> itemView.resources.getString(R.string.closed)
-                3 -> itemView.resources.getString(R.string.poject_denied)
+                3 -> itemView.resources.getString(R.string.project_denied)
                 else -> ""
             }
             itemView.projectStatusText.text = itemView.resources.getString(R.string.project_status, status)
