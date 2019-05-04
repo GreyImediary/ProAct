@@ -53,10 +53,10 @@ class ProjectsAdapter
             itemView.projectQuantityText.text = itemView.resources.getString(R.string.project_quantity, freeQunatity, qunatity)
 
             val status = when(project.status) {
-                0 -> "На рассмотрении администратора"
-                1 -> "Открыт"
-                2 -> "Закрыт"
-                3 -> "Не прошёл модерацию"
+                0 -> itemView.resources.getString(R.string.admin_review)
+                1 -> itemView.resources.getString(R.string.running)
+                2 -> itemView.resources.getString(R.string.closed)
+                3 -> itemView.resources.getString(R.string.poject_denied)
                 else -> ""
             }
             itemView.projectStatusText.text = itemView.resources.getString(R.string.project_status, status)

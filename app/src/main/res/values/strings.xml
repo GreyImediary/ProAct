@@ -147,4 +147,10 @@
     <!--no items strings-->
     <string name="no_projects">Проектов пока нет</string>
 
+    <!--status strings-->
+    <string name="admin_review">На рассмотрении андминистратора</string>
+    <string name="running">Выпоняется</string>
+    <string name="closed">Закрыт</string>
+    <string name="poject_denied">Не прошёл модерацию</string>
+
 </resources>
