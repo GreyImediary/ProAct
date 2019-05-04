@@ -70,10 +70,10 @@ class DetailedProjectActivity : AppCompatActivity() {
             projectFinishDateText.text = getString(R.string.project_finish_date, finishDate)
 
             val status = when (it.status) {
-                0 -> "На рассмотрении администратора"
-                1 -> "Открыт"
-                2 -> "Закрыт"
-                3 -> "Не прошёл модерацию"
+                0 -> getString(R.string.admin_review)
+                1 -> getString(R.string.running)
+                2 -> getString(R.string.closed)
+                3 -> getString(R.string.project_denied)
                 else -> ""
             }
 
