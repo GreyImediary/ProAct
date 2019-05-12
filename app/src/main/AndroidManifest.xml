@@ -32,6 +32,7 @@
         <activity android:name=".ui.activities.AddProjectActivity" />
         <activity android:name=".ui.activities.ProfileActivity" />
         <activity android:name=".ui.activities.ProjectRequestsActivity" />
+        <activity android:name=".ui.activities.TagProjectsActivity" />
     </application>
 
 </manifest>

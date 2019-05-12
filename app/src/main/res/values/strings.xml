@@ -158,4 +158,7 @@
     <string name="accepted">Принято</string>
     <string name="denied">Отказано</string>
 
+    <!--TagProjectsActivity string-->
+    <string name="tag_toolbar_title">Выбранный тег: %s</string>
+
 </resources>

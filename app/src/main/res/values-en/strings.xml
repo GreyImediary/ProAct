@@ -157,4 +157,7 @@
     <string name="on_review">On review</string>
     <string name="accepted">Accepted</string>
     <string name="denied">Denied</string>
+
+    <!--TagProjectsActivity string-->
+    <string name="tag_toolbar_title">Selected tag: %s</string>
 </resources>
