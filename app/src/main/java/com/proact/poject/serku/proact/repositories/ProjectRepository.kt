@@ -13,9 +13,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
-import java.util.*
 import java.util.Calendar.*
-import kotlin.collections.HashMap
 
 class ProjectRepository(
     private val projectApi: ProjectApi,
@@ -32,6 +30,7 @@ class ProjectRepository(
     val loadingStatus = MutableLiveData<Boolean>()
     val activeUserProjects = MutableLiveData<List<Project>>()
     val finishedUserProjects = MutableLiveData<List<Project>>()
+    val tagProjects = MutableLiveData<MutableList<Project>>()
 
     private val allProjectsPages = mutableMapOf(
         "page" to 1.0,
@@ -57,6 +56,12 @@ class ProjectRepository(
         "perPage" to 3.0
     )
 
+    private val tagProjectsPages = mutableMapOf(
+        "page" to 1.0,
+        "allPages" to Double.POSITIVE_INFINITY,
+        "perPage" to 3.0
+    )
+
     private val disposable = CompositeDisposable()
 
     fun createProject(
@@ -70,7 +75,16 @@ class ProjectRepository(
         tags: String
     ) {
         val subsciption =
-            projectApi.createProject(token, title, description, deadlineDate, finishDate, curatorId, members, tags)
+            projectApi.createProject(
+                token,
+                title,
+                description,
+                deadlineDate,
+                finishDate,
+                curatorId,
+                members,
+                tags
+            )
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeBy(
@@ -122,34 +136,47 @@ class ProjectRepository(
                 allProjectsPages["allPages"] = it["pages"] as Double
                 allProjectsPages["page"] = it["page"] as Double
 
-                var projectList = emptyList<AnyMap>()
-
-                if (it["data"] != null) {
-                    projectList = it["data"] as List<AnyMap>
-                }
-
-                projectList.map { rowProject -> getProjectFromMap(rowProject) }
+                parsedProjects(it["data"] as List<AnyMap>)
             }
             .observeOn(AndroidSchedulers.mainThread())
             .doOnComplete { loadingStatus.postValue(false) }
             .subscribeBy(
                 onError = { Log.e("PR-getProjectByStatus", it.message) },
                 onNext = {
-                    if (projects.value == null) {
-                        projects.postValue(it as MutableList<Project>)
-                    } else {
-                        val list = projects.value?.apply {
-                            if (!containsAll(it)) {
-                                addAll(it)
-                            }
-                        }
-
-                        projects.postValue(list)
-                    }
+                    postTo(projects, it)
                 }
             )
 
         disposable.add(subscription)
+    }
+
+    fun getProjectsByTag(tag: String) {
+        loadingStatus.postValue(true)
+
+        if (tagProjectsPages["page"]!! <= tagProjectsPages["allPages"]!!) {
+
+            val subscription = projectApi.getProjectsByStatus(
+                1,
+                tagProjectsPages["perPage"]!!.toInt(),
+                tagProjectsPages["page"]!!
+            )
+                .subscribeOn(Schedulers.io())
+                .map {
+                    tagProjectsPages["allPages"] = it["pages"] as Double
+                    parsedProjects(it["data"] as List<AnyMap>)
+                }
+                .doOnComplete { loadingStatus.postValue(false) }
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeBy(
+                    onNext = {
+                        val tagList = it.filter { project -> project.tags.contains(tag) }
+                        postTo(tagProjects, tagList)
+                    }
+                )
+
+            tagProjectsPages["page"] = tagProjectsPages["page"]!! + 1
+            disposable.add(subscription)
+        }
     }
 
     fun getCuratorActiveProjects(curatorId: Int) =
@@ -182,39 +209,25 @@ class ProjectRepository(
                     pages["allPages"] = it["pages"] as Double
                     pages["page"] = it["page"] as Double
 
-                    var projectList = emptyList<AnyMap>()
-
-                    if (it["data"] != null) {
-                        projectList = it["data"] as List<AnyMap>
-                    }
-
-                    projectList.map { rowProject -> getProjectFromMap(rowProject) }
+                    parsedProjects(it["data"] as List<AnyMap>)
                 }
                 .doOnComplete { loadingStatus.postValue(false) }
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeBy(
                     onError = { Log.e("PR-getCuratorsProjects", it.message) },
                     onNext = {
-                        if (curatorsProjects.value == null) {
-                            curatorsProjects.postValue(it as MutableList<Project>)
-                        } else {
-                            val list = curatorsProjects.value?.apply {
-                                if (!containsAll(it)) {
-                                    addAll(it)
-                                }
-                            }
-
-                            curatorsProjects.postValue(list)
-                        }
+                        postTo(curatorsProjects, it)
                     }
                 )
 
         disposable.add(subscription)
     }
 
-    fun getActiveUserProject(userId: Int) = getUserProject(activeUserProjects, userId, active = true)
+    fun getActiveUserProject(userId: Int) =
+        getUserProject(activeUserProjects, userId, active = true)
 
-    fun getFinishedUserProject(userId: Int) = getUserProject(finishedUserProjects, userId, finished = true)
+    fun getFinishedUserProject(userId: Int) =
+        getUserProject(finishedUserProjects, userId, finished = true)
 
     private fun getUserProject(
         userProjects: MutableLiveData<List<Project>>,
@@ -296,6 +309,30 @@ class ProjectRepository(
 
     fun clearDisposable() = disposable.clear()
 
+    private fun parsedProjects(rowProjects: List<AnyMap>?): List<Project> {
+        var parsedProjects = emptyList<Project>()
+
+        if (rowProjects != null) {
+            parsedProjects = rowProjects.map { rowProject -> getProjectFromMap(rowProject) }
+        }
+
+        return parsedProjects
+    }
+
+    private fun postTo(liveData: MutableLiveData<MutableList<Project>>, projects: List<Project>) {
+        if (liveData.value == null) {
+            liveData.postValue(projects as MutableList<Project>)
+        } else {
+            val list = liveData.value?.apply {
+                if (!containsAll(projects)) {
+                    addAll(projects)
+                }
+            }
+
+            liveData.postValue(list)
+        }
+    }
+
     private fun getProjectFromMap(anyMap: AnyMap): Project {
         val projectId = (anyMap["id"] as String).toInt()
         val title = anyMap["title"] as String
@@ -345,7 +382,7 @@ class ProjectRepository(
         return teamList
     }
 
-    private fun fromStringToDate(rawDate: String) = Calendar.getInstance().also { date ->
+    private fun fromStringToDate(rawDate: String) = getInstance().also { date ->
         val splittedDate = rawDate.split("-")
         date[YEAR] = splittedDate[0].toInt()
         date[MONTH] = splittedDate[1].toInt()
