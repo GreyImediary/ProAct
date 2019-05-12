@@ -18,3 +18,6 @@ const val CURRENT_ADAPTER = "CURRNET_ADAPTER"
 
 /*Project requests constants*/
 const val POJECT_ID = "PROJECT_ID"
+
+/*TagProjectActivity args*/
+const val SELECTED_TAG = "SELECTED_TAG"

@@ -10,9 +10,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.chip.Chip
 import com.proact.poject.serku.proact.DETAILED_PROJECT
 import com.proact.poject.serku.proact.R
+import com.proact.poject.serku.proact.SELECTED_TAG
 import com.proact.poject.serku.proact.data.Project
 import com.proact.poject.serku.proact.inflate
 import com.proact.poject.serku.proact.ui.activities.DetailedProjectActivity
+import com.proact.poject.serku.proact.ui.activities.TagProjectsActivity
 import kotlinx.android.synthetic.main.item_project.view.*
 
 class ProjectsAdapter
@@ -84,6 +86,15 @@ class ProjectsAdapter
                         text = it
                         chipBackgroundColor = ContextCompat.getColorStateList(context, R.color.colorChip)
                     }
+
+                    chip.setOnClickListener {
+                        val intent = Intent(itemView.context, TagProjectsActivity::class.java).apply {
+                            putExtra(SELECTED_TAG, chip.text)
+                        }
+
+                        itemView.context.startActivity(intent)
+                    }
+
                     itemView.projectChipGroup.addView(chip)
                 }
                 isChipSetted = true
