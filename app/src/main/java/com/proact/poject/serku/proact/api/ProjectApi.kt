@@ -10,16 +10,26 @@ interface ProjectApi {
     fun getPojectById(@Query("id") id: Int): Observable<AnyMap>
 
     @GET("projects/get.php")
-    fun getProjectsByStatus(@Query("status") status: Int,
-                            @Query("per_page") perPgae: Int,
-                            @Query("page") page: Double): Observable<AnyMap>
+    fun getProjectsByStatus(
+        @Query("status") status: Int,
+        @Query("per_page") perPgae: Int,
+        @Query("page") page: Double
+    ): Observable<AnyMap>
+
+    @GET("projects/get.php?status=1")
+    fun getPojectsByTag(
+        @Query("tags") tag: String,
+        @Query("per_page") perPgae: Int,
+        @Query("page") page: Double
+    ): Observable<AnyMap>
 
     @GET("projects/get.php")
     fun getCuratorsProjects(
         @Query("curator") curatorId: Int,
         @Query("status") projectStatus: Int,
         @Query("per_page") perPage: Int,
-        @Query("page") page: Double): Observable<AnyMap>
+        @Query("page") page: Double
+    ): Observable<AnyMap>
 
     @GET("projects/get.php")
     fun getUserProjects(@Query("user") userId: Int): Observable<AnyMap>

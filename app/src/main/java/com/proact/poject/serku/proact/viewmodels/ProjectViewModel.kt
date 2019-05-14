@@ -42,6 +42,8 @@ class ProjectViewModel(private val projectRepository: ProjectRepository) : ViewM
 
     fun getProjectsByStatus(status: Int) = projectRepository.getProjectByStatus(status)
 
+    fun getProjectsByTag(tag: String) = projectRepository.getProjectsByTag(tag)
+
     fun getNextProjects(status: Int) = projectRepository.getNextProjects(status)
 
     fun getActiveUserProjects(userInt: Int) = projectRepository.getActiveUserProject(userInt)
@@ -65,8 +67,6 @@ class ProjectViewModel(private val projectRepository: ProjectRepository) : ViewM
 
     fun getNextRequestProjects(curatorId: Int) =
         projectRepository.getNextCuratorRequestProjects(curatorId)
-
-    fun getProjectByTag(tag: String) = projectRepository.getProjectsByTag(tag)
 
     override fun onCleared() {
         projectRepository.clearDisposable()

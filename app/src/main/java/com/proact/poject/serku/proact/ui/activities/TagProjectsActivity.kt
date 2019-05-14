@@ -36,16 +36,17 @@ class TagProjectsActivity : AppCompatActivity() {
                 super.onScrollStateChanged(recyclerView, newState)
 
                 if (!recyclerView.canScrollVertically(1)) {
-                    projectViewModel.getProjectByTag(selectedTag)
+                    projectViewModel.getProjectsByTag(selectedTag)
                 }
             }
         })
 
 
-        projectViewModel.getProjectByTag(selectedTag)
+        projectViewModel.getProjectsByTag(selectedTag)
 
         projectViewModel.tagProjects.observe(this, Observer {
             projectsAdapter.submitList(it)
+            projectsAdapter.notifyDataSetChanged()
         })
 
         projectViewModel.loadingStatus.observe(this, Observer {
