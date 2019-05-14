@@ -58,7 +58,7 @@ class ProjectRepository(
 
     private val tagProjectsPages = mutableMapOf(
         "page" to 1.0,
-        "allPages" to Double.POSITIVE_INFINITY,
+        "allPages" to 0.0,
         "perPage" to 3.0
     )
 
@@ -151,30 +151,34 @@ class ProjectRepository(
     }
 
     fun getProjectsByTag(tag: String) {
-        loadingStatus.postValue(true)
 
-        if (tagProjectsPages["page"]!! <= tagProjectsPages["allPages"]!!) {
+        if (tagProjectsPages["page"]!! <= tagProjectsPages["allPages"]!!
+            || tagProjectsPages["allPages"]!! == 0.0) {
 
-            val subscription = projectApi.getProjectsByStatus(
-                1,
+            loadingStatus.postValue(true)
+
+            val subscription = projectApi.getPojectsByTag(
+                tag,
                 tagProjectsPages["perPage"]!!.toInt(),
                 tagProjectsPages["page"]!!
             )
                 .subscribeOn(Schedulers.io())
                 .map {
                     tagProjectsPages["allPages"] = it["pages"] as Double
+                    tagProjectsPages["page"] = it["page"] as Double
+
                     parsedProjects(it["data"] as List<AnyMap>)
                 }
                 .doOnComplete { loadingStatus.postValue(false) }
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeBy(
+                    onError = { Log.e("PR-getProjectsByTag", it.message) },
                     onNext = {
-                        val tagList = it.filter { project -> project.tags.contains(tag) }
-                        postTo(tagProjects, tagList)
+                        postTo(tagProjects, it)
+                        tagProjectsPages["page"] = tagProjectsPages["page"]!! + 1
                     }
                 )
 
-            tagProjectsPages["page"] = tagProjectsPages["page"]!! + 1
             disposable.add(subscription)
         }
     }
