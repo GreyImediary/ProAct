@@ -198,9 +198,9 @@ class MainMyProjectsFragment : Fragment() {
 
                 if (!recyclerView.canScrollVertically(1)) {
                     when (tabPosition) {
-                        0 -> projectViewModel.getNextActiveProjects(curatorId)
-                        1 -> projectViewModel.getNextFinishedProjects(curatorId)
-                        2 -> projectViewModel.getNextRequestProjects(curatorId)
+                        0 -> projectViewModel.getCuratorActiveProjects(curatorId)
+                        1 -> projectViewModel.getCuratorFinishedProjects(curatorId)
+                        2 -> projectViewModel.getCuratorRequestProjects(curatorId)
                     }
                 }
             }

@@ -39,7 +39,7 @@ class MainAllProjectsFragment : Fragment() {
                 super.onScrollStateChanged(recyclerView, newState)
 
                 if (!recyclerView.canScrollVertically(1)) {
-                    projectViewModel.getNextProjects(1)
+                    projectViewModel.getProjectsByStatus(1)
                 }
             }
         })
