@@ -50,6 +50,6 @@ interface ProjectApi {
 
     @POST("projects/updateStatus.php")
     @FormUrlEncoded
-    fun updateStatus(@Field("api_key") apiKey: String = "android"): Observable<Response>
+    fun updatePojectsStatus(@Field("api_key") apiKey: String = "android"): Observable<Response>
 
 }

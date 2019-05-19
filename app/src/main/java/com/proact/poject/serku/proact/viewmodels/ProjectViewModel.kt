@@ -36,7 +36,7 @@ class ProjectViewModel(private val projectRepository: ProjectRepository) : ViewM
         tags
     )
 
-    fun updateStatus() = projectRepository.updateStatus()
+    fun updateStatus() = projectRepository.updateProjectsStatus()
 
     fun getProjectById(id: Int) = projectRepository.getProjectById(id)
 

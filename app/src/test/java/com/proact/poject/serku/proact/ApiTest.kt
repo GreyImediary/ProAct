@@ -162,7 +162,7 @@ class ApiTest : KoinTest {
     fun updateProjectTest() {
         val liveData = projectRepository.isStatusUpdated.testObserver()
 
-        projectRepository.updateStatus()
+        projectRepository.updateProjectsStatus()
 
         assertThat(liveData.observedValues.first())
             .isTrue()

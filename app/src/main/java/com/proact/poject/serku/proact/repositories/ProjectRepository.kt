@@ -94,13 +94,13 @@ class ProjectRepository(
         disposable.add(subsciption)
     }
 
-    fun updateStatus() {
-        val subscription = projectApi.updateStatus()
+    fun updateProjectsStatus() {
+        val subscription = projectApi.updatePojectsStatus()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeBy(
                 onNext = { isStatusUpdated.postValue(it.message == "true") },
-                onError = { Log.e("PR-updateStatus", it.message) }
+                onError = { Log.e("PR-updatePojectsStatus", it.message) }
             )
 
         disposable.add(subscription)
