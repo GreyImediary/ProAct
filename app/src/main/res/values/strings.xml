@@ -11,6 +11,8 @@
     <string name="phone">Телефон</string>
     <string name="about">О себе</string>
 
+    <string name="free">Свободно</string>
+
     <string name="prev">Назад</string>
     <string name="next">Далее</string>
     <string name="done">Готово</string>
