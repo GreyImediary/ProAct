@@ -58,7 +58,7 @@ class ProjectRepository(
 
     private val tagProjectsPages = mutableMapOf(
         "page" to 1.0,
-        "allPages" to Double.POSITIVE_INFINITY,
+        "allPages" to 0.0,
         "perPage" to 3.0
     )
 
@@ -94,13 +94,13 @@ class ProjectRepository(
         disposable.add(subsciption)
     }
 
-    fun updateStatus() {
-        val subscription = projectApi.updateStatus()
+    fun updateProjectsStatus() {
+        val subscription = projectApi.updatePojectsStatus()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeBy(
                 onNext = { isStatusUpdated.postValue(it.message == "true") },
-                onError = { Log.e("PR-updateStatus", it.message) }
+                onError = { Log.e("PR-updatePojectsStatus", it.message) }
             )
 
         disposable.add(subscription)
@@ -125,102 +125,119 @@ class ProjectRepository(
     }
 
     fun getProjectByStatus(status: Int) {
-        loadingStatus.postValue(true)
-        val subscription = projectApi.getProjectsByStatus(
-            status,
-            allProjectsPages["perPage"]!!.toInt(),
-            allProjectsPages["page"]!!
-        )
-            .subscribeOn(Schedulers.io())
-            .map {
-                allProjectsPages["allPages"] = it["pages"] as Double
-                allProjectsPages["page"] = it["page"] as Double
+        if (allProjectsPages["page"]!! <= allProjectsPages["allPages"]!!
+            || allProjectsPages["allPages"]!! == 0.0) {
 
-                parsedProjects(it["data"] as List<AnyMap>)
-            }
-            .observeOn(AndroidSchedulers.mainThread())
-            .doOnComplete { loadingStatus.postValue(false) }
-            .subscribeBy(
-                onError = { Log.e("PR-getProjectByStatus", it.message) },
-                onNext = {
-                    postTo(projects, it)
-                }
+            loadingStatus.postValue(true)
+
+            val subscription = projectApi.getProjectsByStatus(
+                status,
+                allProjectsPages["perPage"]!!.toInt(),
+                allProjectsPages["page"]!!
             )
+                .subscribeOn(Schedulers.io())
+                .map {
+                    allProjectsPages["allPages"] = it["pages"] as Double
+                    allProjectsPages["page"] = it["page"] as Double
 
-        disposable.add(subscription)
+                    parsedProjects(it["data"] as List<AnyMap>)
+                }
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnComplete { loadingStatus.postValue(false) }
+                .subscribeBy(
+                    onError = { Log.e("PR-getProjectByStatus", it.message) },
+                    onNext = {
+                        postTo(projects, it)
+                        allProjectsPages["page"] = allProjectsPages["page"]!! + 1
+                    }
+                )
+
+            disposable.add(subscription)
+        }
     }
 
     fun getProjectsByTag(tag: String) {
-        loadingStatus.postValue(true)
 
-        if (tagProjectsPages["page"]!! <= tagProjectsPages["allPages"]!!) {
+        if (tagProjectsPages["page"]!! <= tagProjectsPages["allPages"]!!
+            || tagProjectsPages["allPages"]!! == 0.0) {
 
-            val subscription = projectApi.getProjectsByStatus(
-                1,
+            loadingStatus.postValue(true)
+
+            val subscription = projectApi.getPojectsByTag(
+                tag,
                 tagProjectsPages["perPage"]!!.toInt(),
                 tagProjectsPages["page"]!!
             )
                 .subscribeOn(Schedulers.io())
                 .map {
                     tagProjectsPages["allPages"] = it["pages"] as Double
+                    tagProjectsPages["page"] = it["page"] as Double
+
                     parsedProjects(it["data"] as List<AnyMap>)
                 }
                 .doOnComplete { loadingStatus.postValue(false) }
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeBy(
+                    onError = { Log.e("PR-getProjectsByTag", it.message) },
                     onNext = {
-                        val tagList = it.filter { project -> project.tags.contains(tag) }
-                        postTo(tagProjects, tagList)
+                        postTo(tagProjects, it)
+                        tagProjectsPages["page"] = tagProjectsPages["page"]!! + 1
                     }
                 )
 
-            tagProjectsPages["page"] = tagProjectsPages["page"]!! + 1
             disposable.add(subscription)
         }
     }
 
     fun getCuratorActiveProjects(curatorId: Int) =
-        getCuratorProject(curatorActiveProjects, allCuratorActiveProjectsPages, curatorId, 1)
+        getCuratorProjects(curatorActiveProjects, allCuratorActiveProjectsPages, curatorId, 1)
 
     fun getCuratorFinishedProjects(curatorId: Int) {
-        getCuratorProject(curatorFinishedProjects, allCuratorFinishedProjectsPages, curatorId, 2)
+        getCuratorProjects(curatorFinishedProjects, allCuratorFinishedProjectsPages, curatorId, 2)
     }
 
     fun getCuratorRequestProjects(curatorId: Int) =
-        getCuratorProject(curatorRequestProjects, allCuratorRequestProjectsPages, curatorId, 30)
+        getCuratorProjects(curatorRequestProjects, allCuratorRequestProjectsPages, curatorId, 30)
 
-    private fun getCuratorProject(
+    private fun getCuratorProjects(
         curatorsProjects: MutableLiveData<MutableList<Project>>,
         pages: MutableMap<String, Double>,
         curatorId: Int,
         projectStatus: Int
 
     ) {
-        loadingStatus.postValue(true)
-        val subscription =
-            projectApi.getCuratorsProjects(
-                curatorId,
-                projectStatus,
-                pages["perPage"]!!.toInt(),
-                pages["page"]!!
-            )
-                .subscribeOn(Schedulers.io())
-                .map {
-                    pages["allPages"] = it["pages"] as Double
-                    pages["page"] = it["page"] as Double
 
-                    parsedProjects(it["data"] as List<AnyMap>)
-                }
-                .doOnComplete { loadingStatus.postValue(false) }
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeBy(
-                    onError = { Log.e("PR-getCuratorsProjects", it.message) },
-                    onNext = {
-                        postTo(curatorsProjects, it)
-                    }
+        if (pages["page"]!! <= pages["allPages"]!!
+            || pages["allPages"]!! == 0.0) {
+
+            loadingStatus.postValue(true)
+
+            val subscription =
+                projectApi.getCuratorsProjects(
+                    curatorId,
+                    projectStatus,
+                    pages["perPage"]!!.toInt(),
+                    pages["page"]!!
                 )
+                    .subscribeOn(Schedulers.io())
+                    .map {
+                        pages["allPages"] = it["pages"] as Double
+                        pages["page"] = it["page"] as Double
 
-        disposable.add(subscription)
+                        parsedProjects(it["data"] as List<AnyMap>)
+                    }
+                    .doOnComplete { loadingStatus.postValue(false) }
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribeBy(
+                        onError = { Log.e("PR-getCuratorsProjects", it.message) },
+                        onNext = {
+                            postTo(curatorsProjects, it)
+                            pages["page"] = pages["page"]!! + 1
+                        }
+                    )
+
+            disposable.add(subscription)
+        }
     }
 
     fun getActiveUserProject(userId: Int) =
@@ -229,6 +246,7 @@ class ProjectRepository(
     fun getFinishedUserProject(userId: Int) =
         getUserProject(finishedUserProjects, userId, finished = true)
 
+    /*active and finished are flags indicating which user projects are needed*/
     private fun getUserProject(
         userProjects: MutableLiveData<List<Project>>,
         userId: Int,
@@ -273,51 +291,7 @@ class ProjectRepository(
         disposable.add(subscription)
     }
 
-    fun getNextProjects(status: Int) {
-        if (allProjectsPages["page"] != allProjectsPages["allPages"]) {
-            allProjectsPages["page"] = allProjectsPages["page"]!! + 1
-            getProjectByStatus(status)
-        }
-    }
-
-    fun getNextCuratorActiveProjects(curatorId: Int) {
-        val page = allCuratorActiveProjectsPages["page"]
-        val allPages = allCuratorActiveProjectsPages["allPages"]
-        if (page != allPages) {
-            allCuratorActiveProjectsPages["page"] = page!! + 1
-            getCuratorActiveProjects(curatorId)
-        }
-    }
-
-    fun getNextCuratorFinishedProjects(curatorId: Int) {
-        val page = allCuratorFinishedProjectsPages["page"]
-        val allPages = allCuratorFinishedProjectsPages["allPages"]
-        if (page != allPages) {
-            allCuratorFinishedProjectsPages["page"] = page!! + 1
-            getCuratorActiveProjects(curatorId)
-        }
-    }
-
-    fun getNextCuratorRequestProjects(curatorId: Int) {
-        val page = allCuratorRequestProjectsPages["page"]
-        val allPages = allCuratorRequestProjectsPages["allPages"]
-        if (page != allPages) {
-            allCuratorRequestProjectsPages["page"] = page!! + 1
-            getCuratorActiveProjects(curatorId)
-        }
-    }
-
     fun clearDisposable() = disposable.clear()
-
-    private fun parsedProjects(rowProjects: List<AnyMap>?): List<Project> {
-        var parsedProjects = emptyList<Project>()
-
-        if (rowProjects != null) {
-            parsedProjects = rowProjects.map { rowProject -> getProjectFromMap(rowProject) }
-        }
-
-        return parsedProjects
-    }
 
     private fun postTo(liveData: MutableLiveData<MutableList<Project>>, projects: List<Project>) {
         if (liveData.value == null) {
@@ -331,6 +305,16 @@ class ProjectRepository(
 
             liveData.postValue(list)
         }
+    }
+
+    private fun parsedProjects(rowProjects: List<AnyMap>?): List<Project> {
+        var parsedProjects = emptyList<Project>()
+
+        if (rowProjects != null) {
+            parsedProjects = rowProjects.map { rowProject -> getProjectFromMap(rowProject) }
+        }
+
+        return parsedProjects
     }
 
     private fun getProjectFromMap(anyMap: AnyMap): Project {
@@ -366,6 +350,7 @@ class ProjectRepository(
         teams.forEach { map ->
             val membersOfProject = mutableListOf<MemberOfProject>()
 
+            /*member is double when api returns 0 (there is no registered user)*/
             for ((spec, member) in map) {
                 when (member) {
                     is Double -> membersOfProject.add(MemberOfProject(spec, defUser))
