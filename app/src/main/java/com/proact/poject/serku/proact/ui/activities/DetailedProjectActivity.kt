@@ -167,7 +167,7 @@ class DetailedProjectActivity : AppCompatActivity() {
             memberLayout.memberProfileButton.show()
             memberLayout.memberSignButton.hide()
         } else {
-            val memberText = getString(R.string.member_text, memberOfTeam.spec, "Свободно")
+            val memberText = getString(R.string.member_text, memberOfTeam.spec, getString(R.string.free))
             memberLayout.member.text = memberText
 
             memberLayout.memberSignButton.show()
