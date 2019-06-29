@@ -8,7 +8,7 @@
 
 ### Description
 
-ProAct is a application allowing customers to create and manage projects, and student to sign up for a projects.
+ProAct is a application allowing cuators to create and manage projects, and student to sign up for a projects.
 
 As **curator** you can:
 
